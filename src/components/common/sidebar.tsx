@@ -25,7 +25,7 @@ const Sidebar: FC = () => {
     { icon: CloudSunRain, redirect: "#" },
     { icon: Fuel, redirect: "#" },
     { icon: PaintBucket, redirect: "/cii" },
-    { icon: PaintBucket, redirect: "#" },
+    { icon: PaintBucket, redirect: "/semp" },
   ];
 
   return (
