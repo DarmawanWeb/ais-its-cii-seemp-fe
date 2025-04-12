@@ -1,4 +1,5 @@
 import { useSidebarStore } from "../../hooks/use-sidebar-store";
+import { FC } from "react";
 import {
   Menu,
   X,
@@ -12,7 +13,7 @@ import {
 } from "lucide-react";
 import { Button } from "../ui/button";
 
-const Sidebar = () => {
+const Sidebar: FC = () => {
   const { isOpen, toggleSidebar } = useSidebarStore();
   const currentPage = window.location.pathname;
 

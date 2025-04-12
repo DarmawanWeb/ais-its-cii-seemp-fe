@@ -1,6 +1,4 @@
 import { FC } from "react";
-// import { RiPoliceBadgeFill } from "react-icons/ri";
-
 import {
   MapContainer,
   TileLayer,
@@ -8,6 +6,7 @@ import {
   LayersControl,
   useMapEvents,
   Popup,
+  ZoomControl, // Import ZoomControl
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import useTileStore from "../../hooks/use-selected-tile";
@@ -51,6 +50,7 @@ const MapComponent: FC<MapComponentProps> = ({ markers }) => {
       zoom={13}
       style={{ height: "100vh", width: "100vw" }}
       className="w-full h-full z-0"
+      zoomControl={false}
     >
       <LayerChangeHandler />
       <LayersControl position="bottomleft">
@@ -78,9 +78,12 @@ const MapComponent: FC<MapComponentProps> = ({ markers }) => {
 
       {markers?.map((marker, index) => (
         <Marker key={`marker-${index}`} position={marker.coordinates}>
-          <Popup></Popup>
+          <Popup />
         </Marker>
       ))}
+
+      {/* Add the ZoomControl at bottom-left */}
+      <ZoomControl position="bottomleft" />
     </MapContainer>
   );
 };
