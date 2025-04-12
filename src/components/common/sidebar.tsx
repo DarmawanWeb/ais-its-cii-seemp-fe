@@ -9,7 +9,8 @@ import {
   Thermometer,
   Fuel,
   CloudSunRain,
-  PaintBucket,
+  Copyright,
+  ChartLine,
 } from "lucide-react";
 import { Button } from "../ui/button";
 
@@ -24,13 +25,13 @@ const Sidebar: FC = () => {
     { icon: Thermometer, redirect: "#" },
     { icon: CloudSunRain, redirect: "#" },
     { icon: Fuel, redirect: "#" },
-    { icon: PaintBucket, redirect: "/cii" },
-    { icon: PaintBucket, redirect: "/semp" },
+    { icon: Copyright, redirect: "/cii" },
+    { icon: ChartLine, redirect: "/semp" },
   ];
 
   return (
     <nav
-      className={`fixed z-100 top-5 right-5 flex flex-col items-center bg-gray-800 text-white rounded-xl shadow-lg transition-all py-2 ${
+      className={`fixed z-100 top-5 right-5 flex flex-col items-center bg-indigo-950  text-white rounded-xl shadow-lg transition-all py-2 ${
         isOpen ? "w-14" : "w-14"
       }`}
     >
