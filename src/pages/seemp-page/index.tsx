@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import MapComponent from "../../components/common/map";
 import Sidebar from "../../components/common/sidebar";
 import PageTitle from "../../components/common/page-title";
@@ -9,43 +9,17 @@ import ShipInfoCard from "./components/ship-info-card";
 import { Card, CardHeader, CardContent } from "../../components/ui/card";
 import CiiValueCard from "./components/cii-value-card";
 import { LineChart } from "lucide-react";
+import { Button } from "../../components/ui/button";
+import axios from "axios";
+import { VITE_BACKEND_URI } from "../../lib/env";
+import { MarkerData } from "../../components/common/map";
 
 const SEEMPPage: FC = () => {
-  const shipData = [
-    { id: 1, mmsi: "123456789" },
-    { id: 2, mmsi: "987654321" },
-    { id: 3, mmsi: "654321987" },
-    { id: 4, mmsi: "112233445" },
-    { id: 5, mmsi: "443322110" },
-    { id: 6, mmsi: "567890123" },
-    { id: 7, mmsi: "890123456" },
-    { id: 8, mmsi: "234567890" },
-    { id: 9, mmsi: "345678901" },
-    { id: 10, mmsi: "456789012" },
-    { id: 11, mmsi: "567890124" },
-    { id: 12, mmsi: "678901235" },
-    { id: 13, mmsi: "789012346" },
-    { id: 14, mmsi: "890123457" },
-    { id: 15, mmsi: "901234568" },
-    { id: 16, mmsi: "123456780" },
-    { id: 17, mmsi: "234567891" },
-    { id: 18, mmsi: "345678902" },
-    { id: 19, mmsi: "456789013" },
-    { id: 20, mmsi: "567890125" },
-    { id: 21, mmsi: "678901236" },
-    { id: 22, mmsi: "789012347" },
-    { id: 23, mmsi: "890123458" },
-    { id: 24, mmsi: "901234569" },
-    { id: 25, mmsi: "234567892" },
-    { id: 26, mmsi: "345678903" },
-    { id: 27, mmsi: "456789014" },
-    { id: 28, mmsi: "567890126" },
-    { id: 29, mmsi: "678901237" },
-    { id: 30, mmsi: "789012348" },
-  ];
-
+  const [shipData, setShipData] = useState<MarkerData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredShips, setFilteredShips] = useState(shipData);
+  const [showTable, setShowTable] = useState(false);
+  const [sortBy, setSortBy] = useState<"before" | "after">("before");
 
   const navigate = useNavigate();
 
@@ -63,13 +37,82 @@ const SEEMPPage: FC = () => {
     setSearchQuery("");
   };
 
+  const toggleTableVisibility = () => {
+    setShowTable((prev) => !prev);
+    console.log("Table visibility toggled:", !showTable);
+  };
+
+  const recommendations = [
+    {
+      id: 1,
+      recommendation: "Improve fuel efficiency",
+      ciiBefore: 65,
+      ciiAfter: 60,
+      costEstimation: "$2000",
+    },
+    {
+      id: 2,
+      recommendation: "Optimize speed",
+      ciiBefore: 70,
+      ciiAfter: 68,
+      costEstimation: "$1500",
+    },
+    {
+      id: 3,
+      recommendation: "Reduce emissions",
+      ciiBefore: 75,
+      ciiAfter: 72,
+      costEstimation: "$3000",
+    },
+    {
+      id: 1,
+      recommendation: "Improve fuel efficiency",
+      ciiBefore: 65,
+      ciiAfter: 60,
+      costEstimation: "$2000",
+    },
+    {
+      id: 2,
+      recommendation: "Optimize speed",
+      ciiBefore: 70,
+      ciiAfter: 68,
+      costEstimation: "$1500",
+    },
+    {
+      id: 3,
+      recommendation: "Reduce emissions",
+      ciiBefore: 75,
+      ciiAfter: 72,
+      costEstimation: "$3000",
+    },
+  ];
+
+  const sortedRecommendations = recommendations.sort((a, b) => {
+    return sortBy === "before"
+      ? a.ciiBefore - b.ciiBefore
+      : a.ciiAfter - b.ciiAfter;
+  });
+
+  useEffect(() => {
+    const fetchShipData = async () => {
+      try {
+        const response = await axios.get(`${VITE_BACKEND_URI}/ais`);
+        setShipData(response.data.data);
+      } catch (error) {
+        console.error("Error fetching ship data:", error);
+      }
+    };
+
+    fetchShipData();
+  }, []);
+
   return (
     <main className="h-screen w-screen relative bg-gray-100 overflow-hidden">
       <section className="absolute top-0 right-0 z-100 w-2/5 h-full bg-slate-300 p-4">
         <div className="mb-4 mr-20 relative">
           <Input
             placeholder="Search ships..."
-            className="w-full p-3 rounded-lg border border-gray-400 bg-white pl-10" // Added padding for the icon
+            className="w-full p-3 rounded-lg border border-gray-400 bg-white pl-10"
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
           />
@@ -80,7 +123,7 @@ const SEEMPPage: FC = () => {
             <div className="mt-2 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto absolute z-999 w-full">
               {filteredShips.map((ship) => (
                 <div
-                  key={ship.id}
+                  key={ship.mmsi}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 cursor-pointer"
                   onClick={() => handleShipClick(ship.mmsi)}
                 >
@@ -90,7 +133,7 @@ const SEEMPPage: FC = () => {
             </div>
           )}
         </div>
-        <div className="grid grid-rows-7 gap-2 mb-6 mr-20 h-[89vh]">
+        <div className="grid grxid-rows-7 gap-2 mb-6 mr-20 h-[89vh]">
           <ShipInfoCard shipData={null} />
           <div className="grid grid-cols-2 gap-2 row-span-3">
             <CiiValueCard ciiData={null} ciiDataRating={null} />
@@ -107,14 +150,72 @@ const SEEMPPage: FC = () => {
                     Data will appear here
                   </div>
                 </div>
+                <Button onClick={toggleTableVisibility}>
+                  SEEMP Recomendation
+                </Button>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
+
+      {showTable && (
+        <section className="h-90 absolute bottom-0 w-3/5 z-100 left-0 bg-slate-300 p-4">
+          <Button onClick={toggleTableVisibility}>Hide Recommendations</Button>
+          <div className="overflow-x-auto mt-4">
+            <table className="min-w-full table-auto border-collapse bg-white shadow-md rounded-lg">
+              <thead>
+                <tr className="text-gray-700">
+                  <th
+                    className="px-6 py-3 border-b text-left cursor-pointer hover:bg-gray-100"
+                    onClick={() => setSortBy("before")}
+                  >
+                    Recommendation
+                  </th>
+                  <th
+                    className="px-6 py-3 border-b text-left cursor-pointer hover:bg-gray-100"
+                    onClick={() => setSortBy("before")}
+                  >
+                    CII Before
+                  </th>
+                  <th
+                    className="px-6 py-3 border-b text-left cursor-pointer hover:bg-gray-100"
+                    onClick={() => setSortBy("after")}
+                  >
+                    CII After
+                  </th>
+                  <th className="px-6 py-3 border-b text-left">
+                    Cost Estimation
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedRecommendations.map((recommendation) => (
+                  <tr key={recommendation.id} className="hover:bg-gray-100">
+                    <td className="px-6 py-3 border-b">
+                      {recommendation.recommendation}
+                    </td>
+                    <td className="px-6 py-3 border-b">
+                      {recommendation.ciiBefore}
+                    </td>
+                    <td className="px-6 py-3 border-b">
+                      {recommendation.ciiAfter}
+                    </td>
+                    <td className="px-6 py-3 border-b">
+                      {recommendation.costEstimation}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
       <PageTitle title="SEEMP Recommendation" />
       <Sidebar />
-      <MapComponent markers={null} />
+
+      <MapComponent markers={shipData} />
     </main>
   );
 };

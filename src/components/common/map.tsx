@@ -6,9 +6,10 @@ import {
   LayersControl,
   useMapEvents,
   Popup,
-  ZoomControl, // Import ZoomControl
+  ZoomControl,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 import useTileStore from "../../hooks/use-selected-tile";
 import { STADIA_MAPS_API_KEY } from "../../lib/env";
 
@@ -28,7 +29,7 @@ export interface MarkerData {
   size: ShipSize;
 }
 
-interface MapComponentProps {
+export interface MapComponentProps {
   markers: MarkerData[] | null;
 }
 
@@ -44,10 +45,20 @@ const MapComponent: FC<MapComponentProps> = ({ markers }) => {
     return null;
   };
 
+  const getIcon = (heading: number) => {
+    return L.divIcon({
+      className: "custom-icon", // Optional: add class for styling
+      html: `<img src="ships/tanker.png" style="width: 10px; height: 30px; transform: rotate(${heading}deg);" />`,
+      iconSize: [12, 16], // Adjust as needed
+      iconAnchor: [6, 16], // Anchor point for the icon (adjust as needed)
+      popupAnchor: [0, -32], // Position the popup correctly
+    });
+  };
+
   return (
     <MapContainer
-      center={[-7.2874102, 112.7780475]}
-      zoom={13}
+      center={[-8.452174, 115.843191]}
+      zoom={10}
       style={{ height: "100vh", width: "100vw" }}
       className="w-full h-full z-0"
       zoomControl={false}
@@ -77,12 +88,28 @@ const MapComponent: FC<MapComponentProps> = ({ markers }) => {
       </LayersControl>
 
       {markers?.map((marker, index) => (
-        <Marker key={`marker-${index}`} position={marker.coordinates}>
-          <Popup />
+        <Marker
+          key={`marker-${index}`}
+          position={marker.coordinates}
+          icon={getIcon(marker.heading)}
+        >
+          <Popup>
+            <div>
+              <b>MMSI:</b> {marker.mmsi}
+              <br />
+              <b>Heading:</b> {marker.heading}°<br />
+              <b>Latitude:</b> {marker.coordinates[0].toFixed(5)}
+              <br />
+              <b>Longitude:</b> {marker.coordinates[1].toFixed(5)}
+              <br />
+              <b>SOG:</b> {marker.sog} knots
+              <br />
+              <b>COG:</b> {marker.cog}°<br />
+            </div>
+          </Popup>
         </Marker>
       ))}
 
-      {/* Add the ZoomControl at bottom-left */}
       <ZoomControl position="bottomleft" />
     </MapContainer>
   );
