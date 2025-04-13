@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -22,6 +22,7 @@ enum ShipSize {
 export interface MarkerData {
   mmsi: string;
   coordinates: [number, number];
+  icon?: string; // Icon is optional
   sog: number;
   cog: number;
   heading: number;
@@ -35,6 +36,16 @@ export interface MapComponentProps {
 
 const MapComponent: FC<MapComponentProps> = ({ markers }) => {
   const { setSelectedTile, selectedTile } = useTileStore();
+  const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
+
+  // Extract MMSI from URL
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const mmsiParam = urlParams.get("mmsi");
+    if (mmsiParam) {
+      setSelectedMmsi(mmsiParam);
+    }
+  }, []);
 
   const LayerChangeHandler: FC = () => {
     useMapEvents({
@@ -45,13 +56,22 @@ const MapComponent: FC<MapComponentProps> = ({ markers }) => {
     return null;
   };
 
-  const getIcon = (heading: number) => {
+  const getIcon = (
+    heading: number,
+    isSelected: boolean,
+    icon: string | undefined
+  ) => {
+    const iconSize: [number, number] = isSelected ? [20, 30] : [10, 15];
+
+    // Use default 'unknown' icon if icon is undefined or missing
+    const iconUrl = icon ? `ships/${icon}.png` : "ships/unknown.png";
+
     return L.divIcon({
-      className: "custom-icon", // Optional: add class for styling
-      html: `<img src="ships/tanker.png" style="width: 10px; height: 30px; transform: rotate(${heading}deg);" />`,
-      iconSize: [12, 16], // Adjust as needed
-      iconAnchor: [6, 16], // Anchor point for the icon (adjust as needed)
-      popupAnchor: [0, -32], // Position the popup correctly
+      className: "custom-icon",
+      html: `<img src="${iconUrl}" style="width: ${iconSize[0]}px; height: ${iconSize[1]}px; transform: rotate(${heading}deg);" />`,
+      iconSize,
+      iconAnchor: [6, 16],
+      popupAnchor: [0, -32],
     });
   };
 
@@ -86,30 +106,31 @@ const MapComponent: FC<MapComponentProps> = ({ markers }) => {
           <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" />
         </LayersControl.BaseLayer>
       </LayersControl>
-
-      {markers?.map((marker, index) => (
-        <Marker
-          key={`marker-${index}`}
-          position={marker.coordinates}
-          icon={getIcon(marker.heading)}
-        >
-          <Popup>
-            <div>
-              <b>MMSI:</b> {marker.mmsi}
-              <br />
-              <b>Heading:</b> {marker.heading}°<br />
-              <b>Latitude:</b> {marker.coordinates[0].toFixed(5)}
-              <br />
-              <b>Longitude:</b> {marker.coordinates[1].toFixed(5)}
-              <br />
-              <b>SOG:</b> {marker.sog} knots
-              <br />
-              <b>COG:</b> {marker.cog}°<br />
-            </div>
-          </Popup>
-        </Marker>
-      ))}
-
+      {markers?.map((marker, index) => {
+        const isSelected = marker.mmsi === selectedMmsi;
+        return (
+          <Marker
+            key={`marker-${index}`}
+            position={marker.coordinates}
+            icon={getIcon(marker.heading, isSelected, marker.icon)}
+          >
+            <Popup>
+              <div>
+                <b>MMSI:</b> {marker.mmsi}
+                <br />
+                <b>Heading:</b> {marker.heading}°<br />
+                <b>Latitude:</b> {marker.coordinates[0].toFixed(5)}
+                <br />
+                <b>Longitude:</b> {marker.coordinates[1].toFixed(5)}
+                <br />
+                <b>SOG:</b> {marker.sog} knots
+                <br />
+                <b>COG:</b> {marker.cog}°<br />
+              </div>
+            </Popup>
+          </Marker>
+        );
+      })}
       <ZoomControl position="bottomleft" />
     </MapContainer>
   );
