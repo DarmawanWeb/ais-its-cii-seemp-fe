@@ -13,15 +13,45 @@ import { Button } from "../../components/ui/button";
 import axios from "axios";
 import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
+import { ShipData } from "./components/ship-info-card";
 
 const SEEMPPage: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
+  const [shipDetailData, setShipDetailData] = useState<ShipData | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredShips, setFilteredShips] = useState(shipData);
   const [showTable, setShowTable] = useState(false);
   const [sortBy, setSortBy] = useState<"before" | "after">("before");
-
+  const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const mmsiParam = urlParams.get("mmsi");
+    if (mmsiParam) {
+      setSelectedMmsi(mmsiParam);
+    }
+  }, []);
+
+  console.log("Selected MMSI:", selectedMmsi);
+
+  useEffect(() => {
+    if (selectedMmsi) {
+      const fetchShipData = async () => {
+        try {
+          const response = await axios.get(
+            `${VITE_BACKEND_URI}/vessels/details/${selectedMmsi}`
+          );
+          console.log("Ship detail data:", response.data.data);
+          setShipDetailData(response.data.data);
+        } catch (err) {
+          console.error("Error fetching ship data:", err);
+        }
+      };
+
+      fetchShipData();
+    }
+  }, [selectedMmsi]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -133,9 +163,9 @@ const SEEMPPage: FC = () => {
             </div>
           )}
         </div>
-        <div className="grid grxid-rows-7 gap-2 mb-6 mr-20 h-[89vh]">
-          <ShipInfoCard shipData={null} />
-          <div className="grid grid-cols-2 gap-2 row-span-3">
+        <div className="grid grid-rows-9 gap-2 mb-6 mr-20 h-[89vh]">
+          <ShipInfoCard shipData={shipDetailData} />
+          <div className="grid grid-cols-2 gap-2 row-span-4">
             <CiiValueCard ciiData={null} ciiDataRating={null} />
             <Card>
               <CardHeader className="bg-blue-200 text-black p-1 -mt-6 rounded-t-lg">

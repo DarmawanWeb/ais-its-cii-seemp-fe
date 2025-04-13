@@ -38,7 +38,6 @@ const MapComponent: FC<MapComponentProps> = ({ markers }) => {
   const { setSelectedTile, selectedTile } = useTileStore();
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
 
-  // Extract MMSI from URL
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const mmsiParam = urlParams.get("mmsi");
@@ -63,7 +62,6 @@ const MapComponent: FC<MapComponentProps> = ({ markers }) => {
   ) => {
     const iconSize: [number, number] = isSelected ? [20, 30] : [10, 15];
 
-    // Use default 'unknown' icon if icon is undefined or missing
     const iconUrl = icon ? `ships/${icon}.png` : "ships/unknown.png";
 
     return L.divIcon({
@@ -73,6 +71,13 @@ const MapComponent: FC<MapComponentProps> = ({ markers }) => {
       iconAnchor: [6, 16],
       popupAnchor: [0, -32],
     });
+  };
+
+  const handleMarkerClick = (mmsi: string) => {
+    setSelectedMmsi(mmsi);
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("mmsi", mmsi);
+    window.history.pushState(null, "", "?" + urlParams.toString());
   };
 
   return (
@@ -113,6 +118,9 @@ const MapComponent: FC<MapComponentProps> = ({ markers }) => {
             key={`marker-${index}`}
             position={marker.coordinates}
             icon={getIcon(marker.heading, isSelected, marker.icon)}
+            eventHandlers={{
+              click: () => handleMarkerClick(marker.mmsi),
+            }}
           >
             <Popup>
               <div>
