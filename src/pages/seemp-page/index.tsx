@@ -2,7 +2,7 @@ import { FC, useState, useEffect } from "react";
 import MapComponent from "../../components/common/map";
 import Sidebar from "../../components/common/sidebar";
 import PageTitle from "../../components/common/page-title";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Input } from "../../components/ui/input";
 import { Search } from "lucide-react";
 import ShipInfoCard from "./components/ship-info-card";
@@ -23,17 +23,16 @@ const SEEMPPage: FC = () => {
   const [showTable, setShowTable] = useState(false);
   const [sortBy, setSortBy] = useState<"before" | "after">("before");
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(location.search);
     const mmsiParam = urlParams.get("mmsi");
     if (mmsiParam) {
       setSelectedMmsi(mmsiParam);
     }
-  }, []);
-
-  console.log("Selected MMSI:", selectedMmsi);
+  }, [location.search]);
 
   useEffect(() => {
     if (selectedMmsi) {
