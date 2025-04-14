@@ -10,6 +10,7 @@ import { Card, CardHeader, CardContent } from "../../components/ui/card";
 import CiiValueCard from "./components/cii-value-card";
 import { Button } from "../../components/ui/button";
 import axios from "axios";
+import { LineChart } from "lucide-react";
 import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
 import { ShipData } from "./components/ship-info-card";
@@ -168,30 +169,39 @@ const SEEMPPage: FC = () => {
                   CII Grafik
                 </h3>
               </CardHeader>
-              <CardContent className="px-4 h-48 space-y-2">
-                <ResponsiveContainer className="h-full">
-                  <AreaChart data={chartData} className="h-full">
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="year"
-                      tickLine={false}
-                      axisLine={false}
-                      tickMargin={8}
-                    />
-                    <Tooltip />
-                    <Area
-                      dataKey="ciiRating"
-                      type="linear"
-                      fill="var(--color-ciiRating)"
-                      fillOpacity={0.4}
-                      stroke="var(--color-ciiRating)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-                <Button onClick={toggleTableVisibility}>
-                  SEEMP Recomendation
-                </Button>
-              </CardContent>
+              {chartData.length === 0 ? (
+                <div className="flex flex-col items-center justify-center space-y-2 h-full">
+                  <LineChart className="text-gray-400" size={40} />
+                  <div className="text-sm text-gray-600">
+                    Data will appear here
+                  </div>
+                </div>
+              ) : (
+                <CardContent className="px-4 h-48 space-y-2">
+                  <ResponsiveContainer className="h-full">
+                    <AreaChart data={chartData} className="h-full">
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="year"
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                      />
+                      <Tooltip />
+                      <Area
+                        dataKey="ciiRating"
+                        type="linear"
+                        fill="var(--color-ciiRating)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-ciiRating)"
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                  <Button onClick={toggleTableVisibility}>
+                    SEEMP Recomendation
+                  </Button>
+                </CardContent>
+              )}
             </Card>
           </div>
         </div>
