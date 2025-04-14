@@ -14,10 +14,12 @@ import axios from "axios";
 import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
 import { ShipData } from "./components/ship-info-card";
+import { Cii } from "./components/cii-value-card";
 
 const SEEMPPage: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
   const [shipDetailData, setShipDetailData] = useState<ShipData | null>(null);
+  const [ciiData, setCiiData] = useState<Cii[] | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredShips, setFilteredShips] = useState(shipData);
   const [showTable, setShowTable] = useState(false);
@@ -35,20 +37,22 @@ const SEEMPPage: FC = () => {
   }, [location.search]);
 
   useEffect(() => {
+    console.log("Selected MMSI:", selectedMmsi); // Pastikan ini tidak null
     if (selectedMmsi) {
-      const fetchShipData = async () => {
+      const fetchData = async () => {
         try {
-          const response = await axios.get(
-            `${VITE_BACKEND_URI}/vessels/details/${selectedMmsi}`
-          );
-          console.log("Ship detail data:", response.data.data);
-          setShipDetailData(response.data.data);
+          const [shipResponse, ciiResponse] = await Promise.all([
+            axios.get(`${VITE_BACKEND_URI}/vessels/details/${selectedMmsi}`),
+            axios.get(`${VITE_BACKEND_URI}/annual-ciis/${selectedMmsi}`),
+          ]);
+          console.log("CII data:", ciiResponse.data.data.ciis);
+          setCiiData(ciiResponse.data.data.ciis);
+          setShipDetailData(shipResponse.data.data);
         } catch (err) {
-          console.error("Error fetching ship data:", err);
+          console.error("Error fetching data:", err);
         }
       };
-
-      fetchShipData();
+      fetchData();
     }
   }, [selectedMmsi]);
 
@@ -72,27 +76,6 @@ const SEEMPPage: FC = () => {
   };
 
   const recommendations = [
-    {
-      id: 1,
-      recommendation: "Improve fuel efficiency",
-      ciiBefore: 65,
-      ciiAfter: 60,
-      costEstimation: "$2000",
-    },
-    {
-      id: 2,
-      recommendation: "Optimize speed",
-      ciiBefore: 70,
-      ciiAfter: 68,
-      costEstimation: "$1500",
-    },
-    {
-      id: 3,
-      recommendation: "Reduce emissions",
-      ciiBefore: 75,
-      ciiAfter: 72,
-      costEstimation: "$3000",
-    },
     {
       id: 1,
       recommendation: "Improve fuel efficiency",
@@ -165,7 +148,7 @@ const SEEMPPage: FC = () => {
         <div className="grid grid-rows-9 gap-2 mb-6 mr-20 h-[89vh]">
           <ShipInfoCard shipData={shipDetailData} />
           <div className="grid grid-cols-2 gap-2 row-span-4">
-            <CiiValueCard ciiData={null} ciiDataRating={null} />
+            <CiiValueCard ciis={ciiData || []} />
             <Card>
               <CardHeader className="bg-blue-200 text-black p-1 -mt-6 rounded-t-lg">
                 <h3 className="text-xl font-semibold text-center">
@@ -243,7 +226,6 @@ const SEEMPPage: FC = () => {
 
       <PageTitle title="SEEMP Recommendation" />
       <Sidebar />
-
       <MapComponent markers={shipData} />
     </main>
   );
