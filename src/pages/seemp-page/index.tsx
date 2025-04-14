@@ -8,13 +8,20 @@ import { Search } from "lucide-react";
 import ShipInfoCard from "./components/ship-info-card";
 import { Card, CardHeader, CardContent } from "../../components/ui/card";
 import CiiValueCard from "./components/cii-value-card";
-import { LineChart } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import axios from "axios";
 import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
 import { ShipData } from "./components/ship-info-card";
 import { Cii } from "./components/cii-value-card";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  XAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const SEEMPPage: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
@@ -118,6 +125,12 @@ const SEEMPPage: FC = () => {
     fetchShipData();
   }, []);
 
+  const chartData =
+    ciiData?.map((cii) => ({
+      year: `${cii.year}`,
+      ciiRating: cii.ciiRating,
+    })) || [];
+
   return (
     <main className="h-screen w-screen relative bg-gray-100 overflow-hidden">
       <section className="absolute top-0 right-0 z-100 w-2/5 h-full bg-slate-300 p-4">
@@ -155,13 +168,26 @@ const SEEMPPage: FC = () => {
                   CII Grafik
                 </h3>
               </CardHeader>
-              <CardContent className="p-4 h-full">
-                <div className="flex flex-col items-center justify-center space-y-2 h-full">
-                  <LineChart className="text-gray-400" size={40} />
-                  <div className="text-sm text-gray-600">
-                    Data will appear here
-                  </div>
-                </div>
+              <CardContent className="px-4 h-48 space-y-2">
+                <ResponsiveContainer className="h-full">
+                  <AreaChart data={chartData} className="h-full">
+                    <CartesianGrid vertical={false} />
+                    <XAxis
+                      dataKey="year"
+                      tickLine={false}
+                      axisLine={false}
+                      tickMargin={8}
+                    />
+                    <Tooltip />
+                    <Area
+                      dataKey="ciiRating"
+                      type="linear"
+                      fill="var(--color-ciiRating)"
+                      fillOpacity={0.4}
+                      stroke="var(--color-ciiRating)"
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
                 <Button onClick={toggleTableVisibility}>
                   SEEMP Recomendation
                 </Button>
