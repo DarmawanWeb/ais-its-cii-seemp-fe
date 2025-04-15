@@ -54,10 +54,10 @@ const CiiValueCard: FC<CiiValueCardProps> = ({ ciis }) => {
       <CardHeader className="bg-blue-200 text-black p-1 rounded-t-lg -mt-6 relative">
         <h3 className="text-xl font-semibold text-center">CII Value</h3>
       </CardHeader>
-      <CardContent className="p-2 -mt-6 text-xs space-y-2 h-full ">
+      <CardContent className="p-2 -mt-6 text-xs space-y-2 h-full">
         {isDataAvailable ? (
           <Select onValueChange={handleYearChange}>
-            <SelectTrigger className="w-[180px] cursor-pointer z-50">
+            <SelectTrigger className="w-full cursor-pointer z-50">
               <SelectValue
                 placeholder={
                   selectedYear === null ? "Select Year" : `${selectedYear}`

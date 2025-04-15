@@ -15,6 +15,7 @@ import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
 import { ShipData } from "./components/ship-info-card";
 import { Cii } from "./components/cii-value-card";
+import { ISeempTableProps } from "./components/seemp-table";
 import {
   Area,
   AreaChart,
@@ -24,6 +25,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+import SeempTable from "./components/seemp-table";
+
 const SEEMPPage: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
   const [shipDetailData, setShipDetailData] = useState<ShipData | null>(null);
@@ -31,7 +34,6 @@ const SEEMPPage: FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredShips, setFilteredShips] = useState(shipData);
   const [showTable, setShowTable] = useState(false);
-  const [sortBy, setSortBy] = useState<"before" | "after">("before");
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
@@ -45,7 +47,6 @@ const SEEMPPage: FC = () => {
   }, [location.search]);
 
   useEffect(() => {
-    console.log("Selected MMSI:", selectedMmsi); // Pastikan ini tidak null
     if (selectedMmsi) {
       const fetchData = async () => {
         try {
@@ -53,7 +54,6 @@ const SEEMPPage: FC = () => {
             axios.get(`${VITE_BACKEND_URI}/vessels/details/${selectedMmsi}`),
             axios.get(`${VITE_BACKEND_URI}/annual-ciis/${selectedMmsi}`),
           ]);
-          console.log("CII data:", ciiResponse.data.data.ciis);
           setCiiData(ciiResponse.data.data.ciis);
           setShipDetailData(shipResponse.data.data);
         } catch (err) {
@@ -80,38 +80,48 @@ const SEEMPPage: FC = () => {
 
   const toggleTableVisibility = () => {
     setShowTable((prev) => !prev);
-    console.log("Table visibility toggled:", !showTable);
   };
 
-  const recommendations = [
-    {
-      id: 1,
-      recommendation: "Improve fuel efficiency",
-      ciiBefore: 65,
-      ciiAfter: 60,
-      costEstimation: "$2000",
-    },
-    {
-      id: 2,
-      recommendation: "Optimize speed",
-      ciiBefore: 70,
-      ciiAfter: 68,
-      costEstimation: "$1500",
-    },
-    {
-      id: 3,
-      recommendation: "Reduce emissions",
-      ciiBefore: 75,
-      ciiAfter: 72,
-      costEstimation: "$3000",
-    },
-  ];
+  const dummySeempData: ISeempTableProps = {
+    seemp: [
+      {
+        recommendation: "Reduce fuel consumption by optimizing speed.",
+        ciiBefore: 12.5,
+        ciiAfter: 10.3,
+        costEstimation: "$1500",
+      },
+      {
+        recommendation: "Switch to eco-friendly fuel alternatives.",
+        ciiBefore: 14.2,
+        ciiAfter: 11.8,
+        costEstimation: "$2500",
+      },
+      {
+        recommendation: "Implement route optimization technology.",
+        ciiBefore: 16.7,
+        ciiAfter: 13.2,
+        costEstimation: "$3000",
+      },
+      {
+        recommendation: "Install energy-efficient equipment on the vessel.",
+        ciiBefore: 18.9,
+        ciiAfter: 15.4,
+        costEstimation: "$2000",
+      },
+      {
+        recommendation: "Implement route optimization technology.",
+        ciiBefore: 16.7,
+        ciiAfter: 13.2,
+        costEstimation: "$3000",
+      },
+    ],
+  };
 
-  const sortedRecommendations = recommendations.sort((a, b) => {
-    return sortBy === "before"
-      ? a.ciiBefore - b.ciiBefore
-      : a.ciiAfter - b.ciiAfter;
-  });
+  const chartData =
+    ciiData?.map((cii) => ({
+      year: `${cii.year}`,
+      ciiRating: cii.ciiRating,
+    })) || [];
 
   useEffect(() => {
     const fetchShipData = async () => {
@@ -125,12 +135,6 @@ const SEEMPPage: FC = () => {
 
     fetchShipData();
   }, []);
-
-  const chartData =
-    ciiData?.map((cii) => ({
-      year: `${cii.year}`,
-      ciiRating: cii.ciiRating,
-    })) || [];
 
   return (
     <main className="h-screen w-screen relative bg-gray-100 overflow-hidden">
@@ -159,6 +163,7 @@ const SEEMPPage: FC = () => {
             </div>
           )}
         </div>
+
         <div className="grid grid-rows-9 gap-2 mb-6 mr-20 h-[89vh]">
           <ShipInfoCard shipData={shipDetailData} />
           <div className="grid grid-cols-2 gap-2 row-span-4">
@@ -208,55 +213,8 @@ const SEEMPPage: FC = () => {
       </section>
 
       {showTable && (
-        <section className="h-90 absolute bottom-0 w-3/5 z-100 left-0 bg-slate-300 p-4">
-          <Button onClick={toggleTableVisibility}>Hide Recommendations</Button>
-          <div className="overflow-x-auto mt-4">
-            <table className="min-w-full table-auto border-collapse bg-white shadow-md rounded-lg">
-              <thead>
-                <tr className="text-gray-700">
-                  <th
-                    className="px-6 py-3 border-b text-left cursor-pointer hover:bg-gray-100"
-                    onClick={() => setSortBy("before")}
-                  >
-                    Recommendation
-                  </th>
-                  <th
-                    className="px-6 py-3 border-b text-left cursor-pointer hover:bg-gray-100"
-                    onClick={() => setSortBy("before")}
-                  >
-                    CII Before
-                  </th>
-                  <th
-                    className="px-6 py-3 border-b text-left cursor-pointer hover:bg-gray-100"
-                    onClick={() => setSortBy("after")}
-                  >
-                    CII After
-                  </th>
-                  <th className="px-6 py-3 border-b text-left">
-                    Cost Estimation
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {sortedRecommendations.map((recommendation) => (
-                  <tr key={recommendation.id} className="hover:bg-gray-100">
-                    <td className="px-6 py-3 border-b">
-                      {recommendation.recommendation}
-                    </td>
-                    <td className="px-6 py-3 border-b">
-                      {recommendation.ciiBefore}
-                    </td>
-                    <td className="px-6 py-3 border-b">
-                      {recommendation.ciiAfter}
-                    </td>
-                    <td className="px-6 py-3 border-b">
-                      {recommendation.costEstimation}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <section className="h-80 absolute bottom-0 w-3/5 z-100 left-0 bg-slate-300 p-4">
+          <SeempTable seemp={dummySeempData.seemp} />
         </section>
       )}
 

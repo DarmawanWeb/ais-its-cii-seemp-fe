@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import { cn } from "../../lib/utils";
 
 function Table({ className, ...props }: React.ComponentProps<"table">) {
@@ -102,6 +101,34 @@ function TableCaption({
   );
 }
 
+interface TableSortLabelProps {
+  active: boolean;
+  direction: "asc" | "desc";
+  onClick: () => void;
+  children: React.ReactNode;
+}
+
+function TableSortLabel({
+  active,
+  direction,
+  onClick,
+  children,
+}: TableSortLabelProps) {
+  return (
+    <span
+      onClick={onClick}
+      className="cursor-pointer flex items-center space-x-1"
+    >
+      <span>{children}</span>
+      {active && (
+        <span className={`text-sm ${direction === "asc" ? "rotate-180" : ""}`}>
+          ▼
+        </span>
+      )}
+    </span>
+  );
+}
+
 export {
   Table,
   TableHeader,
@@ -111,4 +138,5 @@ export {
   TableRow,
   TableCell,
   TableCaption,
+  TableSortLabel,
 };
