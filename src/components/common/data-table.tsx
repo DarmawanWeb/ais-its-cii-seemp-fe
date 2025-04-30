@@ -35,7 +35,6 @@ export default function DataTable<TData, TValue>({
   columns,
   data,
   pageCount,
-  pageSizeOptions = [5, 10, 20, 30],
 }: DataTableProps<TData, TValue>) {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams?.get("page") ?? "1";
