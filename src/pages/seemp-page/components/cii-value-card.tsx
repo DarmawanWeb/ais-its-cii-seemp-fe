@@ -28,21 +28,20 @@ const CiiValueCard: FC<CiiValueCardProps> = ({ ciis }) => {
   const handleYearChange = (year: string) => {
     const newYear = Number(year);
     setSelectedYear(newYear);
-    console.log("Selected Year:", selectedYear);
   };
 
   const renderCiiContent = (cii: Cii) => (
-    <section className="text-base">
-      <div className="h-0.5 bg-black w-56 mx-auto my-4"></div>
-      <div className="grid grid-cols-2">
-        <b>CII Required</b> <p> : {cii.ciiRequired}</p>
-        <b>CII Attained</b> <p> : {cii.ciiAttained}</p>
+    <section className="text-md ">
+      <div className="h-0.5 bg-black w-32 mx-auto my-2"></div>
+      <div className="grid grid-cols-2 ml-2">
+        <b>CII Required</b> <p>: {cii.ciiRequired}</p>
+        <b>CII Attained</b> <p>: {cii.ciiAttained}</p>
       </div>
-      <div className="h-0.5 bg-black w-56 mx-auto my-4"></div>
-      <div className="grid grid-cols-2">
+      <div className="h-0.5 bg-black w-32 mx-auto my-2"></div>
+      <div className="grid grid-cols-2 ml-2">
         <b className="col-span-2">CII Rating</b>
-        <b>Number </b> <p> : {cii.ciiRating}</p>
-        <b>Grade </b> <p> : {cii.ciiGrade}</p>
+        <b>Number</b> <p>: {cii.ciiRating}</p>
+        <b>Grade</b> <p>: {cii.ciiGrade}</p>
       </div>
     </section>
   );
@@ -50,14 +49,15 @@ const CiiValueCard: FC<CiiValueCardProps> = ({ ciis }) => {
   const isDataAvailable = ciis && ciis.length > 0;
 
   return (
-    <Card>
-      <CardHeader className="bg-blue-200 text-black p-1 rounded-t-lg -mt-6 relative">
-        <h3 className="text-xl font-semibold text-center">CII Value</h3>
+    <Card className="text-xs">
+      {" "}
+      <CardHeader className="bg-blue-200 text-black p-2 rounded-t-lg -mt-6 relative">
+        <h3 className="text-xs font-semibold text-center">CII Value</h3>{" "}
       </CardHeader>
-      <CardContent className="p-2 -mt-6 text-xs space-y-2 h-full">
+      <CardContent className="p-1 -mt-4 text-xs space-y-1 h-full">
         {isDataAvailable ? (
           <Select onValueChange={handleYearChange}>
-            <SelectTrigger className="w-full cursor-pointer z-50">
+            <SelectTrigger className="w-full cursor-pointer z-50 text-xs mb-4">
               <SelectValue
                 placeholder={
                   selectedYear === null ? "Select Year" : `${selectedYear}`
@@ -66,9 +66,13 @@ const CiiValueCard: FC<CiiValueCardProps> = ({ ciis }) => {
             </SelectTrigger>
             <SelectContent className="z-100 absolute">
               <SelectGroup>
-                <SelectLabel>Select Year</SelectLabel>
+                <SelectLabel className="text-xs">Select Year</SelectLabel>
                 {ciis.map((cii) => (
-                  <SelectItem key={cii.year} value={cii.year.toString()}>
+                  <SelectItem
+                    key={cii.year}
+                    value={cii.year.toString()}
+                    className="text-xs"
+                  >
                     {cii.year}
                   </SelectItem>
                 ))}
@@ -78,14 +82,13 @@ const CiiValueCard: FC<CiiValueCardProps> = ({ ciis }) => {
         ) : null}
 
         {isDataAvailable && selectedYear !== null ? (
-          selectedYear !== null &&
           ciis.find((cii) => cii.year === selectedYear) !== undefined ? (
             renderCiiContent(ciis.find((cii) => cii.year === selectedYear)!)
           ) : null
         ) : (
-          <div className="flex flex-col items-center justify-center space-y-2  h-full">
-            <Database className="text-gray-400" size={40} />
-            <div className="text-sm text-gray-600">Data will appear here</div>
+          <div className="flex flex-col items-center justify-center -mt-8 space-y-1 h-full">
+            <Database className="text-gray-400" size={18} />
+            <div className="text-xs text-gray-600">Data will appear here</div>
           </div>
         )}
       </CardContent>

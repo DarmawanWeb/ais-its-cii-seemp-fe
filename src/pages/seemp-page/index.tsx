@@ -4,13 +4,12 @@ import Sidebar from "../../components/common/sidebar";
 import PageTitle from "../../components/common/page-title";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Input } from "../../components/ui/input";
-import { Search } from "lucide-react";
+import { Search, LineChart } from "lucide-react";
 import ShipInfoCard from "./components/ship-info-card";
 import { Card, CardHeader, CardContent } from "../../components/ui/card";
 import CiiValueCard from "./components/cii-value-card";
 import { Button } from "../../components/ui/button";
 import axios from "axios";
-import { LineChart } from "lucide-react";
 import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
 import { ShipData } from "./components/ship-info-card";
@@ -24,7 +23,6 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
 import SeempTable from "./components/seemp-table";
 
 const SEEMPPage: FC = () => {
@@ -137,24 +135,24 @@ const SEEMPPage: FC = () => {
   }, []);
 
   return (
-    <main className="h-screen w-screen relative bg-gray-100 overflow-hidden">
-      <section className="absolute top-0 right-0 z-100 w-2/5 h-full bg-slate-300 p-4">
-        <div className="mb-4 mr-20 relative">
+    <main className="h-screen w-screen relative bg-gray-300 overflow-hidden text-xs">
+      <section className="absolute top-0 right-0 z-100 w-7/20 h-full bg-slate-300 p-3 rounded-l-xl">
+        <div className="mb-2 mr-16 relative">
           <Input
             placeholder="Search ships..."
-            className="w-full p-3 rounded-lg border border-gray-400 bg-white pl-10"
+            className="w-full p-1 rounded-md border border-gray-400 bg-white pl-8 text-xs"
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
           />
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-            <Search className="text-gray-600" size={20} />
+          <div className="absolute left-2 top-1/2 transform -translate-y-1/2">
+            <Search className="text-gray-600" size={16} />
           </div>
           {searchQuery && filteredShips.length > 0 && (
-            <div className="mt-2 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto absolute z-999 w-full">
+            <div className="mt-2 bg-white border rounded-md shadow-lg max-h-40 overflow-y-auto absolute z-999 w-full text-xs">
               {filteredShips.map((ship) => (
                 <div
                   key={ship.mmsi}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 cursor-pointer"
+                  className="block px-3 py-1 hover:bg-gray-200 cursor-pointer"
                   onClick={() => handleShipClick(ship.mmsi)}
                 >
                   {ship.mmsi}
@@ -164,33 +162,34 @@ const SEEMPPage: FC = () => {
           )}
         </div>
 
-        <div className="grid grid-rows-9 gap-2 mb-6 mr-20 h-[89vh]">
+        <div className="grid grid-rows-9 gap-2 mb-4 mr-16 h-[88vh]">
           <ShipInfoCard shipData={shipDetailData} />
           <div className="grid grid-cols-2 gap-2 row-span-4">
             <CiiValueCard ciis={ciiData || []} />
             <Card>
-              <CardHeader className="bg-blue-200 text-black p-1 -mt-6 rounded-t-lg">
-                <h3 className="text-xl font-semibold text-center">
+              <CardHeader className="bg-blue-200 text-black p-2 -mt-6 rounded-t-md">
+                <h3 className="text-xs font-semibold text-center">
                   CII Grafik
                 </h3>
               </CardHeader>
               {chartData.length === 0 ? (
-                <div className="flex flex-col items-center justify-center space-y-2 h-full">
-                  <LineChart className="text-gray-400" size={40} />
-                  <div className="text-sm text-gray-600">
+                <div className="flex flex-col items-center justify-center space-y-1 h-full p-2">
+                  <LineChart className="text-gray-400" size={32} />
+                  <div className="text-xs text-gray-600">
                     Data will appear here
                   </div>
                 </div>
               ) : (
-                <CardContent className="px-4 h-48 space-y-2">
+                <CardContent className="px-3 h-36 space-y-2">
                   <ResponsiveContainer className="h-full">
-                    <AreaChart data={chartData} className="h-full">
+                    <AreaChart data={chartData}>
                       <CartesianGrid vertical={false} />
                       <XAxis
                         dataKey="year"
                         tickLine={false}
                         axisLine={false}
-                        tickMargin={8}
+                        tickMargin={6}
+                        fontSize={10}
                       />
                       <Tooltip />
                       <Area
@@ -202,8 +201,12 @@ const SEEMPPage: FC = () => {
                       />
                     </AreaChart>
                   </ResponsiveContainer>
-                  <Button onClick={toggleTableVisibility}>
-                    SEEMP Recomendation
+                  <Button
+                    onClick={toggleTableVisibility}
+                    size={"xs"}
+                    className="text-xs w-full py-2"
+                  >
+                    SEEMP Rcmnd
                   </Button>
                 </CardContent>
               )}
@@ -213,7 +216,7 @@ const SEEMPPage: FC = () => {
       </section>
 
       {showTable && (
-        <section className="h-80 absolute bottom-0 w-3/5 z-100 left-0 bg-slate-300 p-4">
+        <section className="h-64 absolute bottom-0 w-13/20 z-100 left-0 bg-slate-300 p-3 text-xs">
           <SeempTable seemp={dummySeempData.seemp} />
         </section>
       )}

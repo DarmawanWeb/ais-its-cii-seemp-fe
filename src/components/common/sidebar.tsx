@@ -31,8 +31,8 @@ const Sidebar: FC = () => {
 
   return (
     <nav
-      className={`fixed z-100 top-5 right-5 flex flex-col items-center bg-indigo-950  text-white rounded-xl shadow-lg transition-all py-2 ${
-        isOpen ? "w-14" : "w-14"
+      className={`fixed z-100 top-5 right-5 flex flex-col items-center bg-indigo-950 text-white rounded-xl shadow-lg transition-all py-2 ${
+        isOpen ? "w-12" : "w-12"
       }`}
     >
       <Button
@@ -54,7 +54,7 @@ const Sidebar: FC = () => {
             onClick={() => {
               window.location.href = redirect;
             }}
-            className={`p-3 rounded-lg w-12 h-12 flex items-center justify-center cursor-pointer transition-all ${
+            className={`p-3 rounded-lg w-10 h-10 flex items-center justify-center cursor-pointer transition-all ${
               currentPage === redirect
                 ? "bg-gray-500 text-white"
                 : "hover:bg-gray-700"

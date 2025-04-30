@@ -1,41 +1,35 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Card, CardHeader, CardContent } from "../../../components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "../../../components/ui/select";
-import { Database } from "lucide-react"; // Import the Database icon for the fallback
+import { Database } from "lucide-react";
 
-interface CiiValueCardProps {
-  ciiData: { id: number; name: string; value: string }[] | null;
-  ciiDataRating: { id: number; name: string; value: string }[] | null;
+export interface Cii {
+  year: number;
+  ciiRequired: number;
+  ciiAttained: number;
+  ciiRating: number;
+  ciiGrade: string;
 }
 
-const CiiValueCard: FC<CiiValueCardProps> = ({ ciiData, ciiDataRating }) => {
-  const [selectedYear, setSelectedYear] = useState<string | null>(null);
+export interface CiiValueCardProps {
+  cii: Cii; // Now accepting a single Cii object instead of an array
+}
 
-  const handleYearChange = (year: string) => {
-    setSelectedYear(year);
-    console.log("Selected CII Year:", year);
-  };
-
-  const renderCiiContent = (
-    data: { id: number; name: string; value: string }[]
-  ) => {
-    return data?.map(({ id, name, value }) => (
-      <div className="grid grid-cols-5" key={id}>
-        <div className="font-semibold col-span-3">{name}</div>
-        <div className="col-span-2 w-full">{value}</div>
+const CiiValueCard: FC<CiiValueCardProps> = ({ cii }) => {
+  const renderCiiContent = (cii: Cii) => (
+    <section className="text-base">
+      <div className="h-0.5 bg-black w-56 mx-auto my-4"></div>
+      <div className="grid grid-cols-2">
+        <b>CII Required</b> <p> : {cii.ciiRequired}</p>
+        <b>CII Attained</b> <p> : {cii.ciiAttained}</p>
       </div>
-    ));
-  };
-
-  const isDataAvailable = ciiData && ciiDataRating;
+      <div className="h-0.5 bg-black w-56 mx-auto my-4"></div>
+      <div className="grid grid-cols-2">
+        <b className="col-span-2">CII Rating</b>
+        <b>Number </b> <p> : {cii.ciiRating}</p>
+        <b>Grade </b> <p> : {cii.ciiGrade}</p>
+      </div>
+    </section>
+  );
 
   return (
     <Card>
@@ -43,34 +37,10 @@ const CiiValueCard: FC<CiiValueCardProps> = ({ ciiData, ciiDataRating }) => {
         <h3 className="text-xl font-semibold text-center">CII Value</h3>
       </CardHeader>
       <CardContent className="p-2 -mt-6 text-xs space-y-2 h-full">
-        {isDataAvailable ? (
-          <Select onValueChange={handleYearChange}>
-            <SelectTrigger className="w-[180px] cursor-pointer z-50">
-              <SelectValue placeholder={selectedYear || "Select CII Year"} />
-            </SelectTrigger>
-            <SelectContent className="z-100 absolute">
-              <SelectGroup>
-                <SelectLabel>Select Year</SelectLabel>
-                <SelectItem value="2021">2021</SelectItem>
-                <SelectItem value="2022">2022</SelectItem>
-                <SelectItem value="2023">2023</SelectItem>
-                <SelectItem value="2024">2024</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        ) : null}
-
-        {isDataAvailable ? (
-          <>
-            <div className="h-0.5 bg-black w-56 mx-auto my-4"></div>
-            {renderCiiContent(ciiData)}
-
-            <div className="h-0.5 bg-black w-56 mx-auto my-3"></div>
-
-            {renderCiiContent(ciiDataRating)}
-          </>
+        {cii ? (
+          renderCiiContent(cii) // Directly pass the single Cii to renderContent
         ) : (
-          <div className="flex flex-col items-center justify-center space-y-2 h-full">
+          <div className="flex flex-col items-center justify-center space-y-2  h-full">
             <Database className="text-gray-400" size={40} />
             <div className="text-sm text-gray-600">Data will appear here</div>
           </div>

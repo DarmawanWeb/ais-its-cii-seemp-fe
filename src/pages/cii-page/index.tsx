@@ -11,6 +11,7 @@ import axios from "axios";
 import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
 import { ShipData } from "./components/ship-info-card";
+import CiiValueCard from "./components/cii-value-card";
 
 const CIIPage: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
@@ -50,6 +51,14 @@ const CIIPage: FC = () => {
     }
   }, [selectedMmsi]);
 
+  const ciiData = {
+    year: 2023,
+    ciiRequired: 80,
+    ciiAttained: 75,
+    ciiRating: 4.5,
+    ciiGrade: "B",
+  };
+
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     if (query === "") {
@@ -78,8 +87,8 @@ const CIIPage: FC = () => {
   }, []);
 
   return (
-    <main className="h-screen w-screen relative bg-gray-100 overflow-hidden">
-      <section className="absolute top-0 right-0 z-100 w-[27%] h-full bg-slate-300 p-4">
+    <main className="h-screen w-screen relative bg-gray-300 overflow-hidden">
+      <section className="absolute top-0 right-0 z-100 w-[27%] h-full bg-slate-300 p-4 border border-black ">
         <div className="mb-4 mr-20 relative">
           <Input
             placeholder="Search ships..."
@@ -107,6 +116,9 @@ const CIIPage: FC = () => {
         <div className=" mr-20 h-[89vh]">
           <ShipInfoCard shipData={shipDetailData} />
         </div>
+      </section>
+      <section className="absolute top-0 right-[27%] z-100 w-[22%] h-full bg-slate-300 p-4 border border-black rounded-l-xl">
+        <CiiValueCard cii={ciiData} />
       </section>
       <PageTitle title="CII Calculation" />
       <Sidebar />
