@@ -1,7 +1,4 @@
 import { FC, useState, useEffect } from "react";
-import MapComponent from "../../components/common/map";
-import Sidebar from "../../components/common/sidebar";
-import PageTitle from "../../components/common/page-title";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Input } from "../../components/ui/input";
 import { Search, LineChart } from "lucide-react";
@@ -16,14 +13,18 @@ import { ShipData } from "./components/ship-info-card";
 import { Cii } from "./components/cii-value-card";
 import { ISeempTableProps } from "./components/seemp-table";
 import {
-  Area,
-  AreaChart,
   CartesianGrid,
   XAxis,
   Tooltip,
   ResponsiveContainer,
+  Legend,
+  Line,
+  LineChart as RechartsLineChart,
 } from "recharts";
 import SeempTable from "./components/seemp-table";
+import PageTitle from "../../components/common/page-title";
+import MapComponent from "../../components/common/map";
+import Sidebar from "../../components/common/sidebar";
 
 const SEEMPPage: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
@@ -118,7 +119,12 @@ const SEEMPPage: FC = () => {
   const chartData =
     ciiData?.map((cii) => ({
       year: `${cii.year}`,
+      ciiRequired: cii.ciiRequired,
       ciiRating: cii.ciiRating,
+      d1: cii.ddVector?.d1,
+      d2: cii.ddVector?.d2,
+      d3: cii.ddVector?.d3,
+      d4: cii.ddVector?.d4,
     })) || [];
 
   useEffect(() => {
@@ -168,7 +174,7 @@ const SEEMPPage: FC = () => {
             <CiiValueCard ciis={ciiData || []} />
             <Card>
               <CardHeader className="bg-blue-200 text-black p-2 -mt-6 rounded-t-md">
-                <h3 className="text-xs font-semibold text-center">
+                <h3 className="text-base font-semibold text-center">
                   CII Grafik
                 </h3>
               </CardHeader>
@@ -182,7 +188,7 @@ const SEEMPPage: FC = () => {
               ) : (
                 <CardContent className="px-3 h-36 space-y-2">
                   <ResponsiveContainer className="h-full">
-                    <AreaChart data={chartData}>
+                    <RechartsLineChart data={chartData}>
                       <CartesianGrid vertical={false} />
                       <XAxis
                         dataKey="year"
@@ -192,21 +198,45 @@ const SEEMPPage: FC = () => {
                         fontSize={10}
                       />
                       <Tooltip />
-                      <Area
+                      <Legend />
+                      <Line
+                        type="monotone"
                         dataKey="ciiRating"
-                        type="linear"
-                        fill="var(--color-ciiRating)"
-                        fillOpacity={0.4}
-                        stroke="var(--color-ciiRating)"
+                        stroke="#82ca9d"
+                        strokeWidth={2}
                       />
-                    </AreaChart>
+                      <Line
+                        type="monotone"
+                        dataKey="d1"
+                        stroke="#ff7300"
+                        strokeWidth={2}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="d2"
+                        stroke="#00C49F"
+                        strokeWidth={2}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="d3"
+                        stroke="#FF8042"
+                        strokeWidth={2}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="d4"
+                        stroke="#8B0000"
+                        strokeWidth={2}
+                      />
+                    </RechartsLineChart>
                   </ResponsiveContainer>
                   <Button
                     onClick={toggleTableVisibility}
                     size={"xs"}
                     className="text-xs w-full py-2"
                   >
-                    SEEMP Rcmnd
+                    SEEMP Recommendation
                   </Button>
                 </CardContent>
               )}

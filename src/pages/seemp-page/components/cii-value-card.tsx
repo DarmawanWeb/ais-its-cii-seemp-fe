@@ -14,9 +14,16 @@ import { Database } from "lucide-react";
 export interface Cii {
   year: number;
   ciiRequired: number;
-  ciiAttained: number;
   ciiRating: number;
+  ciiAttained: number;
   ciiGrade: string;
+  ddVector: {
+    d1: number;
+    d2: number;
+    d3: number;
+    d4: number;
+    d5: number;
+  };
 }
 
 export interface CiiValueCardProps {
@@ -32,13 +39,13 @@ const CiiValueCard: FC<CiiValueCardProps> = ({ ciis }) => {
 
   const renderCiiContent = (cii: Cii) => (
     <section className="text-md ">
-      <div className="h-0.5 bg-black w-32 mx-auto my-2"></div>
-      <div className="grid grid-cols-2 ml-2">
-        <b>CII Required</b> <p>: {cii.ciiRequired}</p>
+      <div className="h-0.5 bg-black w-full mx-auto my-2"></div>
+      <div className="grid grid-cols-2 ml-6">
+        <b>CII Required</b> <p>: {cii.ciiRequired.toFixed(6)}</p>
         <b>CII Attained</b> <p>: {cii.ciiAttained}</p>
       </div>
-      <div className="h-0.5 bg-black w-32 mx-auto my-2"></div>
-      <div className="grid grid-cols-2 ml-2">
+      <div className="h-0.5 bg-black w-full mx-auto my-2"></div>
+      <div className="grid grid-cols-2 ml-6">
         <b className="col-span-2">CII Rating</b>
         <b>Number</b> <p>: {cii.ciiRating}</p>
         <b>Grade</b> <p>: {cii.ciiGrade}</p>
@@ -52,7 +59,7 @@ const CiiValueCard: FC<CiiValueCardProps> = ({ ciis }) => {
     <Card className="text-xs">
       {" "}
       <CardHeader className="bg-blue-200 text-black p-2 rounded-t-lg -mt-6 relative">
-        <h3 className="text-xs font-semibold text-center">CII Value</h3>{" "}
+        <h3 className="text-base font-semibold text-center">CII Value</h3>{" "}
       </CardHeader>
       <CardContent className="p-1 -mt-4 text-xs space-y-1 h-full">
         {isDataAvailable ? (
@@ -64,7 +71,7 @@ const CiiValueCard: FC<CiiValueCardProps> = ({ ciis }) => {
                 }
               />
             </SelectTrigger>
-            <SelectContent className="z-100 absolute">
+            <SelectContent className="z-100 absolute h-40 ">
               <SelectGroup>
                 <SelectLabel className="text-xs">Select Year</SelectLabel>
                 {ciis.map((cii) => (

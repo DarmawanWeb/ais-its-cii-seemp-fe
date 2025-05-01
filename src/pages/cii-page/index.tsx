@@ -25,13 +25,10 @@ const CIIPage: FC = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const mmsiParam = urlParams.get("mmsi");
-    console.log("MMSI Param:", mmsiParam);
     if (mmsiParam) {
       setSelectedMmsi(mmsiParam);
     }
   }, [location.search]);
-
-  console.log("Selected MMSI:", selectedMmsi);
 
   useEffect(() => {
     if (selectedMmsi) {
@@ -88,8 +85,8 @@ const CIIPage: FC = () => {
 
   return (
     <main className="h-screen w-screen relative bg-gray-300 overflow-hidden">
-      <section className="absolute top-0 right-0 z-100 w-[27%] h-full bg-slate-300 p-4 border border-black ">
-        <div className="mb-4 mr-20 relative">
+      <section className="absolute top-0 right-0 z-100 w-[28%] h-full bg-slate-300 p-4 border border-black ">
+        <div className="mb-4 mr-16 relative">
           <Input
             placeholder="Search ships..."
             className="w-full p-3 rounded-lg border border-gray-400 bg-white pl-10"
@@ -113,11 +110,11 @@ const CIIPage: FC = () => {
             </div>
           )}
         </div>
-        <div className=" mr-20 h-[89vh]">
+        <div className=" mr-16 h-[86vh]">
           <ShipInfoCard shipData={shipDetailData} />
         </div>
       </section>
-      <section className="absolute top-0 right-[27%] z-100 w-[22%] h-full bg-slate-300 p-4 border border-black rounded-l-xl">
+      <section className="absolute top-0 right-[28%] z-100 w-[22%] h-full bg-slate-300 p-4 border border-black rounded-l-xl">
         <CiiValueCard cii={ciiData} />
       </section>
       <PageTitle title="CII Calculation" />

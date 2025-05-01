@@ -27,44 +27,40 @@ export interface ShipInfoProps {
 
 const ShipInfoCard: FC<ShipInfoProps> = ({ shipData }) => {
   return (
-    <Card className="h-full">
+    <Card className="row-span-5 h-full">
       <CardHeader className="bg-blue-200 text-black p-2 rounded-t-lg -mt-6">
-        <h3 className="text-lg font-semibold ml-4 text-center">
+        <h3 className="text-base font-semibold ml-4 text-center">
           Ship Information
         </h3>
       </CardHeader>
-      <CardContent className="text-sm -mt-3 space-y-2 h-full">
+      <CardContent className="text-sm  h-full ">
         {shipData ? (
           <section className="w-full flex flex-col justify-between h-full">
-            <div className="grid grid-cols-2 gap-2">
-              <div className="font-semibold">Name</div>
-              <div>{shipData.name}</div>
-              <div className="font-semibold">MMSI</div>
-              <div>{shipData.mmsi}</div>
-              <div className="font-semibold">IMO</div>
-              <div>{shipData.imo}</div>
-              <div className="font-semibold">Flag</div>
-              <div>{shipData.flag}</div>
-              <div className="font-semibold">Type</div>
-              <div>{shipData.type}</div>
-              <div className="font-semibold">Capacity</div>
-              <div>{shipData.capacity}</div>
-              <div className="font-semibold">LWL</div>
-              <div>{shipData.lwl}</div>
-              <div className="font-semibold">Breadth</div>
-              <div>{shipData.breadth}</div>
-              <div className="font-semibold">Draft</div>
-              <div>{shipData.draft}</div>
-              <div className="font-semibold">Latitude</div>
-              <div>{shipData.lat}</div>
-              <div className="font-semibold">Longitude</div>
-              <div>{shipData.lon}</div>
-              <div className="font-semibold">Speed (SOG)</div>
-              <div>{shipData.sog}</div>
-              <div className="font-semibold">Course (COG)</div>
-              <div>{shipData.cog}</div>
-              <div className="font-semibold">Port</div>
-              <div>{shipData.port}</div>
+            <div className="grid grid-cols-2 justify-between h-full">
+              <div className="font-semibold text-xs">Name</div>
+              <div className="text-xs">: {shipData.name}</div>
+              <div className="font-semibold text-xs">MMSI</div>
+              <div className="text-xs">: {shipData.mmsi}</div>
+              <div className="font-semibold text-xs">IMO</div>
+              <div className="text-xs">: {shipData.imo}</div>
+              <div className="font-semibold text-xs">Flag</div>
+              <div className="text-xs">: {shipData.flag}</div>
+              <div className="font-semibold text-xs">Type</div>
+              <div className="text-xs">: {shipData.type}</div>
+              <div className="font-semibold text-xs">LWL</div>
+              <div className="text-xs">: {shipData.lwl}</div>
+              <div className="font-semibold text-xs">Breadth</div>
+              <div className="text-xs">: {shipData.breadth}</div>
+              <div className="font-semibold text-xs">Draft</div>
+              <div className="text-xs">: {shipData.draft}</div>
+              <div className="font-semibold text-xs">Latitude</div>
+              <div className="text-xs">: {shipData.lat}</div>
+              <div className="font-semibold text-xs">Longitude</div>
+              <div className="text-xs">: {shipData.lon}</div>
+              <div className="font-semibold text-xs">Speed (SOG)</div>
+              <div className="text-xs">: {shipData.sog}</div>
+              <div className="font-semibold text-xs">Course (COG)</div>
+              <div className="text-xs">: {shipData.cog}</div>
             </div>
             <div className="flex justify-center mt-4">
               <img
@@ -73,7 +69,11 @@ const ShipInfoCard: FC<ShipInfoProps> = ({ shipData }) => {
                 className="w-full h-auto rounded-lg shadow-md"
               />
             </div>
-            <Button variant="default" className="w-40 ml-7 mt-4">
+            <Button
+              variant="default"
+              className="w-40 ml-7 mt-4 mx-auto "
+              size={"sm"}
+            >
               Calculate CII
             </Button>
           </section>

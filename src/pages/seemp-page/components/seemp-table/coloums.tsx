@@ -8,14 +8,23 @@ export const columns: ColumnDef<Seemp>[] = [
   },
   {
     accessorKey: "costEstimation",
-    header: "COST ESTIMATION",
+    header: () => <div className="text-center">COST ESTIMATION</div>,
+    cell: ({ getValue }) => (
+      <div className="text-center">{getValue() as string}</div>
+    ),
   },
   {
     accessorKey: "ciiBefore",
-    header: "CI BEFORE",
+    header: () => <div className="text-center">CII BEFORE</div>,
+    cell: ({ getValue }) => (
+      <div className="text-center">{getValue() as string}</div>
+    ),
   },
   {
     accessorKey: "ciiAfter",
-    header: "CI AFTER",
+    header: () => <div className="text-center">ESTIMATION CII AFTER</div>,
+    cell: ({ getValue }) => (
+      <div className="text-center">{getValue() as string}</div>
+    ),
   },
 ];
