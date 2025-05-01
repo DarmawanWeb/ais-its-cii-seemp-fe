@@ -12,6 +12,16 @@ import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
 import { ShipData } from "./components/ship-info-card";
 import CiiValueCard from "./components/cii-value-card";
+import { CardHeader, CardContent } from "../../components/ui/card";
+import {
+  CartesianGrid,
+  XAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+  Line,
+  LineChart as RechartsLineChart,
+} from "recharts";
 
 const CIIPage: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
@@ -50,10 +60,17 @@ const CIIPage: FC = () => {
 
   const ciiData = {
     year: 2023,
-    ciiRequired: 80,
-    ciiAttained: 75,
-    ciiRating: 4.5,
-    ciiGrade: "B",
+    fuel: {
+      fuelMe: 100,
+      fuelAE: 68,
+      total: 168,
+    },
+    cii: {
+      ciiRequired: 80,
+      ciiAttained: 75,
+      ciiRating: 4.5,
+      ciiGrade: "B",
+    },
   };
 
   const handleSearch = (query: string) => {
@@ -83,9 +100,22 @@ const CIIPage: FC = () => {
     fetchShipData();
   }, []);
 
+  const chartData = [
+    {
+      year: `${ciiData.year}`,
+      ciiRequired: ciiData.cii.ciiRequired,
+      ciiAttained: ciiData.cii.ciiAttained,
+      ciiRating: ciiData.cii.ciiRating,
+      d1: 12.5, // Example data for d1, you can replace this with actual values
+      d2: 11.5, // Example data for d2
+      d3: 10.5, // Example data for d3
+      d4: 9.5, // Example data for d4
+    },
+  ];
+
   return (
     <main className="h-screen w-screen relative bg-gray-300 overflow-hidden">
-      <section className="absolute top-0 right-0 z-100 w-[28%] h-full bg-slate-300 p-4 border border-black ">
+      <section className="absolute top-0 right-0 z-100 w-[28%] h-full bg-slate-300 p-4">
         <div className="mb-4 mr-16 relative">
           <Input
             placeholder="Search ships..."
@@ -110,16 +140,80 @@ const CIIPage: FC = () => {
             </div>
           )}
         </div>
-        <div className=" mr-16 h-[86vh]">
+        <div className="mr-16 h-[86vh]">
           <ShipInfoCard shipData={shipDetailData} />
         </div>
       </section>
-      <section className="absolute top-0 right-[28%] z-100 w-[22%] h-full bg-slate-300 p-4 border border-black rounded-l-xl">
+
+      <section className="absolute bottom-0 right-[28%] z-100 w-[72%] bg-slate-300 p-4 flex">
+        <div className="w-full h-68 mb-4  mr-4">
+          <CardHeader className="bg-blue-200 text-black p-2 rounded-t-xl">
+            <h3 className="text-base font-semibold text-center">CII Grafik</h3>
+          </CardHeader>
+          {chartData.length === 0 ? (
+            <div className="flex flex-col items-center justify-center space-y-1 h-full p-2">
+              <div className="text-gray-400">No Data Available</div>
+              <div className="text-xs text-gray-600">Data will appear here</div>
+            </div>
+          ) : (
+            <CardContent className="px-3  space-y-2 bg-white h-56 rounded-b-xl">
+              <ResponsiveContainer className="h-full">
+                <RechartsLineChart data={chartData}>
+                  <CartesianGrid vertical={false} />
+                  <XAxis
+                    dataKey="year"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={6}
+                    fontSize={10}
+                  />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="ciiAttained"
+                    stroke="#000000"
+                    strokeWidth={2}
+                    dot={{ r: 1 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="d1"
+                    stroke="#ff7300"
+                    strokeWidth={1}
+                    dot={{ r: 1 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="d2"
+                    stroke="#00C49F"
+                    strokeWidth={1}
+                    dot={{ r: 1 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="d3"
+                    stroke="#FF8042"
+                    strokeWidth={1}
+                    dot={{ r: 1 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="d4"
+                    stroke="#8B0000"
+                    strokeWidth={1}
+                    dot={{ r: 1 }}
+                  />
+                </RechartsLineChart>
+              </ResponsiveContainer>
+            </CardContent>
+          )}
+        </div>
         <CiiValueCard cii={ciiData} />
       </section>
+
       <PageTitle title="CII Calculation" />
       <Sidebar />
-
       <MapComponent markers={shipData} />
     </main>
   );

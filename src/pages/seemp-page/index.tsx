@@ -15,7 +15,6 @@ import { ISeempTableProps } from "./components/seemp-table";
 import {
   CartesianGrid,
   XAxis,
-  Tooltip,
   ResponsiveContainer,
   Legend,
   Line,
@@ -53,7 +52,9 @@ const SEEMPPage: FC = () => {
             axios.get(`${VITE_BACKEND_URI}/vessels/details/${selectedMmsi}`),
             axios.get(`${VITE_BACKEND_URI}/annual-ciis/${selectedMmsi}`),
           ]);
+
           setCiiData(ciiResponse.data.data.ciis);
+          console.log("CII data:", ciiResponse);
           setShipDetailData(shipResponse.data.data);
         } catch (err) {
           console.error("Error fetching data:", err);
@@ -120,7 +121,7 @@ const SEEMPPage: FC = () => {
     ciiData?.map((cii) => ({
       year: `${cii.year}`,
       ciiRequired: cii.ciiRequired,
-      ciiRating: cii.ciiRating,
+      ciiAttained: cii.ciiAttained,
       d1: cii.ddVector?.d1,
       d2: cii.ddVector?.d2,
       d3: cii.ddVector?.d3,
@@ -197,37 +198,41 @@ const SEEMPPage: FC = () => {
                         tickMargin={6}
                         fontSize={10}
                       />
-                      <Tooltip />
                       <Legend />
                       <Line
                         type="monotone"
-                        dataKey="ciiRating"
-                        stroke="#82ca9d"
+                        dataKey="ciiAttained"
+                        stroke="#000000"
                         strokeWidth={2}
+                        dot={{ r: 1 }}
                       />
                       <Line
                         type="monotone"
                         dataKey="d1"
                         stroke="#ff7300"
-                        strokeWidth={2}
+                        strokeWidth={1}
+                        dot={{ r: 1 }}
                       />
                       <Line
                         type="monotone"
                         dataKey="d2"
                         stroke="#00C49F"
-                        strokeWidth={2}
+                        strokeWidth={1}
+                        dot={{ r: 1 }}
                       />
                       <Line
                         type="monotone"
                         dataKey="d3"
                         stroke="#FF8042"
-                        strokeWidth={2}
+                        strokeWidth={1}
+                        dot={{ r: 1 }}
                       />
                       <Line
                         type="monotone"
                         dataKey="d4"
                         stroke="#8B0000"
-                        strokeWidth={2}
+                        strokeWidth={1}
+                        dot={{ r: 1 }}
                       />
                     </RechartsLineChart>
                   </ResponsiveContainer>
