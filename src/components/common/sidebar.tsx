@@ -24,7 +24,7 @@ const Sidebar: FC = () => {
     { icon: CloudUpload, redirect: "#" },
     { icon: Thermometer, redirect: "#" },
     { icon: CloudSunRain, redirect: "#" },
-    { icon: Fuel, redirect: "#" },
+    { icon: Fuel, redirect: "/telemetry" },
     { icon: Copyright, redirect: "/cii" },
     { icon: ChartLine, redirect: "/semp" },
   ];
