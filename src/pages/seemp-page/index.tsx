@@ -36,12 +36,31 @@ const SEEMPPage: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+  const [currentItems, setCurrentItems] = useState<ISeempTableProps["seemp"]>(
+    []
+  );
+
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const mmsiParam = urlParams.get("mmsi");
+    const pageParam = urlParams.get("page");
+
     if (mmsiParam) {
       setSelectedMmsi(mmsiParam);
     }
+
+    const pageNumber = pageParam ? Number(pageParam) : 1;
+    setCurrentPage(pageNumber);
+
+    const indexOfLastItem = pageNumber * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    setCurrentItems(
+      dummySeempData.seemp.slice(indexOfFirstItem, indexOfLastItem)
+    );
+
+    window.scrollTo(0, 0);
   }, [location.search]);
 
   useEffect(() => {
@@ -54,7 +73,6 @@ const SEEMPPage: FC = () => {
           ]);
 
           setCiiData(ciiResponse.data.data.ciis);
-          console.log("CII data:", ciiResponse);
           setShipDetailData(shipResponse.data.data);
         } catch (err) {
           console.error("Error fetching data:", err);
@@ -113,6 +131,36 @@ const SEEMPPage: FC = () => {
         ciiBefore: 16.7,
         ciiAfter: 13.2,
         costEstimation: "$3000",
+      },
+      {
+        recommendation: "Use renewable energy sources.",
+        ciiBefore: 17.2,
+        ciiAfter: 13.5,
+        costEstimation: "$5000",
+      },
+      {
+        recommendation: "Install advanced route navigation.",
+        ciiBefore: 14.5,
+        ciiAfter: 12.1,
+        costEstimation: "$2200",
+      },
+      {
+        recommendation: "Regular maintenance for fuel efficiency.",
+        ciiBefore: 19.0,
+        ciiAfter: 15.8,
+        costEstimation: "$1700",
+      },
+      {
+        recommendation: "Reduce ship speed during off-peak hours.",
+        ciiBefore: 15.5,
+        ciiAfter: 13.0,
+        costEstimation: "$1400",
+      },
+      {
+        recommendation: "Invest in waste heat recovery.",
+        ciiBefore: 14.0,
+        ciiAfter: 12.0,
+        costEstimation: "$2400",
       },
     ],
   };
@@ -241,7 +289,9 @@ const SEEMPPage: FC = () => {
                     size={"xs"}
                     className="text-xs w-full py-2"
                   >
-                    SEEMP Recommendation
+                    {showTable
+                      ? "Close Recommendation"
+                      : "SEEMP Recommendation"}
                   </Button>
                 </CardContent>
               )}
@@ -252,7 +302,7 @@ const SEEMPPage: FC = () => {
 
       {showTable && (
         <section className="h-64 absolute bottom-0 w-13/20 z-100 left-0 bg-slate-300 p-3 text-xs">
-          <SeempTable seemp={dummySeempData.seemp} />
+          <SeempTable seemp={currentItems} />
         </section>
       )}
 

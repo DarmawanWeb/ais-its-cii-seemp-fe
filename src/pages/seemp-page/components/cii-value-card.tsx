@@ -41,13 +41,13 @@ const CiiValueCard: FC<CiiValueCardProps> = ({ ciis }) => {
     <section className="text-md ">
       <div className="h-0.5 bg-black w-full mx-auto my-2"></div>
       <div className="grid grid-cols-2 ml-6">
-        <b>CII Required</b> <p>: {cii.ciiRequired.toFixed(6)}</p>
-        <b>CII Attained</b> <p>: {cii.ciiAttained}</p>
+        <b>CII Required</b> <p>: {cii.ciiRequired.toFixed(5)}</p>
+        <b>CII Attained</b> <p>: {cii.ciiAttained.toFixed(5)}</p>
       </div>
       <div className="h-0.5 bg-black w-full mx-auto my-2"></div>
       <div className="grid grid-cols-2 ml-6">
         <b className="col-span-2">CII Rating</b>
-        <b>Number</b> <p>: {cii.ciiRating}</p>
+        <b>Number</b> <p>: {cii.ciiRating.toFixed(5)}</p>
         <b>Grade</b> <p>: {cii.ciiGrade}</p>
       </div>
     </section>

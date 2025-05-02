@@ -8,7 +8,9 @@ import axios from "axios";
 import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
 import { ShipData } from "./components/ship-info-card";
-import { Cii } from "./components/cii-value-card";
+import PageTitle from "../../components/common/page-title";
+import MapComponent from "../../components/common/map";
+import Sidebar from "../../components/common/sidebar";
 import {
   CartesianGrid,
   XAxis,
@@ -17,14 +19,17 @@ import {
   Line,
   LineChart as RechartsLineChart,
 } from "recharts";
-import PageTitle from "../../components/common/page-title";
-import MapComponent from "../../components/common/map";
-import Sidebar from "../../components/common/sidebar";
+
+interface FuelData {
+  fuelME: number;
+  fuelAE: number;
+  timestamp: string;
+}
 
 const TelemetryPage: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
   const [shipDetailData, setShipDetailData] = useState<ShipData | null>(null);
-  const [ciiData, setCiiData] = useState<Cii[] | null>(null);
+  const [fuelData, setFuelData] = useState<FuelData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredShips, setFilteredShips] = useState(shipData);
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
@@ -43,13 +48,12 @@ const TelemetryPage: FC = () => {
     if (selectedMmsi) {
       const fetchData = async () => {
         try {
-          const [shipResponse, ciiResponse] = await Promise.all([
+          const [shipResponse, fuelResponse] = await Promise.all([
             axios.get(`${VITE_BACKEND_URI}/vessels/details/${selectedMmsi}`),
-            axios.get(`${VITE_BACKEND_URI}/annual-ciis/${selectedMmsi}`),
+            axios.get(`${VITE_BACKEND_URI}/latest/fuel/${selectedMmsi}`),
           ]);
 
-          setCiiData(ciiResponse.data.data.ciis);
-          console.log("CII data:", ciiResponse);
+          setFuelData(fuelResponse.data.data.fuelsData); // Set fetched fuel data
           setShipDetailData(shipResponse.data.data);
         } catch (err) {
           console.error("Error fetching data:", err);
@@ -74,14 +78,10 @@ const TelemetryPage: FC = () => {
   };
 
   const chartData =
-    ciiData?.map((cii) => ({
-      year: `${cii.year}`,
-      ciiRequired: cii.ciiRequired,
-      ciiAttained: cii.ciiAttained,
-      d1: cii.ddVector?.d1,
-      d2: cii.ddVector?.d2,
-      d3: cii.ddVector?.d3,
-      d4: cii.ddVector?.d4,
+    fuelData?.map((fuel) => ({
+      timestamp: fuel.timestamp,
+      fuelME: fuel.fuelME,
+      fuelAE: fuel.fuelAE,
     })) || [];
 
   useEffect(() => {
@@ -125,7 +125,7 @@ const TelemetryPage: FC = () => {
           )}
         </div>
 
-        <div className="grid grid-rows-9 gap-4 mb-4 mr-16  h-[88vh]">
+        <div className="grid grid-rows-9 gap-4 mb-4 mr-16 h-[88vh]">
           <ShipInfoCard shipData={shipDetailData} />
           <div className="h-full">
             <Card className="w-full h-68">
@@ -147,7 +147,7 @@ const TelemetryPage: FC = () => {
                     <RechartsLineChart data={chartData}>
                       <CartesianGrid vertical={false} />
                       <XAxis
-                        dataKey="year"
+                        dataKey="timestamp"
                         tickLine={false}
                         axisLine={false}
                         tickMargin={6}
@@ -156,36 +156,15 @@ const TelemetryPage: FC = () => {
                       <Legend />
                       <Line
                         type="monotone"
-                        dataKey="ciiAttained"
+                        dataKey="fuelME"
                         stroke="#000000"
                         strokeWidth={2}
                         dot={{ r: 1 }}
                       />
                       <Line
                         type="monotone"
-                        dataKey="d1"
+                        dataKey="fuelAE"
                         stroke="#ff7300"
-                        strokeWidth={1}
-                        dot={{ r: 1 }}
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="d2"
-                        stroke="#00C49F"
-                        strokeWidth={1}
-                        dot={{ r: 1 }}
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="d3"
-                        stroke="#FF8042"
-                        strokeWidth={1}
-                        dot={{ r: 1 }}
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="d4"
-                        stroke="#8B0000"
                         strokeWidth={1}
                         dot={{ r: 1 }}
                       />

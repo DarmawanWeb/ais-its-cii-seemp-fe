@@ -6,7 +6,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Input } from "../../components/ui/input";
 import { Search } from "lucide-react";
 import ShipInfoCard from "./components/ship-info-card";
-
 import axios from "axios";
 import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
@@ -23,12 +22,30 @@ import {
   LineChart as RechartsLineChart,
 } from "recharts";
 
+import { CiiData } from "./components/cii-value-card";
+
+export type ciiGrafik = {
+  ciiData: {
+    ciiAttained: number;
+    timestamp: string;
+  }[];
+  ddVector: {
+    d1: number;
+    d2: number;
+    d3: number;
+    d4: number;
+  };
+} | null;
+
 const CIIPage: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
   const [shipDetailData, setShipDetailData] = useState<ShipData | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [ciiData, setCiiData] = useState<CiiData>(null);
+  const [ciiGrafik, setCiiGrafik] = useState<ciiGrafik>(null);
   const [filteredShips, setFilteredShips] = useState(shipData);
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
+  const [showCiiSection, setShowCiiSection] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -42,36 +59,24 @@ const CIIPage: FC = () => {
 
   useEffect(() => {
     if (selectedMmsi) {
-      const fetchShipData = async () => {
+      const fetchData = async () => {
         try {
-          const response = await axios.get(
-            `${VITE_BACKEND_URI}/vessels/details/${selectedMmsi}`
-          );
-          console.log("Ship detail data:", response.data.data);
-          setShipDetailData(response.data.data);
+          const [shipResponse, ciiResponse, ciiGrafik] = await Promise.all([
+            axios.get(`${VITE_BACKEND_URI}/vessels/details/${selectedMmsi}`),
+            axios.get(`${VITE_BACKEND_URI}/latest/${selectedMmsi}`),
+            axios.get(`${VITE_BACKEND_URI}/latest/all/${selectedMmsi}`),
+          ]);
+
+          setCiiData(ciiResponse.data.data);
+          setShipDetailData(shipResponse.data.data);
+          setCiiGrafik(ciiGrafik.data.data);
         } catch (err) {
-          console.error("Error fetching ship data:", err);
+          console.error("Error fetching data:", err);
         }
       };
-
-      fetchShipData();
+      fetchData();
     }
   }, [selectedMmsi]);
-
-  const ciiData = {
-    year: 2023,
-    fuel: {
-      fuelMe: 100,
-      fuelAE: 68,
-      total: 168,
-    },
-    cii: {
-      ciiRequired: 80,
-      ciiAttained: 75,
-      ciiRating: 4.5,
-      ciiGrade: "B",
-    },
-  };
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -100,18 +105,19 @@ const CIIPage: FC = () => {
     fetchShipData();
   }, []);
 
-  const chartData = [
-    {
-      year: `${ciiData.year}`,
-      ciiRequired: ciiData.cii.ciiRequired,
-      ciiAttained: ciiData.cii.ciiAttained,
-      ciiRating: ciiData.cii.ciiRating,
-      d1: 12.5, // Example data for d1, you can replace this with actual values
-      d2: 11.5, // Example data for d2
-      d3: 10.5, // Example data for d3
-      d4: 9.5, // Example data for d4
-    },
-  ];
+  const chartData =
+    ciiGrafik?.ciiData.map((data) => ({
+      timestamp: data.timestamp,
+      ciiAttained: data.ciiAttained,
+      d1: ciiGrafik.ddVector.d1,
+      d2: ciiGrafik.ddVector.d2,
+      d3: ciiGrafik.ddVector.d3,
+      d4: ciiGrafik.ddVector.d4,
+    })) || [];
+
+  const toggleCiiSection = () => {
+    setShowCiiSection(!showCiiSection);
+  };
 
   return (
     <main className="h-screen w-screen relative bg-gray-300 overflow-hidden">
@@ -141,27 +147,31 @@ const CIIPage: FC = () => {
           )}
         </div>
         <div className="mr-16 h-[86vh]">
-          <ShipInfoCard shipData={shipDetailData} />
+          <ShipInfoCard shipData={shipDetailData} onClick={toggleCiiSection} />
         </div>
       </section>
 
-      <section className="absolute bottom-0 right-[28%] z-100 w-[72%] bg-slate-300 p-4 flex">
-        <div className="w-full h-68 mb-4  mr-4">
+      <section
+        className={`absolute bottom-0 right-[28%] z-100 w-[72%] bg-slate-300 p-4 flex ${
+          showCiiSection ? "flex" : "hidden"
+        }`}
+      >
+        <div className="w-full h-68 mb-4 mr-4">
           <CardHeader className="bg-blue-200 text-black p-2 rounded-t-xl">
             <h3 className="text-base font-semibold text-center">CII Grafik</h3>
           </CardHeader>
           {chartData.length === 0 ? (
-            <div className="flex flex-col items-center justify-center space-y-1 h-full p-2">
+            <div className="flex flex-col items-center justify-center space-y-1  p-2 bg-white h-56 rounded-b-xl">
               <div className="text-gray-400">No Data Available</div>
               <div className="text-xs text-gray-600">Data will appear here</div>
             </div>
           ) : (
-            <CardContent className="px-3  space-y-2 bg-white h-56 rounded-b-xl">
+            <CardContent className="px-3 space-y-2 bg-white h-56 rounded-b-xl">
               <ResponsiveContainer className="h-full">
                 <RechartsLineChart data={chartData}>
                   <CartesianGrid vertical={false} />
                   <XAxis
-                    dataKey="year"
+                    dataKey="timestamp"
                     tickLine={false}
                     axisLine={false}
                     tickMargin={6}
@@ -211,7 +221,6 @@ const CIIPage: FC = () => {
         </div>
         <CiiValueCard cii={ciiData} />
       </section>
-
       <PageTitle title="CII Calculation" />
       <Sidebar />
       <MapComponent markers={shipData} />

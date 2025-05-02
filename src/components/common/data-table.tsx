@@ -21,7 +21,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import React from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 interface DataTableProps<TData, TValue> {
@@ -41,16 +41,16 @@ export default function DataTable<TData, TValue>({
   const pageAsNumber = Number(page);
   const fallbackPage =
     isNaN(pageAsNumber) || pageAsNumber < 1 ? 1 : pageAsNumber;
-  const per_page = searchParams?.get("limit") ?? "10";
+  const per_page = searchParams?.get("limit") ?? "5";
   const perPageAsNumber = Number(per_page);
-  const fallbackPerPage = isNaN(perPageAsNumber) ? 10 : perPageAsNumber;
+  const fallbackPerPage = isNaN(perPageAsNumber) ? 5 : perPageAsNumber;
 
-  const [{ pageIndex, pageSize }, setPagination] = React.useState({
+  const [{ pageIndex, pageSize }, setPagination] = useState({
     pageIndex: fallbackPage - 1,
     pageSize: fallbackPerPage,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     setSearchParams({
       ...Object.fromEntries(searchParams),
       page: (pageIndex + 1).toString(),

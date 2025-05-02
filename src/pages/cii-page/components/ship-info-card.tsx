@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Card, CardHeader, CardContent } from "../../../components/ui/card";
 import { Ship } from "lucide-react";
 import { Button } from "../../../components/ui/button";
+import { useState } from "react";
 
 export interface ShipData {
   name: string;
@@ -23,9 +24,16 @@ export interface ShipData {
 
 export interface ShipInfoProps {
   shipData: ShipData | null;
+  onClick: () => void;
 }
 
-const ShipInfoCard: FC<ShipInfoProps> = ({ shipData }) => {
+const ShipInfoCard: FC<ShipInfoProps> = ({ shipData, onClick }) => {
+  const [showCII, setShowCII] = useState(false);
+
+  const handleClick = () => {
+    setShowCII(!showCII);
+    onClick();
+  };
   return (
     <Card className="row-span-5 h-full">
       <CardHeader className="bg-blue-200 text-black p-2 rounded-t-lg -mt-6">
@@ -73,8 +81,9 @@ const ShipInfoCard: FC<ShipInfoProps> = ({ shipData }) => {
               variant="default"
               className="w-40 ml-7 mt-4 mx-auto "
               size={"sm"}
+              onClick={handleClick}
             >
-              Calculate CII
+              {showCII ? "Hide CII" : "Calculate CII"}
             </Button>
           </section>
         ) : (
