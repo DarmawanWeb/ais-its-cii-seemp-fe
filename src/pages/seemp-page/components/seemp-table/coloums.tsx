@@ -3,6 +3,11 @@ import type { Seemp } from "../../../../types/seemp";
 
 export const columns: ColumnDef<Seemp>[] = [
   {
+    id: "no",
+    header: () => <div className="ml-2 text-center">NO</div>,
+    cell: ({ row }) => <div className="text-center ml-2">{row.index + 1}</div>,
+  },
+  {
     accessorKey: "recommendation",
     header: "RECOMMENDATION",
   },

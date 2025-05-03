@@ -15,10 +15,12 @@ import { CardHeader, CardContent } from "../../components/ui/card";
 import {
   CartesianGrid,
   XAxis,
+  YAxis,
   Tooltip,
   ResponsiveContainer,
   Legend,
   Line,
+  ReferenceArea,
   LineChart as RechartsLineChart,
 } from "recharts";
 
@@ -174,45 +176,92 @@ const CIIPage: FC = () => {
                     dataKey="timestamp"
                     tickLine={false}
                     axisLine={false}
-                    tickMargin={6}
+                    tickMargin={0}
                     fontSize={10}
+                  />
+                  <YAxis
+                    tickLine={false}
+                    domain={[
+                      25,
+                      () => {
+                        const maxLimit = ciiGrafik?.ddVector?.d4 ?? 100;
+                        return maxLimit + 20;
+                      },
+                    ]}
+                    hide={true}
                   />
                   <Tooltip />
                   <Legend />
+
+                  <ReferenceArea
+                    y1={ciiGrafik?.ddVector.d4}
+                    y2={
+                      ciiGrafik?.ddVector.d4 !== undefined
+                        ? ciiGrafik.ddVector.d4 + 20
+                        : 100
+                    }
+                    fill="red"
+                    fillOpacity={0.3}
+                  />
+                  <ReferenceArea
+                    y1={25}
+                    y2={ciiGrafik?.ddVector.d1}
+                    fill="blue"
+                    fillOpacity={0.4}
+                  />
+                  <ReferenceArea
+                    y1={ciiGrafik?.ddVector.d1}
+                    y2={ciiGrafik?.ddVector.d2}
+                    fill="green"
+                    fillOpacity={0.3}
+                  />
+                  <ReferenceArea
+                    y1={ciiGrafik?.ddVector.d2}
+                    y2={ciiGrafik?.ddVector.d3}
+                    fill="yellow"
+                    fillOpacity={0.3}
+                  />
+                  <ReferenceArea
+                    y1={ciiGrafik?.ddVector.d3}
+                    y2={ciiGrafik?.ddVector.d4}
+                    fill="orange"
+                    fillOpacity={0.5}
+                  />
+
                   <Line
                     type="monotone"
                     dataKey="ciiAttained"
-                    stroke="#000000"
+                    stroke="black"
                     strokeWidth={2}
                     dot={{ r: 1 }}
                   />
                   <Line
                     type="monotone"
                     dataKey="d1"
-                    stroke="#ff7300"
-                    strokeWidth={1}
-                    dot={{ r: 1 }}
+                    stroke="gray"
+                    strokeWidth={2}
+                    dot={false}
                   />
                   <Line
                     type="monotone"
                     dataKey="d2"
-                    stroke="#00C49F"
-                    strokeWidth={1}
-                    dot={{ r: 1 }}
+                    stroke="gray"
+                    strokeWidth={2}
+                    dot={false}
                   />
                   <Line
                     type="monotone"
                     dataKey="d3"
-                    stroke="#FF8042"
-                    strokeWidth={1}
-                    dot={{ r: 1 }}
+                    stroke="gray"
+                    strokeWidth={2}
+                    dot={false}
                   />
                   <Line
                     type="monotone"
                     dataKey="d4"
-                    stroke="#8B0000"
-                    strokeWidth={1}
-                    dot={{ r: 1 }}
+                    stroke="gray"
+                    strokeWidth={2}
+                    dot={false}
                   />
                 </RechartsLineChart>
               </ResponsiveContainer>

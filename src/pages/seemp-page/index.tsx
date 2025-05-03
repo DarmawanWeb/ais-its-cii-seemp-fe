@@ -301,7 +301,7 @@ const SEEMPPage: FC = () => {
       </section>
 
       {showTable && (
-        <section className="h-64 absolute bottom-0 w-13/20 z-100 left-0 bg-slate-300 p-3 text-xs">
+        <section className="h-64 absolute bottom-0 w-13/20 z-100 left-0 bg-slate-300 p-3 text-xs pl-5">
           <SeempTable seemp={currentItems} />
         </section>
       )}

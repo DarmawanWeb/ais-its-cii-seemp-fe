@@ -77,7 +77,7 @@ export default function DataTable<TData, TValue>({
     <>
       <ScrollArea className="max-h-[30vh] rounded-md border bg-white text-xs">
         <Table className="relative text-xs">
-          <TableHeader>
+          <TableHeader className="bg-blue-200">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
