@@ -46,27 +46,17 @@ const TelemetryPage: FC = () => {
 
   useEffect(() => {
     if (selectedMmsi) {
-      const fetchData = async () => {
+      const fetchShipData = async () => {
         try {
-          const [shipResponse, fuelResponse] = await Promise.all([
-            axios.get(`${VITE_BACKEND_URI}/vessels/details/${selectedMmsi}`),
-            axios.get(`${VITE_BACKEND_URI}/fuel-data`),
-          ]);
-
-          // Extract fuel data from the response and map it to the format expected by the chart
-          const fuels = fuelResponse.data.data.map((entry: any) => ({
-            timestamp: entry.fuelLogs[0]?.timestamp,
-            fuelME: parseFloat(entry.fuelLogs[0]?.fuelME.$numberDecimal),
-            fuelAE: parseFloat(entry.fuelLogs[0]?.fuelAE.$numberDecimal),
-          }));
-
-          setFuelData(fuels); // Set the extracted fuel data
+          const shipResponse = await axios.get(
+            `${VITE_BACKEND_URI}/vessels/details/${selectedMmsi}`
+          );
           setShipDetailData(shipResponse.data.data);
         } catch (err) {
-          console.error("Error fetching data:", err);
+          console.error("Error fetching ship data:", err);
         }
       };
-      fetchData();
+      fetchShipData();
     }
   }, [selectedMmsi]);
 
@@ -91,6 +81,7 @@ const TelemetryPage: FC = () => {
       fuelAE: fuel.fuelAE,
     })) || [];
 
+  // Fetch ship data once on component mount
   useEffect(() => {
     const fetchShipData = async () => {
       try {
@@ -102,6 +93,29 @@ const TelemetryPage: FC = () => {
     };
 
     fetchShipData();
+  }, []);
+
+  // Fetch fuel data every second
+  useEffect(() => {
+    const fetchFuelData = async () => {
+      try {
+        const fuelResponse = await axios.get(`${VITE_BACKEND_URI}/fuel-data`);
+        const fuels = fuelResponse.data.data.map((entry: any) => ({
+          timestamp: entry.fuelLogs[0]?.timestamp,
+          fuelME: parseFloat(entry.fuelLogs[0]?.fuelME.$numberDecimal),
+          fuelAE: parseFloat(entry.fuelLogs[0]?.fuelAE.$numberDecimal),
+        }));
+        setFuelData(fuels);
+      } catch (err) {
+        console.error("Error fetching fuel data:", err);
+      }
+    };
+
+    // Set the interval to fetch fuel data every 1 second
+    const intervalId = setInterval(fetchFuelData, 1000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
