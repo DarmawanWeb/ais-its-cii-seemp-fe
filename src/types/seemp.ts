@@ -1,6 +1,8 @@
 export type Seemp = {
   recommendation: string;
+  cost: string;
   ciiBefore: number;
+  ciiBeforeGrade: string;
   ciiAfter: number;
-  costEstimation: string;
+  ciiAfterGrade: string;
 };

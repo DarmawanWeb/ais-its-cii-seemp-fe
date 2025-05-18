@@ -12,8 +12,8 @@ export const columns: ColumnDef<Seemp>[] = [
     header: "RECOMMENDATION",
   },
   {
-    accessorKey: "costEstimation",
-    header: () => <div className="text-center">COST ESTIMATION</div>,
+    accessorKey: "cost",
+    header: () => <div className="text-center">COST EST.</div>,
     cell: ({ getValue }) => (
       <div className="text-center">{getValue() as string}</div>
     ),
@@ -26,8 +26,22 @@ export const columns: ColumnDef<Seemp>[] = [
     ),
   },
   {
+    accessorKey: "ciiBeforeGrade",
+    header: () => <div className="text-center">CII BEFORE</div>,
+    cell: ({ getValue }) => (
+      <div className="text-center">{getValue() as string}</div>
+    ),
+  },
+  {
     accessorKey: "ciiAfter",
-    header: () => <div className="text-center">ESTIMATION CII AFTER</div>,
+    header: () => <div className="text-center">EST. CII AFTER</div>,
+    cell: ({ getValue }) => (
+      <div className="text-center">{getValue() as string}</div>
+    ),
+  },
+  {
+    accessorKey: "ciiAfterGrade",
+    header: () => <div className="text-center">EST. CII AFTER</div>,
     cell: ({ getValue }) => (
       <div className="text-center">{getValue() as string}</div>
     ),

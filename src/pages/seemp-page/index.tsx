@@ -30,7 +30,7 @@ const SEEMPPage: FC = () => {
   const [shipDetailData, setShipDetailData] = useState<ShipData | null>(null);
   const [ciiData, setCiiData] = useState<Cii[] | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredShips, setFilteredShips] = useState(shipData);
+  const [filteredShips, setFilteredShips] = useState<MarkerData[]>(shipData);
   const [showTable, setShowTable] = useState(false);
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
   const location = useLocation();
@@ -103,64 +103,123 @@ const SEEMPPage: FC = () => {
   const dummySeempData: ISeempTableProps = {
     seemp: [
       {
-        recommendation: "Reduce fuel consumption by optimizing speed.",
-        ciiBefore: 12.5,
-        ciiAfter: 10.3,
-        costEstimation: "$1500",
+        recommendation: "Optimize annual voyage of ship",
+        cost: "$0.00",
+        ciiBefore: 0.944247253,
+        ciiBeforeGrade: "C",
+        ciiAfter: 0.466584,
+        ciiAfterGrade: "A",
       },
       {
-        recommendation: "Switch to eco-friendly fuel alternatives.",
-        ciiBefore: 14.2,
-        ciiAfter: 11.8,
-        costEstimation: "$2500",
+        recommendation: "Variable speed electric power generation",
+        cost: "$0.00",
+        ciiBefore: 0.944247253,
+        ciiBeforeGrade: "C",
+        ciiAfter: 0.8734287,
+        ciiAfterGrade: "B",
       },
       {
-        recommendation: "Implement route optimization technology.",
-        ciiBefore: 16.7,
-        ciiAfter: 13.2,
-        costEstimation: "$3000",
+        recommendation:
+          "Utilize waste heat recovery from machinnery devices on ship",
+        cost: "$84,700.00",
+        ciiBefore: 0.944247253,
+        ciiBeforeGrade: "C",
+        ciiAfter: 0.9049036,
+        ciiAfterGrade: "C",
       },
       {
-        recommendation: "Install energy-efficient equipment on the vessel.",
-        ciiBefore: 18.9,
-        ciiAfter: 15.4,
-        costEstimation: "$2000",
+        recommendation: "Using biofuels for main engine and auxiliary engine",
+        cost: "$94,040.00",
+        ciiBefore: 0.944247253,
+        ciiBeforeGrade: "C",
+        ciiAfter: 0.7239916,
+        ciiAfterGrade: "B",
       },
       {
-        recommendation: "Implement route optimization technology.",
-        ciiBefore: 16.7,
-        ciiAfter: 13.2,
-        costEstimation: "$3000",
+        recommendation: "Hull coating maintanance on the hull surface",
+        cost: "$122,159.58",
+        ciiBefore: 0.944247253,
+        ciiBeforeGrade: "C",
+        ciiAfter: 0.9245754,
+        ciiAfterGrade: "C",
       },
       {
-        recommendation: "Use renewable energy sources.",
-        ciiBefore: 17.2,
-        ciiAfter: 13.5,
-        costEstimation: "$5000",
+        recommendation: "Install propulsion efficiency devices",
+        cost: "$100,000 – $800,000",
+        ciiBefore: 0.944247253,
+        ciiBeforeGrade: "C",
+        ciiAfter: 0.8931005,
+        ciiAfterGrade: "B",
       },
       {
-        recommendation: "Install advanced route navigation.",
-        ciiBefore: 14.5,
-        ciiAfter: 12.1,
-        costEstimation: "$2200",
+        recommendation:
+          "Modified and install resistance reduction devices on ship",
+        cost: "$300,000 – $700,000",
+        ciiBefore: 0.944247253,
+        ciiBeforeGrade: "C",
+        ciiAfter: 0.9088379,
+        ciiAfterGrade: "C",
       },
       {
-        recommendation: "Regular maintenance for fuel efficiency.",
-        ciiBefore: 19.0,
-        ciiAfter: 15.8,
-        costEstimation: "$1700",
+        recommendation:
+          "Modified and install hull air cavity lubrication system on ship",
+        cost: "$430,000.00",
+        ciiBefore: 0.944247253,
+        ciiBeforeGrade: "C",
+        ciiAfter: 0.9127723,
+        ciiAfterGrade: "C",
       },
       {
-        recommendation: "Reduce ship speed during off-peak hours.",
-        ciiBefore: 15.5,
-        ciiAfter: 13.0,
-        costEstimation: "$1400",
+        recommendation:
+          "Using cold ironing energy source for supply electricity demand on ship",
+        cost: "$800,426.00",
+        ciiBefore: 0.944247253,
+        ciiBeforeGrade: "C",
+        ciiAfter: 0.8946742,
+        ciiAfterGrade: "B",
       },
       {
-        recommendation: "Invest in waste heat recovery.",
-        ciiBefore: 14.0,
-        ciiAfter: 12.0,
-        costEstimation: "$2400",
+        recommendation:
+          "Using fuel cells energy source for supply electricity demand on ship",
+        cost: "$982,560.00",
+        ciiBefore: 0.944247253,
+        ciiBeforeGrade: "C",
+        ciiAfter: 0.8208656,
+        ciiAfterGrade: "B",
+      },
+      {
+        recommendation:
+          "Using solar panel energy source for supply electricity demand on ship",
+        cost: "$1,656,000.00",
+        ciiBefore: 0.944247253,
+        ciiBeforeGrade: "C",
+        ciiAfter: 0.8714772,
+        ciiAfterGrade: "B",
+      },
+      {
+        recommendation: "Using biofuels for main engine and auxiliary engine",
+        cost: "$95,040.00",
+        ciiBefore: 0.944247253,
+        ciiBeforeGrade: "C",
+        ciiAfter: 0.723991616,
+        ciiAfterGrade: "B",
+      },
+      {
+        recommendation:
+          "Using wind power energy source for supply electricity demand on ship",
+        cost: "$2,208,000.00",
+        ciiBefore: 0.944247253,
+        ciiBeforeGrade: "C",
+        ciiAfter: 0.6310719,
+        ciiAfterGrade: "A",
+      },
+      {
+        recommendation: "Using LNG for main engine and auxiliary engine",
+        cost: "$7,508,160.00",
+        ciiBefore: 0.944247253,
+        ciiBeforeGrade: "C",
+        ciiAfter: 0.8126436,
+        ciiAfterGrade: "B",
       },
     ],
   };
@@ -248,39 +307,40 @@ const SEEMPPage: FC = () => {
                       />
                       <Legend />
                       <Line
-                        type="monotone"
                         dataKey="ciiAttained"
+                        fill="#000000"
                         stroke="#000000"
                         strokeWidth={2}
-                        dot={{ r: 1 }}
+                        baseLine={0}
+                        dot={{ r: 2 }}
                       />
                       <Line
                         type="monotone"
                         dataKey="d1"
                         stroke="#ff7300"
                         strokeWidth={1}
-                        dot={{ r: 1 }}
+                        dot={{ r: 0 }}
                       />
                       <Line
                         type="monotone"
                         dataKey="d2"
                         stroke="#00C49F"
                         strokeWidth={1}
-                        dot={{ r: 1 }}
+                        dot={{ r: 0 }}
                       />
                       <Line
                         type="monotone"
                         dataKey="d3"
                         stroke="#FF8042"
                         strokeWidth={1}
-                        dot={{ r: 1 }}
+                        dot={{ r: 0 }}
                       />
                       <Line
                         type="monotone"
                         dataKey="d4"
                         stroke="#8B0000"
                         strokeWidth={1}
-                        dot={{ r: 1 }}
+                        dot={{ r: 0 }}
                       />
                     </RechartsLineChart>
                   </ResponsiveContainer>

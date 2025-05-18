@@ -50,10 +50,17 @@ const TelemetryPage: FC = () => {
         try {
           const [shipResponse, fuelResponse] = await Promise.all([
             axios.get(`${VITE_BACKEND_URI}/vessels/details/${selectedMmsi}`),
-            axios.get(`${VITE_BACKEND_URI}/latest/fuel/${selectedMmsi}`),
+            axios.get(`${VITE_BACKEND_URI}/fuel-data`),
           ]);
 
-          setFuelData(fuelResponse.data.data.fuelsData); // Set fetched fuel data
+          // Extract fuel data from the response and map it to the format expected by the chart
+          const fuels = fuelResponse.data.data.map((entry: any) => ({
+            timestamp: entry.fuelLogs[0]?.timestamp,
+            fuelME: parseFloat(entry.fuelLogs[0]?.fuelME.$numberDecimal),
+            fuelAE: parseFloat(entry.fuelLogs[0]?.fuelAE.$numberDecimal),
+          }));
+
+          setFuelData(fuels); // Set the extracted fuel data
           setShipDetailData(shipResponse.data.data);
         } catch (err) {
           console.error("Error fetching data:", err);

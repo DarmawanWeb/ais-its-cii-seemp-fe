@@ -192,7 +192,6 @@ const CIIPage: FC = () => {
                   />
                   <Tooltip />
                   <Legend />
-
                   <ReferenceArea
                     y1={ciiGrafik?.ddVector.d4}
                     y2={
