@@ -19,28 +19,28 @@ export const columns: ColumnDef<Seemp>[] = [
     ),
   },
   {
-    accessorKey: "ciiBefore",
+    accessorKey: "ciiRatingBefore",
     header: () => <div className="text-center">CII BEFORE</div>,
     cell: ({ getValue }) => (
       <div className="text-center">{getValue() as string}</div>
     ),
   },
   {
-    accessorKey: "ciiBeforeGrade",
+    accessorKey: "ciiGradeBefore",
     header: () => <div className="text-center">CII BEFORE</div>,
     cell: ({ getValue }) => (
       <div className="text-center">{getValue() as string}</div>
     ),
   },
   {
-    accessorKey: "ciiAfter",
+    accessorKey: "ciiRatingAfter",
     header: () => <div className="text-center">EST. CII AFTER</div>,
     cell: ({ getValue }) => (
       <div className="text-center">{getValue() as string}</div>
     ),
   },
   {
-    accessorKey: "ciiAfterGrade",
+    accessorKey: "ciiGradeAfter",
     header: () => <div className="text-center">EST. CII AFTER</div>,
     cell: ({ getValue }) => (
       <div className="text-center">{getValue() as string}</div>

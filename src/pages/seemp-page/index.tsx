@@ -11,6 +11,7 @@ import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
 import { ShipData } from "./components/ship-info-card";
 import { Cii } from "./components/cii-value-card";
+import { Seemp } from "../../types/seemp";
 import { ISeempTableProps } from "./components/seemp-table";
 import {
   CartesianGrid,
@@ -30,17 +31,16 @@ const SEEMPPage: FC = () => {
   const [shipDetailData, setShipDetailData] = useState<ShipData | null>(null);
   const [ciiData, setCiiData] = useState<Cii[] | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredShips, setFilteredShips] = useState<MarkerData[]>(shipData);
+  const [filteredShips, setFilteredShips] = useState<MarkerData[]>([]);
   const [showTable, setShowTable] = useState(false);
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
+  const [seempData, setSeempData] = useState<ISeempTableProps | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [_, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
-  const [currentItems, setCurrentItems] = useState<ISeempTableProps["seemp"]>(
-    []
-  );
+  const [currentItems, setCurrentItems] = useState<Seemp[] | null>(null);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -56,24 +56,34 @@ const SEEMPPage: FC = () => {
 
     const indexOfLastItem = pageNumber * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    setCurrentItems(
-      dummySeempData.seemp.slice(indexOfFirstItem, indexOfLastItem)
-    );
+
+    if (seempData?.data) {
+      const paginatedData = seempData.data.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+      );
+      setCurrentItems(paginatedData);
+    } else {
+      setCurrentItems(null);
+    }
 
     window.scrollTo(0, 0);
-  }, [location.search]);
+  }, [location.search, itemsPerPage, seempData?.data]);
 
   useEffect(() => {
     if (selectedMmsi) {
       const fetchData = async () => {
         try {
-          const [shipResponse, ciiResponse] = await Promise.all([
+          const [shipResponse, ciiResponse, seempResponse] = await Promise.all([
             axios.get(`${VITE_BACKEND_URI}/vessels/details/${selectedMmsi}`),
             axios.get(`${VITE_BACKEND_URI}/annual-ciis/${selectedMmsi}`),
+            axios.get(`${VITE_BACKEND_URI}/seemp/${selectedMmsi}`),
           ]);
 
           setCiiData(ciiResponse.data.data.ciis);
           setShipDetailData(shipResponse.data.data);
+
+          setSeempData(seempResponse.data);
         } catch (err) {
           console.error("Error fetching data:", err);
         }
@@ -81,6 +91,20 @@ const SEEMPPage: FC = () => {
       fetchData();
     }
   }, [selectedMmsi]);
+
+  useEffect(() => {
+    const fetchShipData = async () => {
+      try {
+        const response = await axios.get(`${VITE_BACKEND_URI}/ais`);
+        setShipData(response.data.data);
+        setFilteredShips(response.data.data);
+      } catch (error) {
+        console.error("Error fetching ship data:", error);
+      }
+    };
+
+    fetchShipData();
+  }, []);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -100,130 +124,6 @@ const SEEMPPage: FC = () => {
     setShowTable((prev) => !prev);
   };
 
-  const dummySeempData: ISeempTableProps = {
-    seemp: [
-      {
-        recommendation: "Optimize annual voyage of ship",
-        cost: "$0.00",
-        ciiBefore: 0.944247253,
-        ciiBeforeGrade: "C",
-        ciiAfter: 0.466584,
-        ciiAfterGrade: "A",
-      },
-      {
-        recommendation: "Variable speed electric power generation",
-        cost: "$0.00",
-        ciiBefore: 0.944247253,
-        ciiBeforeGrade: "C",
-        ciiAfter: 0.8734287,
-        ciiAfterGrade: "B",
-      },
-      {
-        recommendation:
-          "Utilize waste heat recovery from machinnery devices on ship",
-        cost: "$84,700.00",
-        ciiBefore: 0.944247253,
-        ciiBeforeGrade: "C",
-        ciiAfter: 0.9049036,
-        ciiAfterGrade: "C",
-      },
-      {
-        recommendation: "Using biofuels for main engine and auxiliary engine",
-        cost: "$94,040.00",
-        ciiBefore: 0.944247253,
-        ciiBeforeGrade: "C",
-        ciiAfter: 0.7239916,
-        ciiAfterGrade: "B",
-      },
-      {
-        recommendation: "Hull coating maintanance on the hull surface",
-        cost: "$122,159.58",
-        ciiBefore: 0.944247253,
-        ciiBeforeGrade: "C",
-        ciiAfter: 0.9245754,
-        ciiAfterGrade: "C",
-      },
-      {
-        recommendation: "Install propulsion efficiency devices",
-        cost: "$100,000 – $800,000",
-        ciiBefore: 0.944247253,
-        ciiBeforeGrade: "C",
-        ciiAfter: 0.8931005,
-        ciiAfterGrade: "B",
-      },
-      {
-        recommendation:
-          "Modified and install resistance reduction devices on ship",
-        cost: "$300,000 – $700,000",
-        ciiBefore: 0.944247253,
-        ciiBeforeGrade: "C",
-        ciiAfter: 0.9088379,
-        ciiAfterGrade: "C",
-      },
-      {
-        recommendation:
-          "Modified and install hull air cavity lubrication system on ship",
-        cost: "$430,000.00",
-        ciiBefore: 0.944247253,
-        ciiBeforeGrade: "C",
-        ciiAfter: 0.9127723,
-        ciiAfterGrade: "C",
-      },
-      {
-        recommendation:
-          "Using cold ironing energy source for supply electricity demand on ship",
-        cost: "$800,426.00",
-        ciiBefore: 0.944247253,
-        ciiBeforeGrade: "C",
-        ciiAfter: 0.8946742,
-        ciiAfterGrade: "B",
-      },
-      {
-        recommendation:
-          "Using fuel cells energy source for supply electricity demand on ship",
-        cost: "$982,560.00",
-        ciiBefore: 0.944247253,
-        ciiBeforeGrade: "C",
-        ciiAfter: 0.8208656,
-        ciiAfterGrade: "B",
-      },
-      {
-        recommendation:
-          "Using solar panel energy source for supply electricity demand on ship",
-        cost: "$1,656,000.00",
-        ciiBefore: 0.944247253,
-        ciiBeforeGrade: "C",
-        ciiAfter: 0.8714772,
-        ciiAfterGrade: "B",
-      },
-      {
-        recommendation: "Using biofuels for main engine and auxiliary engine",
-        cost: "$95,040.00",
-        ciiBefore: 0.944247253,
-        ciiBeforeGrade: "C",
-        ciiAfter: 0.723991616,
-        ciiAfterGrade: "B",
-      },
-      {
-        recommendation:
-          "Using wind power energy source for supply electricity demand on ship",
-        cost: "$2,208,000.00",
-        ciiBefore: 0.944247253,
-        ciiBeforeGrade: "C",
-        ciiAfter: 0.6310719,
-        ciiAfterGrade: "A",
-      },
-      {
-        recommendation: "Using LNG for main engine and auxiliary engine",
-        cost: "$7,508,160.00",
-        ciiBefore: 0.944247253,
-        ciiBeforeGrade: "C",
-        ciiAfter: 0.8126436,
-        ciiAfterGrade: "B",
-      },
-    ],
-  };
-
   const chartData =
     ciiData?.map((cii) => ({
       year: `${cii.year}`,
@@ -235,18 +135,29 @@ const SEEMPPage: FC = () => {
       d4: cii.ddVector?.d4,
     })) || [];
 
-  useEffect(() => {
-    const fetchShipData = async () => {
-      try {
-        const response = await axios.get(`${VITE_BACKEND_URI}/ais`);
-        setShipData(response.data.data);
-      } catch (error) {
-        console.error("Error fetching ship data:", error);
-      }
-    };
+  console.log("SEMP DATA:", seempData);
+  console.log("CURRENT ITEMS:", currentItems);
 
-    fetchShipData();
-  }, []);
+  const totalPages =
+    seempData?.data && seempData.data.length
+      ? Math.ceil(seempData.data.length / itemsPerPage)
+      : 1;
+
+  console.log("Total Pages:", totalPages);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    const indexOfLastItem = page * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+    if (seempData?.data) {
+      const paginatedData = seempData.data.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+      );
+      setCurrentItems(paginatedData);
+    }
+  };
 
   return (
     <main className="h-screen w-screen relative bg-gray-300 overflow-hidden text-xs">
@@ -362,13 +273,32 @@ const SEEMPPage: FC = () => {
 
       {showTable && (
         <section className="h-64 absolute bottom-0 w-13/20 z-100 left-0 bg-slate-300 p-3 text-xs pl-5">
-          <SeempTable seemp={currentItems} />
+          <SeempTable data={currentItems} pageCount={totalPages} />
         </section>
       )}
 
       <PageTitle title="SEEMP Recommendation" />
       <Sidebar />
       <MapComponent markers={shipData} />
+
+      {/* Pagination Controls */}
+      <div className="pagination-controls">
+        <Button
+          disabled={currentPage <= 1}
+          onClick={() => handlePageChange(currentPage - 1)}
+        >
+          Prev
+        </Button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <Button
+          disabled={currentPage >= totalPages}
+          onClick={() => handlePageChange(currentPage + 1)}
+        >
+          Next
+        </Button>
+      </div>
     </main>
   );
 };

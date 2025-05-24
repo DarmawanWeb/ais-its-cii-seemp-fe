@@ -3,11 +3,12 @@ import { columns } from "./coloums";
 import type { Seemp } from "../../../../types/seemp";
 
 export interface ISeempTableProps {
-  seemp: Array<Seemp>;
+  data: Array<Seemp> | null;
+  pageCount: number;
 }
 
-export default function SeempTable({ seemp }: ISeempTableProps) {
+export default function SeempTable({ data }: ISeempTableProps) {
   return (
-    <>{seemp && <DataTable columns={columns} data={seemp} pageCount={2} />}</>
+    <>{data && <DataTable columns={columns} data={data} pageCount={3} />}</>
   );
 }

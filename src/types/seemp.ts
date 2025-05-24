@@ -1,8 +1,9 @@
 export type Seemp = {
-  recommendation: string;
-  cost: string;
-  ciiBefore: number;
-  ciiBeforeGrade: string;
-  ciiAfter: number;
-  ciiAfterGrade: string;
+  name: string;
+  cost: number;
+  costDisplay: string;
+  ciiRatingAfter: number;
+  ciiGradeAfter: string;
+  ciiRatingBefore: number;
+  ciiGradeBefore: string;
 };
