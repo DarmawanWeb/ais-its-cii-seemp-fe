@@ -203,7 +203,7 @@ const CIIPage: FC = () => {
                     fillOpacity={0.3}
                   />
                   <ReferenceArea
-                    y1={25}
+                    y1={1}
                     y2={ciiGrafik?.ddVector.d1}
                     fill="blue"
                     fillOpacity={0.4}
