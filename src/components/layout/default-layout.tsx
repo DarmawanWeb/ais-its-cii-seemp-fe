@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet";
 import ResponsiveLayout from "./responsive-layout";
 import Sidebar from "../common/sidebar";
 import PageTitle from "../common/page-title";
-import MapComponent from "../common/map";
 
 interface DefaultLayoutProps {
   title: string;
@@ -26,7 +25,6 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({
         <PageTitle title={pageTitle} />
         <Sidebar />
         {children}
-        <MapComponent markers={null} />
         <ResponsiveLayout />
       </main>
     </>

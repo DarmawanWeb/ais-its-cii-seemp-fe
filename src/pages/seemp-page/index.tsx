@@ -23,7 +23,6 @@ import {
 } from "recharts";
 import SeempTable from "./components/seemp-table";
 import PageTitle from "../../components/common/page-title";
-import MapComponent from "../../components/common/map";
 import Sidebar from "../../components/common/sidebar";
 
 const SEEMPPage: FC = () => {
@@ -135,15 +134,10 @@ const SEEMPPage: FC = () => {
       d4: cii.ddVector?.d4,
     })) || [];
 
-  console.log("SEMP DATA:", seempData);
-  console.log("CURRENT ITEMS:", currentItems);
-
   const totalPages =
     seempData?.data && seempData.data.length
       ? Math.ceil(seempData.data.length / itemsPerPage)
       : 1;
-
-  console.log("Total Pages:", totalPages);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -279,9 +273,6 @@ const SEEMPPage: FC = () => {
 
       <PageTitle title="SEEMP Recommendation" />
       <Sidebar />
-      <MapComponent markers={shipData} />
-
-      {/* Pagination Controls */}
       <div className="pagination-controls">
         <Button
           disabled={currentPage <= 1}

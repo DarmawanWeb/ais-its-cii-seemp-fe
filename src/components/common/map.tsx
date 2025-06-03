@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -31,11 +31,16 @@ export interface MarkerData {
 
 export interface MapComponentProps {
   markers: MarkerData[] | null;
+  selectedMmsi: string | null;
+  setSelectedMmsi: (mmsi: string | null) => void;
 }
 
-const MapComponent: FC<MapComponentProps> = ({ markers }) => {
+const MapComponent: FC<MapComponentProps> = ({
+  markers,
+  selectedMmsi,
+  setSelectedMmsi,
+}) => {
   const { setSelectedTile, selectedTile } = useTileStore();
-  const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -43,7 +48,7 @@ const MapComponent: FC<MapComponentProps> = ({ markers }) => {
     if (mmsiParam) {
       setSelectedMmsi(mmsiParam);
     }
-  }, []);
+  }, [setSelectedMmsi]);
 
   const LayerChangeHandler: FC = () => {
     useMapEvents({
@@ -54,6 +59,7 @@ const MapComponent: FC<MapComponentProps> = ({ markers }) => {
     return null;
   };
 
+  console.log("Markers:", markers);
   const getIcon = (
     heading: number,
     isSelected: boolean,
@@ -115,8 +121,8 @@ const MapComponent: FC<MapComponentProps> = ({ markers }) => {
         return (
           <Marker
             key={`marker-${index}`}
-            position={[marker.positions[0].lat, marker.positions[0].lon]}
-            icon={getIcon(marker.positions[0].cog, isSelected, marker.icon)}
+            position={[marker.positions[0]?.lat, marker.positions[0]?.lon]}
+            icon={getIcon(marker.positions[0]?.cog, isSelected, marker?.icon)}
             eventHandlers={{
               click: () => handleMarkerClick(marker.mmsi),
             }}

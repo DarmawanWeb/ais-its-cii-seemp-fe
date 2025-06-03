@@ -4,7 +4,6 @@ import LoadingScreen from "../components/layout/loading-screen";
 import ResponsiveLayout from "../components/layout/responsive-layout";
 import DefaultLayout from "../components/layout/default-layout";
 
-const HomePage = lazy(() => import("../pages/home-page"));
 const CIIPage = lazy(() => import("../pages/cii-page"));
 const SEEMPPage = lazy(() => import("../pages/seemp-page"));
 const TelemetryPage = lazy(() => import("../pages/telemetry-page"));
@@ -25,13 +24,6 @@ const withAppWrappers = <
 );
 
 export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: withAppWrappers(HomePage, DefaultLayout, {
-      pageTitle: "Ship Emission Monitoring",
-      title: "Home Page",
-    }),
-  },
   {
     path: "/cii",
     element: withAppWrappers(CIIPage, DefaultLayout, {
