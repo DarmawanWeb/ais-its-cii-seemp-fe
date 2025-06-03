@@ -5,29 +5,28 @@ import {
   Marker,
   LayersControl,
   useMapEvents,
-  Popup,
   ZoomControl,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import useTileStore from "../../hooks/use-selected-tile";
+import { MarkerPopup } from "./marker-popup";
 import { STADIA_MAPS_API_KEY } from "../../lib/env";
 
-enum ShipSize {
-  SMALL = "small",
-  MEDIUM = "medium",
-  LARGE = "large",
+export interface IAisPosition {
+  navstatus: number;
+  lat: number;
+  lon: number;
+  sog: number;
+  cog: number;
+  hdg: number;
+  timestamp: Date;
 }
 
 export interface MarkerData {
   mmsi: string;
-  coordinates: [number, number];
-  icon?: string; // Icon is optional
-  sog: number;
-  cog: number;
-  heading: number;
-  type: string;
-  size: ShipSize;
+  icon?: string;
+  positions: IAisPosition[];
 }
 
 export interface MapComponentProps {
@@ -116,26 +115,13 @@ const MapComponent: FC<MapComponentProps> = ({ markers }) => {
         return (
           <Marker
             key={`marker-${index}`}
-            position={marker.coordinates}
-            icon={getIcon(marker.heading, isSelected, marker.icon)}
+            position={[marker.positions[0].lat, marker.positions[0].lon]}
+            icon={getIcon(marker.positions[0].cog, isSelected, marker.icon)}
             eventHandlers={{
               click: () => handleMarkerClick(marker.mmsi),
             }}
           >
-            <Popup>
-              <div>
-                <b>MMSI:</b> {marker.mmsi}
-                <br />
-                <b>Heading:</b> {marker.heading}°<br />
-                <b>Latitude:</b> {marker.coordinates[0].toFixed(5)}
-                <br />
-                <b>Longitude:</b> {marker.coordinates[1].toFixed(5)}
-                <br />
-                <b>SOG:</b> {marker.sog} knots
-                <br />
-                <b>COG:</b> {marker.cog}°<br />
-              </div>
-            </Popup>
+            <MarkerPopup marker={marker} />
           </Marker>
         );
       })}

@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
-import MobileNotSupported from "../common/mobile-not-suported";
+import MobileNotSupported from "../layout/mobile-not-suported";
 
-export default function ResponsiveLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ResponsiveLayout() {
   const [isDesktop, setIsDesktop] = useState(true);
 
   useEffect(() => {
@@ -26,5 +22,5 @@ export default function ResponsiveLayout({
     return <MobileNotSupported />;
   }
 
-  return <>{children}</>;
+  return <></>;
 }
