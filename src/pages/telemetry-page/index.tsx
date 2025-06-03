@@ -97,10 +97,20 @@ const TelemetryPage: FC = () => {
 
   // Fetch fuel data every second
   useEffect(() => {
+    interface FuelLog {
+      timestamp: string;
+      fuelME: { $numberDecimal: string };
+      fuelAE: { $numberDecimal: string };
+    }
+
+    interface FuelEntry {
+      fuelLogs: FuelLog[];
+    }
+
     const fetchFuelData = async () => {
       try {
         const fuelResponse = await axios.get(`${VITE_BACKEND_URI}/fuel-data`);
-        const fuels = fuelResponse.data.data.map((entry: any) => ({
+        const fuels = fuelResponse.data.data.map((entry: FuelEntry) => ({
           timestamp: entry.fuelLogs[0]?.timestamp,
           fuelME: parseFloat(entry.fuelLogs[0]?.fuelME.$numberDecimal),
           fuelAE: parseFloat(entry.fuelLogs[0]?.fuelAE.$numberDecimal),
@@ -155,7 +165,7 @@ const TelemetryPage: FC = () => {
                   Telemetry Fuel Data
                 </h3>
               </CardHeader>
-              {chartData.length === 0 ? (
+              {shipDetailData === null ? (
                 <div className="flex flex-col items-center justify-center space-y-1 h-full p-2">
                   <LineChart className="text-gray-400" size={32} />
                   <div className="text-xs text-gray-600">
