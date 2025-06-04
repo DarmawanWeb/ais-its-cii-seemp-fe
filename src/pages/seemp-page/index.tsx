@@ -7,17 +7,63 @@ import ShipInfoCard from "./components/ship-info-card";
 import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
 import MapComponent from "../../components/common/map";
+import { AnnualCIIWithDDVector } from "./components/cii-value-card";
+import CiiValueCard from "./components/cii-value-card";
+import SEEMPChart from "./components/seemp-chart";
+import SeempTable from "./components/seemp-table";
+import { ISeempTableProps } from "./components/seemp-table";
+import { Button } from "../../components/ui/button";
+import { Seemp } from "../../types/seemp";
 
 import { ShipData } from "./components/ship-info-card";
 
 const SEEMPPage: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
   const [shipDetail, setShipDetail] = useState<ShipData | null>(null);
+  const [ciiData, setCiiData] = useState<AnnualCIIWithDDVector[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredShips, setFilteredShips] = useState(shipData);
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
+  const [showTable, setShowTable] = useState(false);
+  const [seempData, setSeempData] = useState<ISeempTableProps | null>(null);
   const location = useLocation();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+  const [currentItems, setCurrentItems] = useState<Seemp[] | null>(null);
   const navigate = useNavigate();
+
+  const toggleTableVisibility = () => {
+    setShowTable((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const mmsiParam = urlParams.get("mmsi");
+    const pageParam = urlParams.get("page");
+
+    if (mmsiParam) {
+      setSelectedMmsi(mmsiParam);
+    }
+
+    const pageNumber = pageParam ? Number(pageParam) : 1;
+    setCurrentPage(pageNumber);
+
+    const indexOfLastItem = pageNumber * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+    if (seempData?.data) {
+      const paginatedData = seempData.data.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+      );
+      setCurrentItems(paginatedData);
+    } else {
+      setCurrentItems(null);
+    }
+
+    window.scrollTo(0, 0);
+  }, [location.search, itemsPerPage, seempData?.data]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -36,11 +82,42 @@ const SEEMPPage: FC = () => {
         );
         setShipDetail(data.data);
       } catch (error) {
-        setShipData([]);
         console.error("Error fetching ship detail:", error);
       }
     };
     fetchDetails();
+  }, [selectedMmsi]);
+
+  useEffect(() => {
+    if (!selectedMmsi) return setShipDetail(null);
+    const fetchDetails = async () => {
+      try {
+        const { data } = await axios.get(
+          `${VITE_BACKEND_URI}/cii/annual/${selectedMmsi}/ddvector`
+        );
+        setCiiData(data.data);
+      } catch (error) {
+        setCiiData([]);
+        console.error("Error fetching ship detail:", error);
+      }
+    };
+    fetchDetails();
+  }, [selectedMmsi]);
+
+  useEffect(() => {
+    if (!selectedMmsi) return setSeempData(null);
+    const fetchSeempData = async () => {
+      try {
+        const { data } = await axios.get(
+          `${VITE_BACKEND_URI}/seemp/${selectedMmsi}`
+        );
+        setSeempData(data);
+      } catch (error) {
+        setSeempData(null);
+        console.error("Error fetching SEEMP data:", error);
+      }
+    };
+    fetchSeempData();
   }, [selectedMmsi]);
 
   const handleSearch = (query: string) => {
@@ -69,6 +146,25 @@ const SEEMPPage: FC = () => {
 
     fetchShipData();
   }, []);
+
+  const totalPages =
+    seempData?.data && seempData.data.length
+      ? Math.ceil(seempData.data.length / itemsPerPage)
+      : 1;
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    const indexOfLastItem = page * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+    if (seempData?.data) {
+      const paginatedData = seempData.data.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+      );
+      setCurrentItems(paginatedData);
+    }
+  };
 
   return (
     <main className="h-screen w-screen relative bg-gray-300 overflow-hidden z-1">
@@ -100,6 +196,14 @@ const SEEMPPage: FC = () => {
 
         <div className="grid grid-rows-9 gap-4 mb-4 mr-16 h-[90vh]">
           <ShipInfoCard shipData={shipDetail} />
+          <div className="grid grid-cols-2 gap-2 row-span-4">
+            <CiiValueCard ciis={ciiData || []} />
+            <SEEMPChart
+              ciis={ciiData || []}
+              showTable={showTable}
+              toggleTableVisibility={toggleTableVisibility}
+            />
+          </div>
         </div>
       </aside>
 
@@ -108,6 +212,28 @@ const SEEMPPage: FC = () => {
         selectedMmsi={selectedMmsi}
         setSelectedMmsi={setSelectedMmsi}
       />
+      {showTable && (
+        <section className="h-64 absolute bottom-0 w-13/20 z-100 left-0 bg-slate-300 p-3 text-xs pl-5">
+          <SeempTable data={currentItems} pageCount={totalPages} />
+        </section>
+      )}
+      <div className="pagination-controls">
+        <Button
+          disabled={currentPage <= 1}
+          onClick={() => handlePageChange(currentPage - 1)}
+        >
+          Prev
+        </Button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <Button
+          disabled={currentPage >= totalPages}
+          onClick={() => handlePageChange(currentPage + 1)}
+        >
+          Next
+        </Button>
+      </div>
     </main>
   );
 };

@@ -59,7 +59,6 @@ const MapComponent: FC<MapComponentProps> = ({
     return null;
   };
 
-  console.log("Markers:", markers);
   const getIcon = (
     heading: number,
     isSelected: boolean,

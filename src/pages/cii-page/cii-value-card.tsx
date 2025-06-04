@@ -1,95 +1,108 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Card, CardHeader, CardContent } from "../../components/ui/card";
-import DataNotFound from "../../components/common/data-not-found";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "../../components/ui/select";
+import { Database } from "lucide-react";
 
-export interface IFuelConsumption {
-  fuelConsumptionMeTon: number;
-  fuelConsumptionAeTon: number;
-  totalFuelConsumptionTon: number;
+export interface IDdVector {
+  d1: number;
+  d2: number;
+  d3: number;
+  d4: number;
 }
 
-export interface ICIICalculation {
+export interface AnnualCIIWithDDVector {
+  year: number;
   ciiRequired: number;
   ciiAttained: number;
   ciiRating: number;
   ciiGrade: string;
   totalDistance: number;
-  fuelConsumption: IFuelConsumption;
+  ddVector: IDdVector;
 }
 
 export interface CiiValueCardProps {
-  cii: ICIICalculation | null;
+  ciis: AnnualCIIWithDDVector[];
 }
 
-const formatNumber = (value: number) => value.toFixed(5);
+const CiiValueCard: FC<CiiValueCardProps> = ({ ciis }) => {
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
-const LabelValueRow: FC<{ label: string; value: string | number }> = ({
-  label,
-  value,
-}) => (
-  <>
-    <b className="col-span-2">{label}</b>
-    <p>: {value}</p>
-  </>
-);
+  const handleYearChange = (year: string) => {
+    const newYear = Number(year);
+    setSelectedYear(newYear);
+  };
 
-const CiiValueCard: FC<CiiValueCardProps> = ({ cii }) => {
-  const renderCiiContent = (cii: ICIICalculation) => (
-    <section className="text-xs flex flex-col h-full justify-between">
-      <div className="h-0.5 bg-black w-full my-1" />
-      <div className="grid grid-cols-3 gap-y-1 ml-4">
-        <LabelValueRow
-          label="ME Fuel Consumption"
-          value={`${formatNumber(
-            cii.fuelConsumption.fuelConsumptionMeTon
-          )} ton`}
-        />
-        <LabelValueRow
-          label="AE Fuel Consumption"
-          value={`${formatNumber(
-            cii.fuelConsumption.fuelConsumptionAeTon
-          )} ton`}
-        />
-        <LabelValueRow
-          label="Total Fuel Consumption"
-          value={`${formatNumber(
-            cii.fuelConsumption.totalFuelConsumptionTon
-          )} ton`}
-        />
+  const renderCiiContent = (cii: AnnualCIIWithDDVector) => (
+    <section className="text-md">
+      <div className="h-0.5 bg-black w-full mx-auto my-2"></div>
+      <div className="grid grid-cols-2 ml-6">
+        <b>CII Required</b> <p>: {cii.ciiRequired.toFixed(5)}</p>
+        <b>CII Attained</b> <p>: {cii.ciiAttained.toFixed(5)}</p>
       </div>
-      <div className="h-0.5 bg-black w-full my-2" />
-      <div className="grid grid-cols-3 gap-y-1 ml-4">
-        <LabelValueRow
-          label="Total Distance"
-          value={`${formatNumber(cii.totalDistance)} m`}
-        />
-        <LabelValueRow
-          label="CII Required"
-          value={formatNumber(cii.ciiRequired)}
-        />
-        <LabelValueRow
-          label="CII Attained"
-          value={formatNumber(cii.ciiAttained)}
-        />
-      </div>
-      <div className="h-0.5 bg-black w-full my-2" />
-      <div className="grid grid-cols-3 gap-y-1 ml-4">
-        <LabelValueRow
-          label="CII  Rating"
-          value={formatNumber(cii.ciiRating)}
-        />
-        <LabelValueRow label="CII Grade" value={cii.ciiGrade} />
+      <div className="h-0.5 bg-black w-full mx-auto my-2"></div>
+      <div className="grid grid-cols-2 ml-6">
+        <b className="col-span-2">CII Rating</b>
+        <b>Number</b> <p>: {cii.ciiRating.toFixed(5)}</p>
+        <b>Grade</b> <p>: {cii.ciiGrade}</p>
       </div>
     </section>
   );
 
+  const isDataAvailable = ciis && ciis.length > 0;
+
+  const selectedCii =
+    isDataAvailable && selectedYear !== null
+      ? ciis.find((cii) => cii.year === selectedYear)
+      : null;
+
   return (
-    <Card className="row-span-5 h-[260px] w-md overflow-auto rounded-md border border-gray-300">
-      <CardHeader className="bg-blue-200 px-3 py-2 text-black">
-        <h3 className="text-sm font-semibold text-center">CII Value</h3>
+    <Card className="text-xs">
+      <CardHeader className="bg-blue-200 text-black p-2 rounded-t-lg -mt-6 relative">
+        <h3 className="text-base font-semibold text-center">CII Value</h3>
       </CardHeader>
-      <CardContent className="h-full p-2 -mt-6 space-y-2 text-sm">
-        {cii ? renderCiiContent(cii) : <DataNotFound />}
+      <CardContent className="p-1 -mt-4 text-xs space-y-1 h-full">
+        {isDataAvailable ? (
+          <Select onValueChange={handleYearChange}>
+            <SelectTrigger className="w-full cursor-pointer z-50 text-xs mb-4">
+              <SelectValue
+                placeholder={
+                  selectedYear === null ? "Select Year" : `${selectedYear}`
+                }
+              />
+            </SelectTrigger>
+            <SelectContent className="z-100 absolute h-40">
+              <SelectGroup>
+                <SelectLabel className="text-xs">Select Year</SelectLabel>
+                {ciis.map((cii) => (
+                  <SelectItem
+                    key={cii.year}
+                    value={cii.year.toString()}
+                    className="text-xs"
+                  >
+                    {cii.year}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        ) : null}
+
+        {selectedCii ? (
+          renderCiiContent(selectedCii)
+        ) : (
+          <div className="flex flex-col items-center justify-center -mt-8 space-y-1 h-full">
+            <Database className="text-gray-400" size={18} />
+            <div className="text-xs text-gray-600">Data will appear here</div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

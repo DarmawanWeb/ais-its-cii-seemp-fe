@@ -1,11 +1,16 @@
 interface LabelValuePairProps {
   label: string;
   value: string | number;
+  isExtend?: boolean;
 }
 
-export const LabelValuePair = ({ label, value }: LabelValuePairProps) => (
+export const LabelValuePair = ({
+  label,
+  value,
+  isExtend = true,
+}: LabelValuePairProps) => (
   <>
     <span className="font-semibold">{label}</span>
-    <span className="col-span-2">: {value}</span>
+    <span className={`${isExtend ? "col-span-2" : ""}`}>: {value}</span>
   </>
 );
