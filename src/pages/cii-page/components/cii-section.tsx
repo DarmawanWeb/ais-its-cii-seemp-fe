@@ -1,6 +1,7 @@
 import { FC } from "react";
 import CiiValueCard from "../cii-value-card";
 import { CardHeader, CardContent, Card } from "../../../components/ui/card";
+import DataNotFound from "../../../components/common/data-not-found";
 import {
   CartesianGrid,
   XAxis,
@@ -53,14 +54,11 @@ const CIISection: FC<ICIISectionProps> = ({ ciiGrafik, ciiData, show }) => {
         <CardHeader className="bg-blue-200 text-black px-3 py-2">
           <h3 className="text-sm font-semibold text-center">CII Value</h3>
         </CardHeader>
-        {chartData.length === 0 ? (
-          <div className="flex flex-col items-center justify-center space-y-1 p-2 bg-white h-56 rounded-b-xl">
-            <div className="text-gray-400">No Data Available</div>
-            <div className="text-xs text-gray-600">Data will appear here</div>
-          </div>
-        ) : (
-          <CardContent className="px-3 space-y-2 bg-white h-56 rounded-b-xl">
-            <ResponsiveContainer className="h-full">
+        <CardContent className="px-3 space-y-2 bg-white rounded-b-xl h-full">
+          {chartData.length === 0 ? (
+            <DataNotFound />
+          ) : (
+            <ResponsiveContainer>
               <RechartsLineChart data={chartData}>
                 <CartesianGrid vertical={false} />
                 <XAxis
@@ -73,7 +71,7 @@ const CIISection: FC<ICIISectionProps> = ({ ciiGrafik, ciiData, show }) => {
                 <YAxis
                   tickLine={false}
                   domain={[
-                    25,
+                    1,
                     () => {
                       const maxLimit = ciiGrafik?.ddVector?.d4 ?? 100;
                       return maxLimit + 20;
@@ -154,8 +152,8 @@ const CIISection: FC<ICIISectionProps> = ({ ciiGrafik, ciiData, show }) => {
                 />
               </RechartsLineChart>
             </ResponsiveContainer>
-          </CardContent>
-        )}
+          )}
+        </CardContent>
       </Card>
       <CiiValueCard cii={ciiData} />
     </section>

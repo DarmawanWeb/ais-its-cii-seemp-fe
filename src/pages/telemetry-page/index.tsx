@@ -45,6 +45,24 @@ const TelemetryPage: FC = () => {
   }, [location.search]);
 
   useEffect(() => {
+    const fetchShipDetail = async (mmsi: string) => {
+      try {
+        const response = await axios.get(
+          `${VITE_BACKEND_URI}/ships/data/secondary/mmsi/${mmsi}`
+        );
+        setShipDetailData(response.data.data);
+      } catch (error) {
+        console.error("Error fetching ship detail:", error);
+      }
+    };
+    if (selectedMmsi) {
+      fetchShipDetail(selectedMmsi);
+    } else {
+      setShipDetailData(null);
+    }
+  }, [selectedMmsi]);
+
+  useEffect(() => {
     if (selectedMmsi) {
       const fetchShipData = async () => {
         try {
@@ -210,7 +228,11 @@ const TelemetryPage: FC = () => {
 
       <PageTitle title="Telemetry Data" />
       <Sidebar />
-      <MapComponent markers={shipData} />
+      <MapComponent
+        markers={shipData}
+        selectedMmsi={selectedMmsi}
+        setSelectedMmsi={setSelectedMmsi}
+      />
     </main>
   );
 };

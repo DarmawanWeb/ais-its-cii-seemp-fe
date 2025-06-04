@@ -1,11 +1,13 @@
-import { FC, useState, useEffect } from "react";
-import MapComponent from "../../components/common/map";
+import { FC, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
+import { Search } from "lucide-react";
+
+import MapComponent from "../../components/common/map";
 import { Input } from "../../components/ui/input";
 import CIISection from "./components/cii-section";
-import { Search } from "lucide-react";
 import ShipInfoCard from "./components/ship-info-card";
-import axios from "axios";
+
 import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
 import { ShipData } from "./components/ship-info-card";
@@ -25,83 +27,84 @@ export type ciiGrafik = {
 } | null;
 
 const CIIPage: FC = () => {
-  const [shipData, setShipData] = useState<MarkerData[]>([]);
-  const [shipDetailData, setShipDetailData] = useState<ShipData | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [ships, setShips] = useState<MarkerData[]>([]);
+  const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
+  const [shipDetail, setShipDetail] = useState<ShipData | null>(null);
   const [ciiData, setCiiData] = useState<ICIICalculation | null>(null);
   const [ciiGrafik, setCiiGrafik] = useState<ciiGrafik>(null);
-  const [filteredShips, setFilteredShips] = useState(shipData);
-  const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const [showCiiSection, setShowCiiSection] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
-    const mmsiParam = urlParams.get("mmsi");
-    if (mmsiParam) {
-      setSelectedMmsi(mmsiParam);
-    }
+    const mmsi = new URLSearchParams(location.search).get("mmsi");
+    if (mmsi) setSelectedMmsi(mmsi);
   }, [location.search]);
 
   useEffect(() => {
-    const fetchShipDetail = async (mmsi: string) => {
+    const fetchShips = async () => {
       try {
-        const response = await axios.get(
-          `${VITE_BACKEND_URI}/ships/data/secondary/mmsi/${mmsi}`
+        const { data } = await axios.get(`${VITE_BACKEND_URI}/ais`);
+        setShips(data.data);
+      } catch (error) {
+        console.error("Error fetching ship data:", error);
+      }
+    };
+    fetchShips();
+  }, []);
+
+  useEffect(() => {
+    if (!selectedMmsi) return setShipDetail(null);
+    const fetchDetails = async () => {
+      try {
+        const { data } = await axios.get(
+          `${VITE_BACKEND_URI}/ships/data/secondary/mmsi/${selectedMmsi}`
         );
-        setShipDetailData(response.data.data);
+        setShipDetail(data.data);
       } catch (error) {
         console.error("Error fetching ship detail:", error);
       }
     };
-    if (selectedMmsi) {
-      fetchShipDetail(selectedMmsi);
-    } else {
-      setShipDetailData(null);
-    }
+    fetchDetails();
   }, [selectedMmsi]);
 
   useEffect(() => {
-    if (selectedMmsi) {
-      const fetchCiiData = async (mmsi: string) => {
-        try {
-          const response = await axios.get(
-            `${VITE_BACKEND_URI}/cii/daily/${mmsi}/latest`
-          );
-          setCiiData(response.data.data.cii[0].cii);
-        } catch (error) {
-          console.error("Error fetching CII data:", error);
-        }
-      };
-      setShowCiiSection(false);
-      fetchCiiData(selectedMmsi);
-    }
+    if (!selectedMmsi) return;
+    setShowCiiSection(false);
+    const fetchCii = async () => {
+      try {
+        const { data } = await axios.get(
+          `${VITE_BACKEND_URI}/cii/daily/${selectedMmsi}/latest`
+        );
+        setCiiData(data.data.cii[0].cii);
+      } catch (error) {
+        setCiiData(null);
+        console.error("Error fetching CII data:", error);
+      }
+    };
+    fetchCii();
   }, [selectedMmsi]);
 
   useEffect(() => {
-    if (selectedMmsi) {
-      const fetchCiiGrafik = async (mmsi: string) => {
-        try {
-          const response = await axios.get(
-            `${VITE_BACKEND_URI}/cii/daily/${mmsi}/attained`
-          );
-          console.log("CII Grafik Data:", response.data.data);
-          setCiiGrafik(response.data.data);
-        } catch (error) {
-          console.error("Error fetching CII grafik:", error);
-        }
-      };
-      fetchCiiGrafik(selectedMmsi);
-    }
+    if (!selectedMmsi) return;
+    const fetchGrafik = async () => {
+      try {
+        const { data } = await axios.get(
+          `${VITE_BACKEND_URI}/cii/daily/${selectedMmsi}/attained`
+        );
+        setCiiGrafik(data.data);
+      } catch (error) {
+        setCiiGrafik(null);
+        console.error("Error fetching CII grafik:", error);
+      }
+    };
+    fetchGrafik();
   }, [selectedMmsi]);
+
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    if (query === "") {
-      setFilteredShips(shipData);
-    } else {
-      setFilteredShips(shipData.filter((ship) => ship.mmsi.includes(query)));
-    }
   };
 
   const handleShipClick = (mmsi: string) => {
@@ -109,18 +112,9 @@ const CIIPage: FC = () => {
     setSearchQuery("");
   };
 
-  useEffect(() => {
-    const fetchShipData = async () => {
-      try {
-        const response = await axios.get(`${VITE_BACKEND_URI}/ais`);
-        setShipData(response.data.data);
-      } catch (error) {
-        console.error("Error fetching ship data:", error);
-      }
-    };
-
-    fetchShipData();
-  }, []);
+  const filteredShips = searchQuery
+    ? ships.filter((ship) => ship.mmsi.includes(searchQuery))
+    : [];
 
   const toggleCiiSection = () => {
     setShowCiiSection(!showCiiSection);
@@ -153,10 +147,15 @@ const CIIPage: FC = () => {
             </div>
           )}
         </div>
-        <div className="mr-16 h-[90vh] ">
-          <ShipInfoCard shipData={shipDetailData} onClick={toggleCiiSection} />
+        <div className="mr-16 h-[90vh]">
+          <ShipInfoCard
+            shipData={shipDetail}
+            toogleCiiSection={toggleCiiSection}
+            showCiiSection={showCiiSection}
+          />
         </div>
       </aside>
+
       <CIISection
         ciiGrafik={ciiGrafik}
         ciiData={ciiData}
@@ -164,7 +163,7 @@ const CIIPage: FC = () => {
       />
 
       <MapComponent
-        markers={shipData}
+        markers={ships}
         selectedMmsi={selectedMmsi}
         setSelectedMmsi={setSelectedMmsi}
       />

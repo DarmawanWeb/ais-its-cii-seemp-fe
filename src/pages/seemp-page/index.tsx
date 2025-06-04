@@ -12,6 +12,7 @@ import { MarkerData } from "../../components/common/map";
 import { ShipData } from "./components/ship-info-card";
 import { Cii } from "./components/cii-value-card";
 import { Seemp } from "../../types/seemp";
+import MapComponent from "../../components/common/map";
 import { ISeempTableProps } from "./components/seemp-table";
 import {
   CartesianGrid,
@@ -290,6 +291,11 @@ const SEEMPPage: FC = () => {
           Next
         </Button>
       </div>
+      <MapComponent
+        markers={shipData}
+        selectedMmsi={selectedMmsi}
+        setSelectedMmsi={setSelectedMmsi}
+      />
     </main>
   );
 };

@@ -1,10 +1,10 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Card, CardHeader, CardContent } from "../../../components/ui/card";
 import { Button } from "../../../components/ui/button";
 import { VesselDetails } from "./ship-detail";
 import { PositionDetails } from "./position-detail";
-import { AlertTriangle } from "lucide-react";
 import { IAisPosition } from "../../../components/common/map";
+import DataNotFound from "../../../components/common/data-not-found";
 
 export interface ShipData {
   NAME: string;
@@ -22,24 +22,24 @@ export interface ShipData {
 }
 
 export interface ShipInfoProps {
+  showCiiSection: boolean;
   shipData: ShipData | null;
-  onClick: () => void;
+  toogleCiiSection: () => void;
 }
 
-const ShipInfoCard: FC<ShipInfoProps> = ({ shipData, onClick }) => {
-  const [showCII, setShowCII] = useState(false);
-
+const ShipInfoCard: FC<ShipInfoProps> = ({
+  shipData,
+  toogleCiiSection,
+  showCiiSection,
+}) => {
   return (
     <Card className="row-span-5 h-full overflow-auto rounded-md border border-gray-300">
       <CardHeader className="bg-blue-200 text-black px-3 py-2">
         <h3 className="text-sm font-semibold text-center">Ship Information</h3>
       </CardHeader>
-      <CardContent className="px-3 flex flex-col gap-4">
+      <CardContent className="px-3 flex flex-col gap-4 h-full">
         {!shipData ? (
-          <div className="flex flex-col items-center justify-center text-center text-gray-600 mt-8 gap-2 h-[65vh]">
-            <AlertTriangle className="w-6 h-6 text-yellow-500" />
-            <span className="text-sm font-medium">Ships Data not found</span>
-          </div>
+          <DataNotFound />
         ) : (
           <>
             <VesselDetails ship={shipData} />
@@ -67,11 +67,10 @@ const ShipInfoCard: FC<ShipInfoProps> = ({ shipData, onClick }) => {
                 size="sm"
                 className="w-32"
                 onClick={() => {
-                  setShowCII(!showCII);
-                  onClick();
+                  toogleCiiSection();
                 }}
               >
-                {showCII ? "Hide CII" : "Calculate CII"}
+                {showCiiSection ? "Hide CII" : "Calculate CII"}
               </Button>
             </div>
           </>

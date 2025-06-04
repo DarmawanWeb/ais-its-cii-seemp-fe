@@ -1,7 +1,6 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import LoadingScreen from "../components/layout/loading-screen";
-import ResponsiveLayout from "../components/layout/responsive-layout";
 import DefaultLayout from "../components/layout/default-layout";
 
 const CIIPage = lazy(() => import("../pages/cii-page"));
@@ -25,6 +24,13 @@ const withAppWrappers = <
 
 export const router = createBrowserRouter([
   {
+    path: "/",
+    element: withAppWrappers(TelemetryPage, DefaultLayout, {
+      pageTitle: "Telemetry Data",
+      title: "Telemetry Page",
+    }),
+  },
+  {
     path: "/cii",
     element: withAppWrappers(CIIPage, DefaultLayout, {
       pageTitle: "CII Monitoring",
@@ -33,11 +39,10 @@ export const router = createBrowserRouter([
   },
   {
     path: "/seemp",
-    element: withAppWrappers(SEEMPPage, ResponsiveLayout),
-  },
-  {
-    path: "/telemetry",
-    element: withAppWrappers(TelemetryPage, ResponsiveLayout),
+    element: withAppWrappers(SEEMPPage, DefaultLayout, {
+      pageTitle: "SEEMP Recommendations",
+      title: "SEEMP Page",
+    }),
   },
   {
     path: "*",
