@@ -155,24 +155,24 @@ const SEEMPPage: FC = () => {
   };
 
   return (
-    <main className="h-screen w-screen relative bg-gray-300 overflow-hidden text-xs">
-      <section className="absolute top-0 right-0 z-100 w-7/20 h-full bg-slate-300 p-3 rounded-l-xl">
-        <div className="mb-2 mr-16 relative">
+    <main className="h-screen w-screen relative bg-gray-300 overflow-hidden z-0">
+      <aside className="absolute top-0 right-0 z-100 w-[28%] h-full bg-slate-300 p-4">
+        <div className="mb-4 mr-16 relative">
           <Input
             placeholder="Search ships..."
-            className="w-full p-1 rounded-md border border-gray-400 bg-white pl-8 text-xs"
+            className="w-full p-3 rounded-lg border border-gray-400 bg-white pl-10"
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
           />
-          <div className="absolute left-2 top-1/2 transform -translate-y-1/2">
-            <Search className="text-gray-600" size={16} />
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+            <Search className="text-gray-600" size={20} />
           </div>
           {searchQuery && filteredShips.length > 0 && (
-            <div className="mt-2 bg-white border rounded-md shadow-lg max-h-40 overflow-y-auto absolute z-999 w-full text-xs">
+            <div className="mt-2 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto absolute z-999 w-full">
               {filteredShips.map((ship) => (
                 <div
                   key={ship.mmsi}
-                  className="block px-3 py-1 hover:bg-gray-200 cursor-pointer"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 cursor-pointer"
                   onClick={() => handleShipClick(ship.mmsi)}
                 >
                   {ship.mmsi}
@@ -181,7 +181,6 @@ const SEEMPPage: FC = () => {
             </div>
           )}
         </div>
-
         <div className="grid grid-rows-9 gap-2 mb-4 mr-16 h-[88vh]">
           <ShipInfoCard shipData={shipDetailData} />
           <div className="grid grid-cols-2 gap-2 row-span-4">
@@ -200,7 +199,7 @@ const SEEMPPage: FC = () => {
                   </div>
                 </div>
               ) : (
-                <CardContent className="px-3 h-36 space-y-2">
+                <CardContent className="px-3 h-36 space-y-2 text-xs">
                   <ResponsiveContainer className="h-full">
                     <RechartsLineChart data={chartData}>
                       <CartesianGrid vertical={false} />
@@ -264,7 +263,7 @@ const SEEMPPage: FC = () => {
             </Card>
           </div>
         </div>
-      </section>
+      </aside>
 
       {showTable && (
         <section className="h-64 absolute bottom-0 w-13/20 z-100 left-0 bg-slate-300 p-3 text-xs pl-5">

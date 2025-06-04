@@ -1,35 +1,22 @@
+import axios from "axios";
 import { FC, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Input } from "../../components/ui/input";
-import { Search, LineChart } from "lucide-react";
+import { Search } from "lucide-react";
 import ShipInfoCard from "./components/ship-info-card";
-import { Card, CardHeader, CardContent } from "../../components/ui/card";
-import axios from "axios";
 import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
-import { ShipData } from "./components/ship-info-card";
-import PageTitle from "../../components/common/page-title";
 import MapComponent from "../../components/common/map";
-import Sidebar from "../../components/common/sidebar";
-import {
-  CartesianGrid,
-  XAxis,
-  ResponsiveContainer,
-  Legend,
-  Line,
-  LineChart as RechartsLineChart,
-} from "recharts";
+import TelemetryChart from "./components/telemetry-chart";
+import { IFuelConsumption } from "./components/telemetry-chart";
 
-interface FuelData {
-  fuelME: number;
-  fuelAE: number;
-  timestamp: string;
-}
+import { ShipData } from "./components/ship-info-card";
+import { set } from "date-fns";
 
 const TelemetryPage: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
-  const [shipDetailData, setShipDetailData] = useState<ShipData | null>(null);
-  const [fuelData, setFuelData] = useState<FuelData[]>([]);
+  const [shipDetail, setShipDetail] = useState<ShipData | null>(null);
+  const [fuelData, setFuelData] = useState<IFuelConsumption[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredShips, setFilteredShips] = useState(shipData);
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
@@ -45,37 +32,18 @@ const TelemetryPage: FC = () => {
   }, [location.search]);
 
   useEffect(() => {
-    const fetchShipDetail = async (mmsi: string) => {
+    if (!selectedMmsi) return setShipDetail(null);
+    const fetchDetails = async () => {
       try {
-        const response = await axios.get(
-          `${VITE_BACKEND_URI}/ships/data/secondary/mmsi/${mmsi}`
+        const { data } = await axios.get(
+          `${VITE_BACKEND_URI}/ships/data/secondary/mmsi/${selectedMmsi}`
         );
-        setShipDetailData(response.data.data);
+        setShipDetail(data.data);
       } catch (error) {
         console.error("Error fetching ship detail:", error);
       }
     };
-    if (selectedMmsi) {
-      fetchShipDetail(selectedMmsi);
-    } else {
-      setShipDetailData(null);
-    }
-  }, [selectedMmsi]);
-
-  useEffect(() => {
-    if (selectedMmsi) {
-      const fetchShipData = async () => {
-        try {
-          const shipResponse = await axios.get(
-            `${VITE_BACKEND_URI}/vessels/details/${selectedMmsi}`
-          );
-          setShipDetailData(shipResponse.data.data);
-        } catch (err) {
-          console.error("Error fetching ship data:", err);
-        }
-      };
-      fetchShipData();
-    }
+    fetchDetails();
   }, [selectedMmsi]);
 
   const handleSearch = (query: string) => {
@@ -92,14 +60,6 @@ const TelemetryPage: FC = () => {
     setSearchQuery("");
   };
 
-  const chartData =
-    fuelData?.map((fuel) => ({
-      timestamp: fuel.timestamp,
-      fuelME: fuel.fuelME,
-      fuelAE: fuel.fuelAE,
-    })) || [];
-
-  // Fetch ship data once on component mount
   useEffect(() => {
     const fetchShipData = async () => {
       try {
@@ -113,42 +73,25 @@ const TelemetryPage: FC = () => {
     fetchShipData();
   }, []);
 
-  // Fetch fuel data every second
   useEffect(() => {
-    interface FuelLog {
-      timestamp: string;
-      fuelME: { $numberDecimal: string };
-      fuelAE: { $numberDecimal: string };
-    }
-
-    interface FuelEntry {
-      fuelLogs: FuelLog[];
-    }
-
     const fetchFuelData = async () => {
+      if (!selectedMmsi) return;
       try {
-        const fuelResponse = await axios.get(`${VITE_BACKEND_URI}/fuel-data`);
-        const fuels = fuelResponse.data.data.map((entry: FuelEntry) => ({
-          timestamp: entry.fuelLogs[0]?.timestamp,
-          fuelME: parseFloat(entry.fuelLogs[0]?.fuelME.$numberDecimal),
-          fuelAE: parseFloat(entry.fuelLogs[0]?.fuelAE.$numberDecimal),
-        }));
-        setFuelData(fuels);
-      } catch (err) {
-        console.error("Error fetching fuel data:", err);
+        const { data } = await axios.get(
+          `${VITE_BACKEND_URI}/telemetry/${selectedMmsi}`
+        );
+        setFuelData(data.data.fuel);
+      } catch (error) {
+        setFuelData([]);
+        console.error("Error fetching telemetry data:", error);
       }
     };
-
-    // Set the interval to fetch fuel data every 1 second
-    const intervalId = setInterval(fetchFuelData, 1000);
-
-    // Clean up interval on component unmount
-    return () => clearInterval(intervalId);
-  }, []);
+    fetchFuelData();
+  }, [selectedMmsi]);
 
   return (
-    <main className="h-screen w-screen relative bg-gray-300 overflow-hidden text-xs">
-      <section className="absolute top-0 right-0 z-100 w-7/20 h-full bg-slate-300 p-3 rounded-l-xl">
+    <main className="h-screen w-screen relative bg-gray-300 overflow-hidden z-1">
+      <aside className="absolute top-0 right-0 z-100 w-7/20 h-full bg-slate-300 p-3 rounded-l-xl">
         <div className="mb-2 mr-16 relative mt-2">
           <Input
             placeholder="Search ships..."
@@ -160,7 +103,7 @@ const TelemetryPage: FC = () => {
             <Search className="text-gray-600" size={16} />
           </div>
           {searchQuery && filteredShips.length > 0 && (
-            <div className="mt-2 bg-white border rounded-md shadow-lg max-h-40 overflow-y-auto absolute z-999 w-full text-xs">
+            <div className="mt-2 bg-white border rounded-md shadow-lg text-sm max-h-40 overflow-y-auto absolute z-999 w-full ">
               {filteredShips.map((ship) => (
                 <div
                   key={ship.mmsi}
@@ -174,60 +117,12 @@ const TelemetryPage: FC = () => {
           )}
         </div>
 
-        <div className="grid grid-rows-9 gap-4 mb-4 mr-16 h-[88vh]">
-          <ShipInfoCard shipData={shipDetailData} />
-          <div className="h-full">
-            <Card className="w-full h-68">
-              <CardHeader className="bg-blue-200 text-black p-2 -mt-6 rounded-t-md">
-                <h3 className="text-base font-semibold text-center">
-                  Telemetry Fuel Data
-                </h3>
-              </CardHeader>
-              {shipDetailData === null ? (
-                <div className="flex flex-col items-center justify-center space-y-1 h-full p-2">
-                  <LineChart className="text-gray-400" size={32} />
-                  <div className="text-xs text-gray-600">
-                    Data will appear here
-                  </div>
-                </div>
-              ) : (
-                <CardContent className="px-3 h-36 space-y-2">
-                  <ResponsiveContainer className="h-full">
-                    <RechartsLineChart data={chartData}>
-                      <CartesianGrid vertical={false} />
-                      <XAxis
-                        dataKey="timestamp"
-                        tickLine={false}
-                        axisLine={false}
-                        tickMargin={6}
-                        fontSize={10}
-                      />
-                      <Legend />
-                      <Line
-                        type="monotone"
-                        dataKey="fuelME"
-                        stroke="#000000"
-                        strokeWidth={2}
-                        dot={{ r: 1 }}
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="fuelAE"
-                        stroke="#ff7300"
-                        strokeWidth={1}
-                        dot={{ r: 1 }}
-                      />
-                    </RechartsLineChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              )}
-            </Card>
-          </div>
+        <div className="grid grid-rows-9 gap-4 mb-4 mr-16 h-[90vh]">
+          <ShipInfoCard shipData={shipDetail} />
+          <TelemetryChart fuel={fuelData} />
         </div>
-      </section>
+      </aside>
 
-      <PageTitle title="Telemetry Data" />
-      <Sidebar />
       <MapComponent
         markers={shipData}
         selectedMmsi={selectedMmsi}
