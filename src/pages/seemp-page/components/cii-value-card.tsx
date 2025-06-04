@@ -57,7 +57,6 @@ const CiiValueCard: FC<CiiValueCardProps> = ({ ciis }) => {
 
   return (
     <Card className="text-xs">
-      {" "}
       <CardHeader className="bg-blue-200 text-black p-2 rounded-t-lg -mt-6 relative">
         <h3 className="text-base font-semibold text-center">CII Value</h3>{" "}
       </CardHeader>

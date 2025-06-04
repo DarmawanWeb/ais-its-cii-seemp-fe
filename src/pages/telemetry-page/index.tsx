@@ -11,7 +11,6 @@ import TelemetryChart from "./components/telemetry-chart";
 import { IFuelConsumption } from "./components/telemetry-chart";
 
 import { ShipData } from "./components/ship-info-card";
-import { set } from "date-fns";
 
 const TelemetryPage: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
