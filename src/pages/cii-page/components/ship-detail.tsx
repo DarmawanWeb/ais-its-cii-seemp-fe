@@ -6,8 +6,8 @@ export const VesselDetails = ({ ship }: { ship: ShipData }) => (
     <LabelValuePair label="Name" value={ship.NAME} />
     <LabelValuePair label="MMSI" value={ship.MMSI} />
     <LabelValuePair label="IMO" value={ship.IMO} />
-    <LabelValuePair label="Flag" value={ship.FLAG} />
-    <LabelValuePair label="Type" value={ship.TYPE} />
+    <LabelValuePair label="Flag" value={ship.FLAGNAME} />
+    <LabelValuePair label="Type" value={ship.TYPENAME} />
     <LabelValuePair label="Built" value={ship.BUILT} />
     <LabelValuePair label="GT" value={ship.GT} />
     <LabelValuePair label="DWT" value={ship.DWT} />

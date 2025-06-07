@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import LoadingScreen from "../components/layout/loading-screen";
 import DefaultLayout from "../components/layout/default-layout";
 
@@ -25,6 +25,10 @@ const withAppWrappers = <
 export const router = createBrowserRouter([
   {
     path: "/",
+    element: <Navigate to="/telemetry" replace />,
+  },
+  {
+    path: "/telemetry",
     element: withAppWrappers(TelemetryPage, DefaultLayout, {
       pageTitle: "Telemetry Data",
       title: "Telemetry Page",

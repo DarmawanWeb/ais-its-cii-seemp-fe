@@ -1,8 +1,8 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import ResponsiveLayout from "./responsive-layout";
 import Sidebar from "../common/sidebar";
 import PageTitle from "../common/page-title";
+import MobileNotSupported from "./mobile-not-suported";
 
 interface DefaultLayoutProps {
   title: string;
@@ -15,6 +15,26 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({
   pageTitle,
   children,
 }) => {
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    const checkIsDesktop = () => {
+      const width = window.innerWidth;
+      setIsDesktop(width >= 1024);
+    };
+
+    checkIsDesktop();
+    window.addEventListener("resize", checkIsDesktop);
+
+    return () => {
+      window.removeEventListener("resize", checkIsDesktop);
+    };
+  }, []);
+
+  if (!isDesktop) {
+    return <MobileNotSupported />;
+  }
+
   return (
     <>
       <Helmet>
@@ -25,7 +45,6 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({
         <PageTitle title={pageTitle} />
         <Sidebar />
         {children}
-        <ResponsiveLayout />
       </main>
     </>
   );

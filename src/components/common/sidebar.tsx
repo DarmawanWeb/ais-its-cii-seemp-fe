@@ -8,7 +8,7 @@ const Sidebar: FC = () => {
   const currentPage = window.location.pathname;
 
   const icons = [
-    { icon: Fuel, redirect: "/" },
+    { icon: Fuel, redirect: "/telemetry" },
     { icon: Copyright, redirect: "/cii" },
     { icon: ChartLine, redirect: "/seemp" },
   ];

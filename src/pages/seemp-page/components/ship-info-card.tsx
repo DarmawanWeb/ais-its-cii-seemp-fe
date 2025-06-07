@@ -9,8 +9,8 @@ export interface ShipData {
   NAME: string;
   MMSI: string;
   IMO: string;
-  FLAG: string;
-  TYPE: string;
+  FLAGNAME: string;
+  TYPENAME: string;
   BUILT: number;
   GT: number;
   DWT: number;
