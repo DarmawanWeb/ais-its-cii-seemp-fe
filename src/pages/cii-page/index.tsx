@@ -86,7 +86,6 @@ const CIIPage: FC = () => {
           const response = await axios.get(
             `${VITE_BACKEND_URI}/cii/daily/${mmsi}/attained`
           );
-          console.log("CII Grafik Data:", response.data.data);
           setCiiGrafik(response.data.data);
         } catch (error) {
           console.error("Error fetching CII grafik:", error);
