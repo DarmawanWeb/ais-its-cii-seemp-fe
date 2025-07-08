@@ -30,11 +30,15 @@ const CIIPage: FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [ciiData, setCiiData] = useState<ICIICalculation | null>(null);
   const [ciiGrafik, setCiiGrafik] = useState<ciiGrafik>(null);
-  const [filteredShips, setFilteredShips] = useState(shipData);
+  const [filteredShips, setFilteredShips] = useState<MarkerData[]>([]);
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
   const [showCiiSection, setShowCiiSection] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    setFilteredShips(shipData);
+  }, [shipData]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -94,18 +98,40 @@ const CIIPage: FC = () => {
       fetchCiiGrafik(selectedMmsi);
     }
   }, [selectedMmsi]);
+
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    if (query === "") {
-      setFilteredShips(shipData);
+    if (query.trim() === "") {
+      setFilteredShips([]);
     } else {
-      setFilteredShips(shipData.filter((ship) => ship.mmsi.includes(query)));
+      const searchTerm = query.trim();
+      const filtered = shipData.filter((ship) => {
+        if (ship.mmsi === searchTerm) {
+          return true;
+        }
+        return ship.mmsi.startsWith(searchTerm);
+      });
+      
+      filtered.sort((a, b) => {
+        if (a.mmsi === searchTerm) return -1;
+        if (b.mmsi === searchTerm) return 1;
+        return a.mmsi.localeCompare(b.mmsi);
+      });
+      
+      setFilteredShips(filtered);
     }
   };
 
   const handleShipClick = (mmsi: string) => {
     navigate(`?mmsi=${mmsi}`);
     setSearchQuery("");
+    setFilteredShips([]);
+  };
+
+  const handleInputBlur = () => {
+    setTimeout(() => {
+      setFilteredShips([]);
+    }, 200);
   };
 
   useEffect(() => {
@@ -130,25 +156,37 @@ const CIIPage: FC = () => {
       <aside className="absolute top-0 right-0 z-100 w-[28%] h-full bg-slate-300 p-4">
         <div className="mb-4 mr-16 relative">
           <Input
-            placeholder="Search ships..."
+            placeholder="Search ships by MMSI..."
             className="w-full p-3 rounded-lg border border-gray-400 bg-white pl-10"
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
+            onBlur={handleInputBlur}
+            onFocus={() => {
+              if (searchQuery.trim()) {
+                handleSearch(searchQuery);
+              }
+            }}
           />
           <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
             <Search className="text-gray-600" size={20} />
           </div>
-          {searchQuery && filteredShips.length > 0 && (
+          {searchQuery.trim() && filteredShips.length > 0 && (
             <div className="mt-2 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto absolute z-999 w-full">
               {filteredShips.map((ship) => (
                 <div
                   key={ship.mmsi}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 cursor-pointer"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 cursor-pointer border-b border-gray-100 last:border-b-0"
                   onClick={() => handleShipClick(ship.mmsi)}
+                  onMouseDown={(e) => e.preventDefault()}
                 >
-                  {ship.mmsi}
+                  <div className="font-medium">{ship.mmsi}</div>
                 </div>
               ))}
+            </div>
+          )}
+          {searchQuery.trim() && filteredShips.length === 0 && (
+            <div className="mt-2 bg-white border rounded-lg shadow-lg text-sm p-3 absolute z-999 w-full">
+              <div className="text-gray-500">No ships found matching "{searchQuery}"</div>
             </div>
           )}
         </div>

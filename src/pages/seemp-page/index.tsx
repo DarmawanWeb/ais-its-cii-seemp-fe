@@ -22,7 +22,7 @@ const SEEMPPage: FC = () => {
   const [shipDetail, setShipDetail] = useState<ShipData | null>(null);
   const [ciiData, setCiiData] = useState<AnnualCIIWithDDVector[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredShips, setFilteredShips] = useState(shipData);
+  const [filteredShips, setFilteredShips] = useState<MarkerData[]>([]);
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
   const [showTable, setShowTable] = useState(false);
   const [seempData, setSeempData] = useState<ISeempTableProps | null>(null);
@@ -36,6 +36,11 @@ const SEEMPPage: FC = () => {
   const toggleTableVisibility = () => {
     setShowTable((prev) => !prev);
   };
+
+  // Initialize filteredShips when shipData changes
+  useEffect(() => {
+    setFilteredShips(shipData);
+  }, [shipData]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -89,7 +94,7 @@ const SEEMPPage: FC = () => {
   }, [selectedMmsi]);
 
   useEffect(() => {
-    if (!selectedMmsi) return setShipDetail(null);
+    if (!selectedMmsi) return setCiiData([]);
     const fetchDetails = async () => {
       try {
         const { data } = await axios.get(
@@ -98,7 +103,7 @@ const SEEMPPage: FC = () => {
         setCiiData(data.data);
       } catch (error) {
         setCiiData([]);
-        console.error("Error fetching ship detail:", error);
+        console.error("Error fetching CII data:", error);
       }
     };
     fetchDetails();
@@ -120,18 +125,44 @@ const SEEMPPage: FC = () => {
     fetchSeempData();
   }, [selectedMmsi]);
 
+  // Fixed search function
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    if (query === "") {
-      setFilteredShips(shipData);
+    if (query.trim() === "") {
+      setFilteredShips([]);
     } else {
-      setFilteredShips(shipData.filter((ship) => ship.mmsi.includes(query)));
+      const searchTerm = query.trim();
+      const filtered = shipData.filter((ship) => {
+        // Exact match first priority
+        if (ship.mmsi === searchTerm) {
+          return true;
+        }
+        // Then starts with match
+        return ship.mmsi.startsWith(searchTerm);
+      });
+      
+      // Sort results: exact match first, then by MMSI order
+      filtered.sort((a, b) => {
+        if (a.mmsi === searchTerm) return -1;
+        if (b.mmsi === searchTerm) return 1;
+        return a.mmsi.localeCompare(b.mmsi);
+      });
+      
+      setFilteredShips(filtered);
     }
   };
 
   const handleShipClick = (mmsi: string) => {
     navigate(`?mmsi=${mmsi}`);
     setSearchQuery("");
+    setFilteredShips([]);
+  };
+
+  const handleInputBlur = () => {
+  
+    setTimeout(() => {
+      setFilteredShips([]);
+    }, 200);
   };
 
   useEffect(() => {
@@ -164,6 +195,14 @@ const SEEMPPage: FC = () => {
       );
       setCurrentItems(paginatedData);
     }
+
+    // Update URL with page parameter
+    const params = new URLSearchParams(location.search);
+    if (selectedMmsi) {
+      params.set('mmsi', selectedMmsi);
+    }
+    params.set('page', page.toString());
+    navigate(`?${params.toString()}`, { replace: true });
   };
 
   return (
@@ -171,25 +210,38 @@ const SEEMPPage: FC = () => {
       <aside className="absolute top-0 right-0 z-100 w-7/20 h-full bg-slate-300 p-3 rounded-l-xl">
         <div className="mb-2 mr-16 relative mt-2">
           <Input
-            placeholder="Search ships..."
+            placeholder="Search ships by MMSI..."
             className="w-full p-1 rounded-md border border-gray-400 bg-white pl-8 text-xs"
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
+            onBlur={handleInputBlur}
+            onFocus={() => {
+              // Show results again if there's a search query
+              if (searchQuery.trim()) {
+                handleSearch(searchQuery);
+              }
+            }}
           />
           <div className="absolute left-2 top-1/2 transform -translate-y-1/2">
             <Search className="text-gray-600" size={16} />
           </div>
-          {searchQuery && filteredShips.length > 0 && (
-            <div className="mt-2 bg-white border rounded-md shadow-lg text-sm max-h-40 overflow-y-auto absolute z-999 w-full ">
+          {searchQuery.trim() && filteredShips.length > 0 && (
+            <div className="mt-2 bg-white border rounded-md shadow-lg text-sm max-h-40 overflow-y-auto absolute z-999 w-full">
               {filteredShips.map((ship) => (
                 <div
                   key={ship.mmsi}
-                  className="block px-3 py-1 hover:bg-gray-200 cursor-pointer"
+                  className="block px-3 py-1 hover:bg-gray-200 cursor-pointer border-b border-gray-100 last:border-b-0"
                   onClick={() => handleShipClick(ship.mmsi)}
+                  onMouseDown={(e) => e.preventDefault()} 
                 >
-                  {ship.mmsi}
+                  <div className="font-medium">{ship.mmsi}</div>
                 </div>
               ))}
+            </div>
+          )}
+          {searchQuery.trim() && filteredShips.length === 0 && (
+            <div className="mt-2 bg-white border rounded-md shadow-lg text-sm p-3 absolute z-999 w-full">
+              <div className="text-gray-500">No ships found matching "{searchQuery}"</div>
             </div>
           )}
         </div>
@@ -217,23 +269,27 @@ const SEEMPPage: FC = () => {
           <SeempTable data={currentItems} pageCount={totalPages} />
         </section>
       )}
-      <div className="pagination-controls">
-        <Button
-          disabled={currentPage <= 1}
-          onClick={() => handlePageChange(currentPage - 1)}
-        >
-          Prev
-        </Button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <Button
-          disabled={currentPage >= totalPages}
-          onClick={() => handlePageChange(currentPage + 1)}
-        >
-          Next
-        </Button>
-      </div>
+      {showTable && (
+        <div className="absolute bottom-4 left-4 bg-white p-2 rounded-md shadow-lg flex items-center gap-2 z-110">
+          <Button
+            disabled={currentPage <= 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+            size="sm"
+          >
+            Prev
+          </Button>
+          <span className="text-sm">
+            Page {currentPage} of {totalPages}
+          </span>
+          <Button
+            disabled={currentPage >= totalPages}
+            onClick={() => handlePageChange(currentPage + 1)}
+            size="sm"
+          >
+            Next
+          </Button>
+        </div>
+      )}
     </main>
   );
 };
