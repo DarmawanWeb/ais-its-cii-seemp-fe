@@ -162,7 +162,15 @@ const TelemetryPage: FC = () => {
       }
     };
     
+    if (!selectedMmsi) {
+      setFuelData([]);
+      return;
+    }
+
     fetchFuelData();
+    const interval = setInterval(fetchFuelData, 500);
+
+    return () => clearInterval(interval);
   }, [selectedMmsi]);
 
   return (
@@ -194,6 +202,7 @@ const TelemetryPage: FC = () => {
                   onMouseDown={(e) => e.preventDefault()}
                 >
                   <div className="font-medium">{ship.mmsi}</div>
+  
                 </div>
               ))}
             </div>
