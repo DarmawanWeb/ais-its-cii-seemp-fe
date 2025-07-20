@@ -12,7 +12,6 @@ import CiiValueCard from "./components/cii-value-card";
 import SEEMPChart from "./components/seemp-chart";
 import SeempTable from "./components/seemp-table";
 import { ISeempTableProps } from "./components/seemp-table";
-import { Button } from "../../components/ui/button";
 import { Seemp } from "../../types/seemp";
 
 import { ShipData } from "./components/ship-info-card";
@@ -28,7 +27,6 @@ const SEEMPPage: FC = () => {
   const [seempData, setSeempData] = useState<ISeempTableProps | null>(null);
   const location = useLocation();
 
-  const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const [currentItems, setCurrentItems] = useState<Seemp[] | null>(null);
   const navigate = useNavigate();
@@ -37,7 +35,6 @@ const SEEMPPage: FC = () => {
     setShowTable((prev) => !prev);
   };
 
-  // Initialize filteredShips when shipData changes
   useEffect(() => {
     setFilteredShips(shipData);
   }, [shipData]);
@@ -52,7 +49,6 @@ const SEEMPPage: FC = () => {
     }
 
     const pageNumber = pageParam ? Number(pageParam) : 1;
-    setCurrentPage(pageNumber);
 
     const indexOfLastItem = pageNumber * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -183,27 +179,6 @@ const SEEMPPage: FC = () => {
       ? Math.ceil(seempData.data.length / itemsPerPage)
       : 1;
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    const indexOfLastItem = page * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
-    if (seempData?.data) {
-      const paginatedData = seempData.data.slice(
-        indexOfFirstItem,
-        indexOfLastItem
-      );
-      setCurrentItems(paginatedData);
-    }
-
-    // Update URL with page parameter
-    const params = new URLSearchParams(location.search);
-    if (selectedMmsi) {
-      params.set('mmsi', selectedMmsi);
-    }
-    params.set('page', page.toString());
-    navigate(`?${params.toString()}`, { replace: true });
-  };
 
   return (
     <main className="h-screen w-screen relative bg-gray-300 overflow-hidden z-1">
