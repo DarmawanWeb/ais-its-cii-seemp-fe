@@ -59,6 +59,13 @@ const MapComponent: FC<MapComponentProps> = ({
     return null;
   };
 
+  // Fungsi untuk mengecek apakah timestamp lebih dari 24 jam
+  const isTimestampTooOld = (timestamp: Date): boolean => {
+    const currentTime = new Date();
+    const twentyFourHoursAgo = new Date(currentTime.getTime() - 24 * 60 * 60 * 1000);
+    return new Date(timestamp) < twentyFourHoursAgo;
+  };
+
   const getIcon = (
     heading: number,
     isSelected: boolean,
@@ -117,11 +124,17 @@ const MapComponent: FC<MapComponentProps> = ({
       </LayersControl>
       {markers?.map((marker, index) => {
         const isSelected = marker.mmsi === selectedMmsi;
+        const latestPosition = marker.positions[0];
+        
+        if (!latestPosition || isTimestampTooOld(latestPosition.timestamp)) {
+          return null;
+        }
+        
         return (
           <Marker
             key={`marker-${index}`}
-            position={[marker.positions[0]?.lat, marker.positions[0]?.lon]}
-            icon={getIcon(marker.positions[0]?.cog, isSelected, marker?.icon)}
+            position={[latestPosition?.lat, latestPosition?.lon]}
+            icon={getIcon(latestPosition?.cog, isSelected, marker?.icon)}
             eventHandlers={{
               click: () => handleMarkerClick(marker.mmsi),
             }}

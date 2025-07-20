@@ -269,27 +269,6 @@ const SEEMPPage: FC = () => {
           <SeempTable data={currentItems} pageCount={totalPages} />
         </section>
       )}
-      {showTable && (
-        <div className="absolute bottom-4 left-4 bg-white p-2 rounded-md shadow-lg flex items-center gap-2 z-110">
-          <Button
-            disabled={currentPage <= 1}
-            onClick={() => handlePageChange(currentPage - 1)}
-            size="sm"
-          >
-            Prev
-          </Button>
-          <span className="text-sm">
-            Page {currentPage} of {totalPages}
-          </span>
-          <Button
-            disabled={currentPage >= totalPages}
-            onClick={() => handlePageChange(currentPage + 1)}
-            size="sm"
-          >
-            Next
-          </Button>
-        </div>
-      )}
     </main>
   );
 };
