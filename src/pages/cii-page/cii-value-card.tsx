@@ -27,26 +27,26 @@ const CiiValueCard: FC<CiiValueCardProps> = ({ cii }) => {
       <div className="h-0.5 bg-black w-full mx-auto my-2"></div>
       <div className="grid grid-cols-3 ml-4">
         <b className="col-span-2">ME Fuel Consumption</b>
-        <p>: {cii.fuelConsumption.fuelConsumptionMeTon.toFixed(5)} ton</p>
+        <p>: {cii.fuelConsumption?.fuelConsumptionMeTon.toFixed(5)} ton</p>
         <b className="col-span-2">AE Fuel Consumption</b>
-        <p>: {cii.fuelConsumption.fuelConsumptionAeTon.toFixed(5)} ton</p>
+        <p>: {cii.fuelConsumption?.fuelConsumptionAeTon.toFixed(5)} ton</p>
         <b className="col-span-2">Total Fuel Consumption</b>
-        <p>: {cii.fuelConsumption.totalFuelConsumptionTon.toFixed(5)} ton</p>
+        <p>: {cii.fuelConsumption?.totalFuelConsumptionTon.toFixed(5)} ton</p>
       </div>
       <div className="h-0.5 bg-black w-full mx-auto my-2"></div>
       <div className="grid grid-cols-3 ml-4">
         <b className="col-span-2">Total Distance</b>
-        <p>: {cii.totalDistance.toFixed(5)} m</p>
+        <p>: {cii.totalDistance?.toFixed(5)} m</p>
         <b className="col-span-2">CII Required</b>
-        <p>: {cii.ciiRequired.toFixed(5)}</p>
+        <p>: {cii.ciiRequired?.toFixed(5)}</p>
         <b className="col-span-2">CII Attained</b>
-        <p>: {cii.ciiAttained.toFixed(5)}</p>
+        <p>: {cii.ciiAttained?.toFixed(5)}</p>
       </div>
       <div className="h-0.5 bg-black w-full mx-auto my-2"></div>
       <div className="grid grid-cols-3 ml-4">
         <b className="col-span-3">CII Rating</b>
         <b className="col-span-2">Number</b>
-        <p>: {cii.ciiRating.toFixed(5)}</p>
+        <p>: {cii.ciiRating?.toFixed(5)}</p>
         <b className="col-span-2">Grade</b>
         <p>: {cii.ciiGrade}</p>
       </div>

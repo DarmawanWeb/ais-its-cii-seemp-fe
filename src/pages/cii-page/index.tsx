@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import MapComponent from "../../components/common/map";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Input } from "../../components/ui/input";
@@ -35,6 +35,10 @@ const CIIPage: FC = () => {
   const [showCiiSection, setShowCiiSection] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  
+  // Refs untuk interval management
+  const ciiDataIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const ciiGrafikIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setFilteredShips(shipData);
@@ -66,38 +70,93 @@ const CIIPage: FC = () => {
     }
   }, [selectedMmsi]);
 
-  useEffect(() => {
-    if (selectedMmsi) {
-      const fetchCiiData = async (mmsi: string) => {
-        try {
-          const response = await axios.get(
-            `${VITE_BACKEND_URI}/cii/daily/${mmsi}/latest`
-          );
-          setCiiData(response.data.data.cii[0].cii);
-        } catch (error) {
-          console.error("Error fetching CII data:", error);
-        }
-      };
-      setShowCiiSection(false);
-      fetchCiiData(selectedMmsi);
+  // Function untuk fetch CII data
+  const fetchCiiData = async (mmsi: string) => {
+    try {
+      const response = await axios.get(
+        `${VITE_BACKEND_URI}/cii/daily/${mmsi}/latest`
+      );
+      setCiiData(response.data.data.cii[0].cii);
+    } catch (error) {
+      console.error("Error fetching CII data:", error);
     }
+  };
+
+  // Function untuk fetch CII grafik data
+  const fetchCiiGrafik = async (mmsi: string) => {
+    try {
+      const response = await axios.get(
+        `${VITE_BACKEND_URI}/cii/daily/${mmsi}/attained`
+      );
+      setCiiGrafik(response.data.data);
+    } catch (error) {
+      console.error("Error fetching CII grafik:", error);
+    }
+  };
+
+  // Effect untuk CII data dengan auto-refresh setiap 1 detik
+  useEffect(() => {
+    // Clear existing interval
+    if (ciiDataIntervalRef.current) {
+      clearInterval(ciiDataIntervalRef.current);
+    }
+
+    if (selectedMmsi) {
+      setShowCiiSection(false);
+      
+      // Fetch pertama kali
+      fetchCiiData(selectedMmsi);
+      
+      // Set interval untuk fetch setiap 1 detik
+      ciiDataIntervalRef.current = setInterval(() => {
+        fetchCiiData(selectedMmsi);
+      }, 1000);
+    }
+
+    // Cleanup function
+    return () => {
+      if (ciiDataIntervalRef.current) {
+        clearInterval(ciiDataIntervalRef.current);
+      }
+    };
   }, [selectedMmsi]);
 
+  // Effect untuk CII grafik data dengan auto-refresh setiap 1 detik
   useEffect(() => {
-    if (selectedMmsi) {
-      const fetchCiiGrafik = async (mmsi: string) => {
-        try {
-          const response = await axios.get(
-            `${VITE_BACKEND_URI}/cii/daily/${mmsi}/attained`
-          );
-          setCiiGrafik(response.data.data);
-        } catch (error) {
-          console.error("Error fetching CII grafik:", error);
-        }
-      };
-      fetchCiiGrafik(selectedMmsi);
+    // Clear existing interval
+    if (ciiGrafikIntervalRef.current) {
+      clearInterval(ciiGrafikIntervalRef.current);
     }
+
+    if (selectedMmsi) {
+      // Fetch pertama kali
+      fetchCiiGrafik(selectedMmsi);
+      
+      // Set interval untuk fetch setiap 1 detik
+      ciiGrafikIntervalRef.current = setInterval(() => {
+        fetchCiiGrafik(selectedMmsi);
+      }, 1000);
+    }
+
+    // Cleanup function
+    return () => {
+      if (ciiGrafikIntervalRef.current) {
+        clearInterval(ciiGrafikIntervalRef.current);
+      }
+    };
   }, [selectedMmsi]);
+
+  // Cleanup intervals saat component unmount
+  useEffect(() => {
+    return () => {
+      if (ciiDataIntervalRef.current) {
+        clearInterval(ciiDataIntervalRef.current);
+      }
+      if (ciiGrafikIntervalRef.current) {
+        clearInterval(ciiGrafikIntervalRef.current);
+      }
+    };
+  }, []);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
