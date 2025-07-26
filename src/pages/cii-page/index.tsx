@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useRef } from "react";
+import { FC, useState, useEffect, useRef, useCallback } from "react";
 import MapComponent from "../../components/common/map";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Input } from "../../components/ui/input";
@@ -33,17 +33,48 @@ const CIIPage: FC = () => {
   const [filteredShips, setFilteredShips] = useState<MarkerData[]>([]);
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
   const [showCiiSection, setShowCiiSection] = useState(false);
+  const [isSearchActive, setIsSearchActive] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   
-  // Refs untuk interval management
+  const aisDataIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const ciiDataIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const ciiGrafikIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const shipDetailIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  const performSearch = useCallback((query: string, ships: MarkerData[]) => {
+    if (query.trim() === "") {
+      return [];
+    }
+
+    const searchTerm = query.trim();
+    const filtered = ships.filter((ship) => {
+      if (ship.mmsi === searchTerm) {
+        return true;
+      }
+      return ship.mmsi.startsWith(searchTerm);
+    });
+    
+    filtered.sort((a, b) => {
+      if (a.mmsi === searchTerm) return -1;
+      if (b.mmsi === searchTerm) return 1;
+      return a.mmsi.localeCompare(b.mmsi);
+    });
+
+    return filtered;
+  }, []);
+
+  // Update filtered ships when ship data changes, but only if searching
   useEffect(() => {
-    setFilteredShips(shipData);
-  }, [shipData]);
+    if (isSearchActive && searchQuery.trim() !== "") {
+      const filtered = performSearch(searchQuery, shipData);
+      setFilteredShips(filtered);
+    } else if (!isSearchActive) {
+      setFilteredShips([]);
+    }
+  }, [shipData, isSearchActive, searchQuery, performSearch]);
 
+  // Handle URL params for selected MMSI
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const mmsiParam = urlParams.get("mmsi");
@@ -52,25 +83,28 @@ const CIIPage: FC = () => {
     }
   }, [location.search]);
 
-  useEffect(() => {
-    const fetchShipDetail = async (mmsi: string) => {
-      try {
-        const response = await axios.get(
-          `${VITE_BACKEND_URI}/ships/data/secondary/mmsi/${mmsi}`
-        );
-        setShipDetailData(response.data.data);
-      } catch (error) {
-        console.error("Error fetching ship detail:", error);
-      }
-    };
-    if (selectedMmsi) {
-      fetchShipDetail(selectedMmsi);
-    } else {
-      setShipDetailData(null);
+  // Fetch functions with error handling
+  const fetchShipData = useCallback(async () => {
+    try {
+      const response = await axios.get(`${VITE_BACKEND_URI}/ais`);
+      setShipData(response.data.data);
+    } catch (error) {
+      console.error("Error fetching ship data:", error);
     }
-  }, [selectedMmsi]);
+  }, []);
 
-  const fetchCiiData = async (mmsi: string) => {
+  const fetchShipDetail = useCallback(async (mmsi: string) => {
+    try {
+      const response = await axios.get(
+        `${VITE_BACKEND_URI}/ships/data/secondary/mmsi/${mmsi}`
+      );
+      setShipDetailData(response.data.data);
+    } catch (error) {
+      console.error("Error fetching ship detail:", error);
+    }
+  }, []);
+
+  const fetchCiiData = useCallback(async (mmsi: string) => {
     try {
       const response = await axios.get(
         `${VITE_BACKEND_URI}/cii/daily/${mmsi}/latest`
@@ -79,9 +113,9 @@ const CIIPage: FC = () => {
     } catch (error) {
       console.error("Error fetching CII data:", error);
     }
-  };
+  }, []);
 
-  const fetchCiiGrafik = async (mmsi: string) => {
+  const fetchCiiGrafik = useCallback(async (mmsi: string) => {
     try {
       const response = await axios.get(
         `${VITE_BACKEND_URI}/cii/daily/${mmsi}/attained`
@@ -90,8 +124,47 @@ const CIIPage: FC = () => {
     } catch (error) {
       console.error("Error fetching CII grafik:", error);
     }
-  };
+  }, []);
 
+  // Setup AIS data fetching (real-time untuk peta)
+  useEffect(() => {
+    fetchShipData();
+    
+    aisDataIntervalRef.current = setInterval(fetchShipData, 100);
+
+    return () => {
+      if (aisDataIntervalRef.current) {
+        clearInterval(aisDataIntervalRef.current);
+      }
+    };
+  }, [fetchShipData]);
+
+  // Setup ship detail fetching when MMSI selected
+  useEffect(() => {
+    // Clear previous interval
+    if (shipDetailIntervalRef.current) {
+      clearInterval(shipDetailIntervalRef.current);
+    }
+
+    if (selectedMmsi) {
+      fetchShipDetail(selectedMmsi);
+      
+      // Update ship detail every 5 seconds for real-time info
+      shipDetailIntervalRef.current = setInterval(() => {
+        fetchShipDetail(selectedMmsi);
+      }, 5000);
+    } else {
+      setShipDetailData(null);
+    }
+
+    return () => {
+      if (shipDetailIntervalRef.current) {
+        clearInterval(shipDetailIntervalRef.current);
+      }
+    };
+  }, [selectedMmsi, fetchShipDetail]);
+
+  // Setup CII data fetching (real-time)
   useEffect(() => {
     if (ciiDataIntervalRef.current) {
       clearInterval(ciiDataIntervalRef.current);
@@ -100,79 +173,73 @@ const CIIPage: FC = () => {
     if (selectedMmsi) {
       setShowCiiSection(false);
       
-      // Fetch pertama kali
       fetchCiiData(selectedMmsi);
       
-      // Set interval untuk fetch setiap 1 detik
+      // Real-time CII data update setiap 1 detik
       ciiDataIntervalRef.current = setInterval(() => {
         fetchCiiData(selectedMmsi);
       }, 1000);
+    } else {
+      setCiiData(null);
     }
 
-    // Cleanup function
     return () => {
       if (ciiDataIntervalRef.current) {
         clearInterval(ciiDataIntervalRef.current);
       }
     };
-  }, [selectedMmsi]);
+  }, [selectedMmsi, fetchCiiData]);
 
-  // Effect untuk CII grafik data dengan auto-refresh setiap 1 detik
+  // Setup CII grafik fetching (real-time)
   useEffect(() => {
-    // Clear existing interval
     if (ciiGrafikIntervalRef.current) {
       clearInterval(ciiGrafikIntervalRef.current);
     }
 
     if (selectedMmsi) {
-      // Fetch pertama kali
       fetchCiiGrafik(selectedMmsi);
       
-      // Set interval untuk fetch setiap 1 detik
+      // Real-time CII grafik update setiap 2 detik
       ciiGrafikIntervalRef.current = setInterval(() => {
         fetchCiiGrafik(selectedMmsi);
-      }, 1000);
+      }, 2000);
+    } else {
+      setCiiGrafik(null);
     }
 
-    // Cleanup function
     return () => {
       if (ciiGrafikIntervalRef.current) {
         clearInterval(ciiGrafikIntervalRef.current);
       }
     };
-  }, [selectedMmsi]);
+  }, [selectedMmsi, fetchCiiGrafik]);
 
-  // Cleanup intervals saat component unmount
+  // Cleanup all intervals on unmount
   useEffect(() => {
     return () => {
+      if (aisDataIntervalRef.current) {
+        clearInterval(aisDataIntervalRef.current);
+      }
       if (ciiDataIntervalRef.current) {
         clearInterval(ciiDataIntervalRef.current);
       }
       if (ciiGrafikIntervalRef.current) {
         clearInterval(ciiGrafikIntervalRef.current);
+      }
+      if (shipDetailIntervalRef.current) {
+        clearInterval(shipDetailIntervalRef.current);
       }
     };
   }, []);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
+    setIsSearchActive(query.trim() !== "");
+    
     if (query.trim() === "") {
       setFilteredShips([]);
     } else {
-      const searchTerm = query.trim();
-      const filtered = shipData.filter((ship) => {
-        if (ship.mmsi === searchTerm) {
-          return true;
-        }
-        return ship.mmsi.startsWith(searchTerm);
-      });
-      
-      filtered.sort((a, b) => {
-        if (a.mmsi === searchTerm) return -1;
-        if (b.mmsi === searchTerm) return 1;
-        return a.mmsi.localeCompare(b.mmsi);
-      });
-      
+      const filtered = performSearch(query, shipData);
       setFilteredShips(filtered);
     }
   };
@@ -181,30 +248,22 @@ const CIIPage: FC = () => {
     navigate(`?mmsi=${mmsi}`);
     setSearchQuery("");
     setFilteredShips([]);
+    setIsSearchActive(false);
   };
 
   const handleInputBlur = () => {
     setTimeout(() => {
       setFilteredShips([]);
+      setIsSearchActive(false);
     }, 200);
   };
 
- useEffect(() => {
-    const fetchShipData = async () => {
-      try {
-        const response = await axios.get(`${VITE_BACKEND_URI}/ais`);
-        setShipData(response.data.data);
-      } catch (error) {
-        console.error("Error fetching ship data:", error);
-      }
-    };
-
-    fetchShipData();
-
-    const interval = setInterval(fetchShipData, 100);
-
-    return () => clearInterval(interval);
-  }, []);
+  const handleInputFocus = () => {
+    if (searchQuery.trim()) {
+      setIsSearchActive(true);
+      handleSearch(searchQuery);
+    }
+  };
 
   const toggleCiiSection = () => {
     setShowCiiSection(!showCiiSection);
@@ -220,11 +279,7 @@ const CIIPage: FC = () => {
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
             onBlur={handleInputBlur}
-            onFocus={() => {
-              if (searchQuery.trim()) {
-                handleSearch(searchQuery);
-              }
-            }}
+            onFocus={handleInputFocus}
           />
           <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
             <Search className="text-gray-600" size={20} />
