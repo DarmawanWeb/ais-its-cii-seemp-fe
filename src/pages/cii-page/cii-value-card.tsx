@@ -9,6 +9,7 @@ export interface IFuelConsumption {
 }
 
 export interface ICIICalculation {
+  notes?: string;
   ciiRequired: number;
   ciiAttained: number;
   ciiRating: number;
@@ -24,6 +25,9 @@ export interface CiiValueCardProps {
 const CiiValueCard: FC<CiiValueCardProps> = ({ cii }) => {
   const renderCiiContent = (cii: ICIICalculation) => (
     <section className="text-xs flex justify-between flex-col h-full">
+      <div className=" ml-4">
+        <p className="text-center font-semibold"> {cii.notes || "No notes available"}</p>
+      </div>
       <div className="h-0.5 bg-black w-full mx-auto my-2"></div>
       <div className="grid grid-cols-3 ml-4">
         <b className="col-span-2">ME Fuel Consumption</b>
@@ -44,10 +48,9 @@ const CiiValueCard: FC<CiiValueCardProps> = ({ cii }) => {
       </div>
       <div className="h-0.5 bg-black w-full mx-auto my-2"></div>
       <div className="grid grid-cols-3 ml-4">
-        <b className="col-span-3">CII Rating</b>
-        <b className="col-span-2">Number</b>
+        <b className="col-span-2">CII Rating</b>
         <p>: {cii.ciiRating?.toFixed(5)}</p>
-        <b className="col-span-2">Grade</b>
+        <b className="col-span-2">CII Grade</b>
         <p>: {cii.ciiGrade}</p>
       </div>
     </section>
