@@ -139,9 +139,7 @@ const CIIPage: FC = () => {
     };
   }, [fetchShipData]);
 
-  // Setup ship detail fetching when MMSI selected
   useEffect(() => {
-    // Clear previous interval
     if (shipDetailIntervalRef.current) {
       clearInterval(shipDetailIntervalRef.current);
     }
@@ -149,7 +147,6 @@ const CIIPage: FC = () => {
     if (selectedMmsi) {
       fetchShipDetail(selectedMmsi);
       
-      // Update ship detail every 5 seconds for real-time info
       shipDetailIntervalRef.current = setInterval(() => {
         fetchShipDetail(selectedMmsi);
       }, 5000);
@@ -164,7 +161,6 @@ const CIIPage: FC = () => {
     };
   }, [selectedMmsi, fetchShipDetail]);
 
-  // Setup CII data fetching (real-time)
   useEffect(() => {
     if (ciiDataIntervalRef.current) {
       clearInterval(ciiDataIntervalRef.current);
@@ -175,7 +171,6 @@ const CIIPage: FC = () => {
       
       fetchCiiData(selectedMmsi);
       
-      // Real-time CII data update setiap 1 detik
       ciiDataIntervalRef.current = setInterval(() => {
         fetchCiiData(selectedMmsi);
       }, 1000);
@@ -190,7 +185,6 @@ const CIIPage: FC = () => {
     };
   }, [selectedMmsi, fetchCiiData]);
 
-  // Setup CII grafik fetching (real-time)
   useEffect(() => {
     if (ciiGrafikIntervalRef.current) {
       clearInterval(ciiGrafikIntervalRef.current);
@@ -199,7 +193,6 @@ const CIIPage: FC = () => {
     if (selectedMmsi) {
       fetchCiiGrafik(selectedMmsi);
       
-      // Real-time CII grafik update setiap 2 detik
       ciiGrafikIntervalRef.current = setInterval(() => {
         fetchCiiGrafik(selectedMmsi);
       }, 2000);
@@ -214,7 +207,6 @@ const CIIPage: FC = () => {
     };
   }, [selectedMmsi, fetchCiiGrafik]);
 
-  // Cleanup all intervals on unmount
   useEffect(() => {
     return () => {
       if (aisDataIntervalRef.current) {
