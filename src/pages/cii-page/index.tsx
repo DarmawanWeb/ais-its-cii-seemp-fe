@@ -70,7 +70,6 @@ const CIIPage: FC = () => {
     }
   }, [selectedMmsi]);
 
-  // Function untuk fetch CII data
   const fetchCiiData = async (mmsi: string) => {
     try {
       const response = await axios.get(
@@ -82,7 +81,6 @@ const CIIPage: FC = () => {
     }
   };
 
-  // Function untuk fetch CII grafik data
   const fetchCiiGrafik = async (mmsi: string) => {
     try {
       const response = await axios.get(
@@ -94,9 +92,7 @@ const CIIPage: FC = () => {
     }
   };
 
-  // Effect untuk CII data dengan auto-refresh setiap 1 detik
   useEffect(() => {
-    // Clear existing interval
     if (ciiDataIntervalRef.current) {
       clearInterval(ciiDataIntervalRef.current);
     }
@@ -193,7 +189,7 @@ const CIIPage: FC = () => {
     }, 200);
   };
 
-  useEffect(() => {
+ useEffect(() => {
     const fetchShipData = async () => {
       try {
         const response = await axios.get(`${VITE_BACKEND_URI}/ais`);
@@ -204,6 +200,10 @@ const CIIPage: FC = () => {
     };
 
     fetchShipData();
+
+    const interval = setInterval(fetchShipData, 100);
+
+    return () => clearInterval(interval);
   }, []);
 
   const toggleCiiSection = () => {
