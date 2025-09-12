@@ -1,6 +1,6 @@
 import { useSidebarStore } from "../../hooks/use-sidebar-store";
 import { FC } from "react";
-import { Menu, X, Fuel, Copyright, ChartLine } from "lucide-react";
+import { Menu, X, Fuel, Copyright, ChartLine, TriangleAlert, Anchor } from "lucide-react";
 import { Button } from "../ui/button";
 
 const Sidebar: FC = () => {
@@ -11,6 +11,8 @@ const Sidebar: FC = () => {
     { icon: Fuel, redirect: "/telemetry" },
     { icon: Copyright, redirect: "/cii" },
     { icon: ChartLine, redirect: "/seemp" },
+    { icon: TriangleAlert, redirect: "/ews" },
+    { icon: Anchor, redirect: "/anomaly" },
   ];
 
   return (

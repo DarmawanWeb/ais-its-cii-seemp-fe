@@ -1,7 +1,7 @@
 import axios from "axios";
 import { FC, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import EarlyWarningSystemCard from "./components/ews-card";
+import NavstatusAnomalyCard from "./components/navstatus-anomaly-card";
 import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData } from "../../components/common/map";
 import MapComponent from "../../components/common/map";
@@ -9,7 +9,7 @@ import MapComponent from "../../components/common/map";
 
 
 
-const EWSPage: FC = () => {
+const AnomalyPage: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
   const location = useLocation();
@@ -42,7 +42,7 @@ const EWSPage: FC = () => {
   return (
     <main className="h-screen w-screen relative bg-gray-300 overflow-hidden z-1">
         <aside className="absolute top-0 right-0 z-100 w-[28%] h-full bg-slate-300 p-4 pr-20">
-          <EarlyWarningSystemCard markers={shipData} />
+          <NavstatusAnomalyCard markers={shipData} />
       </aside>
 
       <MapComponent
@@ -53,4 +53,4 @@ const EWSPage: FC = () => {
     </main>
   );
 };
-export default EWSPage;
+export default AnomalyPage;
