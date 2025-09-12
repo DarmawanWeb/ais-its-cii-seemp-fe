@@ -7,6 +7,7 @@ const CIIPage = lazy(() => import("../pages/cii-page"));
 const SEEMPPage = lazy(() => import("../pages/seemp-page"));
 const TelemetryPage = lazy(() => import("../pages/telemetry-page"));
 const NotFoundPage = lazy(() => import("../pages/not-found-page"));
+const EWSPage = lazy(() => import("../pages/ews"));
 
 const withAppWrappers = <
   LProps extends { children?: React.ReactNode } = { children?: React.ReactNode }
@@ -48,6 +49,14 @@ export const router = createBrowserRouter([
       title: "SEEMP Page",
     }),
   },
+   {
+    path: "/ews",
+    element: withAppWrappers(EWSPage, DefaultLayout, {
+      pageTitle: "Early Warning System",
+      title: "EWS Page",
+    }),
+  },
+
   {
     path: "*",
     element: (

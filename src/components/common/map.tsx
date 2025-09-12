@@ -19,6 +19,7 @@ import { STADIA_MAPS_API_KEY } from "../../lib/env";
 
 export interface IAisPosition {
   navstatus: number;
+  predictedNavStatus: number;
   lat: number;
   lon: number;
   sog: number;

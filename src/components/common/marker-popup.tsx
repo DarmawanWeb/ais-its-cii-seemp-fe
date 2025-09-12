@@ -19,8 +19,12 @@ export function MarkerPopup({ marker }: MarkerPopupProps) {
           <b>MMSI:</b> {marker.mmsi}
         </div>
         <div>
-          <b>Status:</b>{" "}
+          <b>AIS Navstatus:</b>{" "}
           {getNavStatusLabel(pos.navstatus) ?? `Unknown (${pos.navstatus})`}
+        </div>
+         <div>
+          <b>Predicted Navstatus:</b>{" "}
+          {getNavStatusLabel(pos.predictedNavStatus) ?? `Unknown (${pos.predictedNavStatus})`}
         </div>
         <div>
           <b>Lat/Lon:</b> {pos.lat.toFixed(5)} / {pos.lon.toFixed(5)}
