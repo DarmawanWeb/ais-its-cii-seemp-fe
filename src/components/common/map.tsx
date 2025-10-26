@@ -10,13 +10,14 @@ import {
   Popup,
   Polyline,
   Polygon,
-  Rectangle,
+  useMap,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import useTileStore from "../../hooks/use-selected-tile";
 import { MarkerPopup } from "./marker-popup";
 import { STADIA_MAPS_API_KEY } from "../../lib/env";
+import restrictedZoneData from "../../data/pipe.json";
 
 export interface IAisPosition {
   navstatus: number;
@@ -51,78 +52,21 @@ export interface ShipRoute {
   color?: string;
 }
 
+interface ZoomToRoutesProps {
+  routes: ShipRoute[] | null | undefined;
+  shouldZoom: boolean;
+}
+
 export interface MapComponentProps {
   markers: MarkerData[] | null;
   selectedMmsi: string | null;
   setSelectedMmsi: (mmsi: string | null) => void;
   routes?: ShipRoute[] | null;
   illegalAreas?: IllegalTransshipmentArea[] | null;
+  zoomToRoutes?: boolean;
 }
 
 // Data points from the provided JSON
-const restrictedZoneData = [
-  {"Latitude": -6.87197219605424, "Longitude": 112.719384869178, "Name": "KP 29.200"},
-  {"Latitude": -6.86293886272091, "Longitude": 112.719433852143, "Name": "KP 28.200"},
-  {"Latitude": -6.85389719605424, "Longitude": 112.719446655722, "Name": "KP 27.200"},
-  {"Latitude": -6.85389660250285, "Longitude": 112.719447222222, "Name": "KP 26.700"},
-  {"Latitude": -6.88101386272091, "Longitude": 112.719227390428, "Name": "KP 30.200"},
-  {"Latitude": -6.89001386272091, "Longitude": 112.718825500619, "Name": "KP 31.200"},
-  {"Latitude": -6.89841664049869, "Longitude": 112.715489981399, "Name": "KP 32.200"},
-  {"Latitude": -6.90678330716535, "Longitude": 112.712072813874, "Name": "KP 33.200"},
-  {"Latitude": -6.91514997383202, "Longitude": 112.708664604489, "Name": "KP 34.200"},
-  {"Latitude": -6.92354441827647, "Longitude": 112.70531974069, "Name": "KP 35.200"},
-  {"Latitude": -6.9319027516098, "Longitude": 112.701847980912, "Name": "KP 36.200"},
-  {"Latitude": -6.9402777516098, "Longitude": 112.698457631052, "Name": "KP 37.200"},
-  {"Latitude": -6.94861941827647, "Longitude": 112.694976573673, "Name": "KP 38.200"},
-  {"Latitude": -6.95692219605424, "Longitude": 112.691404803613, "Name": "KP 39.200"},
-  {"Latitude": -6.96532497383202, "Longitude": 112.688005226575, "Name": "KP 40.200"},
-  {"Latitude": -6.97367497383202, "Longitude": 112.684532969974, "Name": "KP 41.200"},
-  {"Latitude": -6.9820777516098, "Longitude": 112.68121465524, "Name": "KP 42.200"},
-  {"Latitude": -7.03628608494313, "Longitude": 112.66092719921, "Name": "KP 42.720"},
-  {"Latitude": -6.99051664049869, "Longitude": 112.677959729256, "Name": "KP 42.200"},
-  {"Latitude": -7.03913886272091, "Longitude": 112.660077510089, "Name": "KP 48.050"},
-  {"Latitude": -7.04262219605424, "Longitude": 112.659184810399, "Name": "KP 48.450"},
-  {"Latitude": -7.04618608494313, "Longitude": 112.658608333333, "Name": "KP 48.850"},
-  {"Latitude": -7.04990552938758, "Longitude": 112.657933333333, "Name": "KP 49.270"},
-  {"Latitude": -7.05359719605424, "Longitude": 112.657241666667, "Name": "KP 49.680"},
-  {"Latitude": -7.05714441827646, "Longitude": 112.656594444444, "Name": "KP 50.080"},
-  {"Latitude": -7.06057219605424, "Longitude": 112.656027777778, "Name": "KP 50.470"},
-  {"Latitude": -7.06394719605424, "Longitude": 112.65535, "Name": "KP 50.850"},
-  {"Latitude": -7.06762219605424, "Longitude": 112.654722222222, "Name": "KP 51.260"},
-  {"Latitude": -7.07124164049869, "Longitude": 112.654083333333, "Name": "KP 51.670"},
-  {"Latitude": -7.07498608494313, "Longitude": 112.653344444444, "Name": "KP 52.090"},
-  {"Latitude": -7.0786777516098, "Longitude": 112.652605555556, "Name": "KP 52.510"},
-  {"Latitude": -7.08229719605424, "Longitude": 112.652075, "Name": "KP 52.910"},
-  {"Latitude": -7.08602497383202, "Longitude": 112.6515, "Name": "KP 53.330"},
-  {"Latitude": -7.08980552938758, "Longitude": 112.651261111111, "Name": "KP 53.750"},
-  {"Latitude": -7.09339441827646, "Longitude": 112.651491666667, "Name": "KP 54.150"},
-  {"Latitude": -7.09704719605424, "Longitude": 112.651775, "Name": "KP 54.550"},
-  {"Latitude": -7.10026664049869, "Longitude": 112.651841666667, "Name": "KP 54.910"},
-  {"Latitude": -7.10394441827646, "Longitude": 112.651972222222, "Name": "KP 55.310"},
-  {"Latitude": -7.10748052938758, "Longitude": 112.652219444444, "Name": "KP 55.710"},
-  {"Latitude": -7.11163886272091, "Longitude": 112.652380555556, "Name": "KP 56.170"},
-  {"Latitude": -7.11541664049869, "Longitude": 112.652627777778, "Name": "KP 56.590"},
-  {"Latitude": -7.11901664049869, "Longitude": 112.652858333333, "Name": "KP 56.990"},
-  {"Latitude": -7.12268608494313, "Longitude": 112.652997222222, "Name": "KP 57.390"},
-  {"Latitude": -7.12626664049869, "Longitude": 112.653211111111, "Name": "KP 57.790"},
-  {"Latitude": -7.12969997383202, "Longitude": 112.653422222222, "Name": "KP 58.170"},
-  {"Latitude": -7.13329164049869, "Longitude": 112.653561111111, "Name": "KP 58.570"},
-  {"Latitude": -7.13680552938758, "Longitude": 112.654280555556, "Name": "KP 58.970"},
-  {"Latitude": -7.14021108494313, "Longitude": 112.655513888889, "Name": "KP 59.370"},
-  {"Latitude": -7.1307777516098, "Longitude": 112.653508333333, "Name": "KP 58.290"},
-  {"Latitude": -7.13187219605424, "Longitude": 112.653555555556, "Name": "KP 58.410"},
-  {"Latitude": -7.1328027516098, "Longitude": 112.653561111111, "Name": "KP 58.510"},
-  {"Latitude": -7.13402219605424, "Longitude": 112.653563888889, "Name": "KP 58.650"},
-  {"Latitude": -7.13501664049869, "Longitude": 112.653738888889, "Name": "KP 58.760"},
-  {"Latitude": -7.13611108494313, "Longitude": 112.654016666667, "Name": "KP 58.880"},
-  {"Latitude": -7.1371027516098, "Longitude": 112.654416666667, "Name": "KP 59.000"},
-  {"Latitude": -7.1380777516098, "Longitude": 112.654847222222, "Name": "KP 59.120"},
-  {"Latitude": -7.13912497383202, "Longitude": 112.655194444445, "Name": "KP 59.240"},
-  {"Latitude": -7.14105830716535, "Longitude": 112.655780555556, "Name": "KP 59.470"},
-  {"Latitude": -7.14206108494313, "Longitude": 112.656127777778, "Name": "KP 59.580"},
-  {"Latitude": -7.14309997383202, "Longitude": 112.656558333333, "Name": "KP 59.710"},
-  {"Latitude": -7.1438932181303, "Longitude": 112.656890832097, "Name": "KP 59.850"}
-];
 
 // Sort data by KP number for proper line connection
 const sortedData = restrictedZoneData.sort((a, b) => {
@@ -161,6 +105,35 @@ const calculateOffset = (
   
   return [newLatRad * 180 / Math.PI, newLonRad * 180 / Math.PI];
 };
+
+const ZoomToRoutes: FC<ZoomToRoutesProps> = ({ routes, shouldZoom }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (routes && routes.length > 0 && shouldZoom) {
+      const allPositions: L.LatLngExpression[] = [];
+      
+      routes.forEach(route => {
+        route.positions.forEach(pos => {
+          allPositions.push([pos.lat, pos.lon]);
+        });
+      });
+
+      if (allPositions.length > 0) {
+        const bounds = L.latLngBounds(allPositions as L.LatLngBoundsLiteral);
+        map.fitBounds(bounds, {
+          padding: [50, 50],
+          maxZoom: 20,
+          animate: true,
+          duration: 1
+        });
+      }
+    }
+  }, [routes, shouldZoom, map]);
+
+  return null;
+};
+
 
 // Create continuous buffer polygons
 const createBufferPolygon = (distanceMeters: number) => {
@@ -285,7 +258,7 @@ const MapComponent: FC<MapComponentProps> = ({
   selectedMmsi,
   setSelectedMmsi,
   routes,
-  illegalAreas,
+  zoomToRoutes = false,
 }) => {
   const { setSelectedTile, selectedTile } = useTileStore();
   const [zoomLevel, setZoomLevel] = useState(12);
@@ -457,6 +430,8 @@ const MapComponent: FC<MapComponentProps> = ({
           <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" />
         </LayersControl.BaseLayer>
 
+        <ZoomToRoutes routes={routes} shouldZoom={zoomToRoutes} />
+
         {/* Main Pipeline */}
         <LayersControl.Overlay checked name="Main Pipeline">
           <Polyline
@@ -496,16 +471,18 @@ const MapComponent: FC<MapComponentProps> = ({
           />
         </LayersControl.Overlay>
 
-        {/* Ship Routes */}
         {processedRoutes && processedRoutes.length > 0 && (
           <LayersControl.Overlay checked name="Ship Routes">
             <>
               {processedRoutes.map((route, routeIndex) => {
+                // Ensure that route.positions has valid data
                 const routeCoordinates: [number, number][] = route.positions
-                  .filter(pos => pos.lat && pos.lon)
+                  .filter(pos => pos.lat && pos.lon) // Ensure lat and lon are defined
                   .map(pos => [pos.lat, pos.lon]);
-                
-                if (routeCoordinates.length < 2) return null;
+
+                console.log('Route Coordinates:', routeCoordinates); 
+
+                if (routeCoordinates.length < 2) return null; // Ensure there are at least two points for the polyline
 
                 return (
                   <Polyline
@@ -528,67 +505,6 @@ const MapComponent: FC<MapComponentProps> = ({
                       </div>
                     </Popup>
                   </Polyline>
-
-                );
-              })}
-            </>
-          </LayersControl.Overlay>
-        )}
-
-        {/* Illegal Transshipment Areas */}
-        {illegalAreas && illegalAreas.length > 0 && (
-          <LayersControl.Overlay checked name="Suspected Illegal Transshipment">
-            <>
-              {illegalAreas.map((area, areaIndex) => {
-                const bounds: [[number, number], [number, number]] = [
-                  [area.latBottom, area.lonLeft],
-                  [area.latTop, area.lonRight]
-                ];
-
-                return (
-                  <Rectangle
-                    key={`illegal-area-${areaIndex}`}
-                    bounds={bounds}
-                    pathOptions={{
-                      color: "#DC2626",
-                      weight: 3,
-                      opacity: 0.9,
-                      fillColor: "#FEE2E2",
-                      fillOpacity: 0.4,
-                      // dashArray: "10, 5",
-                    }}
-                  >
-                    <Popup>
-                      <div className="text-sm">
-                        <p className="font-bold text-red-600">⚠️ Suspected Illegal Transshipment</p>
-                        {area.confidence && (
-                          <p className="text-xs mt-1">
-                            Confidence: {(area.confidence * 100).toFixed(1)}%
-                          </p>
-                        )}
-                        <p className="text-xs mt-1">
-                          Coordinates:
-                        </p>
-                        <p className="text-xs">
-                          Top: {area.latTop.toFixed(6)}
-                        </p>
-                        <p className="text-xs">
-                          Bottom: {area.latBottom.toFixed(6)}
-                        </p>
-                        <p className="text-xs">
-                          Left: {area.lonLeft.toFixed(6)}
-                        </p>
-                        <p className="text-xs">
-                          Right: {area.lonRight.toFixed(6)}
-                        </p>
-                        {area.timestamp && (
-                          <p className="text-xs mt-1">
-                            Detected: {new Date(area.timestamp).toLocaleString()}
-                          </p>
-                        )}
-                      </div>
-                    </Popup>
-                  </Rectangle>
                 );
               })}
             </>
