@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface TileState {
   selectedTile: string | null;
@@ -10,14 +10,14 @@ interface TileState {
 const useTileStore = create<TileState>()(
   persist(
     (set, get) => ({
-      selectedTile: "Default",
+      selectedTile: 'Default',
       setSelectedTile: (tile) => set({ selectedTile: tile }),
       getSelectedTile: () => get().selectedTile,
     }),
     {
-      name: "tile-store",
-    }
-  )
+      name: 'tile-store',
+    },
+  ),
 );
 
 export default useTileStore;

@@ -10,6 +10,7 @@ import {
   Popup,
   Polyline,
   Polygon,
+  Rectangle,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -35,10 +36,27 @@ export interface MarkerData {
   positions: IAisPosition[];
 }
 
+export interface IllegalTransshipmentArea {
+  latTop: number;
+  latBottom: number;
+  lonLeft: number;
+  lonRight: number;
+  confidence?: number;
+  timestamp?: Date;
+}
+
+export interface ShipRoute {
+  mmsi: string;
+  positions: IAisPosition[];
+  color?: string;
+}
+
 export interface MapComponentProps {
   markers: MarkerData[] | null;
   selectedMmsi: string | null;
   setSelectedMmsi: (mmsi: string | null) => void;
+  routes?: ShipRoute[] | null;
+  illegalAreas?: IllegalTransshipmentArea[] | null;
 }
 
 // Data points from the provided JSON
@@ -251,10 +269,23 @@ const createClusters = (markers: MarkerData[], zoomLevel: number, maxDistance: n
 const buffer500m = createBufferPolygon(500);
 const buffer1750m = createBufferPolygon(1750);
 
+const DEFAULT_ROUTE_COLORS = [
+  '#FF6B6B', // Red
+  '#4ECDC4', // Teal
+  '#45B7D1', // Blue
+  '#FFA07A', // Light Salmon
+  '#98D8C8', // Mint
+  '#F7DC6F', // Yellow
+  '#BB8FCE', // Purple
+  '#85C1E2', // Sky Blue
+];
+
 const MapComponent: FC<MapComponentProps> = ({
   markers,
   selectedMmsi,
   setSelectedMmsi,
+  routes,
+  illegalAreas,
 }) => {
   const { setSelectedTile, selectedTile } = useTileStore();
   const [zoomLevel, setZoomLevel] = useState(12);
@@ -294,7 +325,8 @@ const MapComponent: FC<MapComponentProps> = ({
       circleRadius: Math.max(1, Math.min(8, zoom / 2)),
       clusterSize: Math.max(12, Math.min(32, 16 * baseMultiplier)),
       fontSize: Math.max(8, Math.min(14, 10 * baseMultiplier)),
-      showKpPoints: zoom >= 13 // KP points only show when zoomed in enough
+      showKpPoints: zoom >= 13, // KP points only show when zoomed in enough
+      routeWeight: Math.max(2, Math.min(5, zoom / 3)),
     };
   };
 
@@ -303,7 +335,7 @@ const MapComponent: FC<MapComponentProps> = ({
   // Function to check if timestamp is too old (12 hours)
   const isTimestampTooOld = (timestamp: Date): boolean => {
     const currentTime = new Date();
-    const twelveHoursAgo = new Date(currentTime.getTime() - 12 * 60 * 60 * 1000);
+    const twelveHoursAgo = new Date(currentTime.getTime() - 0.5 * 60 * 60 * 1000);
     return new Date(timestamp) < twelveHoursAgo;
   };
 
@@ -384,9 +416,19 @@ const MapComponent: FC<MapComponentProps> = ({
     return createClusters(validMarkers, zoomLevel, clusterDistance);
   }, [validMarkers, zoomLevel]);
 
+  // Process routes with colors
+  const processedRoutes = useMemo(() => {
+    if (!routes || routes.length === 0) return [];
+    
+    return routes.map((route, index) => ({
+      ...route,
+      color: route.color || DEFAULT_ROUTE_COLORS[index % DEFAULT_ROUTE_COLORS.length],
+    }));
+  }, [routes]);
+
   return (
     <MapContainer
-      center={[-7.0, 112.68]}
+      center={[1.143238, 103.856406]}
       zoom={12}
       style={{ height: "100vh", width: "100vw" }}
       className="w-full h-full z-0"
@@ -453,6 +495,105 @@ const MapComponent: FC<MapComponentProps> = ({
             }}
           />
         </LayersControl.Overlay>
+
+        {/* Ship Routes */}
+        {processedRoutes && processedRoutes.length > 0 && (
+          <LayersControl.Overlay checked name="Ship Routes">
+            <>
+              {processedRoutes.map((route, routeIndex) => {
+                const routeCoordinates: [number, number][] = route.positions
+                  .filter(pos => pos.lat && pos.lon)
+                  .map(pos => [pos.lat, pos.lon]);
+                
+                if (routeCoordinates.length < 2) return null;
+
+                return (
+                  <Polyline
+                    key={`route-${route.mmsi}-${routeIndex}`}
+                    positions={routeCoordinates}
+                    pathOptions={{
+                      color: route.color,
+                      weight: sizes.routeWeight,
+                      opacity: 0.8,
+                    }}
+                  >
+                    <Popup>
+                      <div className="text-sm">
+                        <p className="font-bold">Ship Route</p>
+                        <p className="text-xs">MMSI: {route.mmsi}</p>
+                        <p className="text-xs">Points: {routeCoordinates.length}</p>
+                        <p className="text-xs">
+                          Time Range: {new Date(route.positions[0].timestamp).toLocaleString()} - {new Date(route.positions[route.positions.length - 1].timestamp).toLocaleString()}
+                        </p>
+                      </div>
+                    </Popup>
+                  </Polyline>
+
+                );
+              })}
+            </>
+          </LayersControl.Overlay>
+        )}
+
+        {/* Illegal Transshipment Areas */}
+        {illegalAreas && illegalAreas.length > 0 && (
+          <LayersControl.Overlay checked name="Suspected Illegal Transshipment">
+            <>
+              {illegalAreas.map((area, areaIndex) => {
+                const bounds: [[number, number], [number, number]] = [
+                  [area.latBottom, area.lonLeft],
+                  [area.latTop, area.lonRight]
+                ];
+
+                return (
+                  <Rectangle
+                    key={`illegal-area-${areaIndex}`}
+                    bounds={bounds}
+                    pathOptions={{
+                      color: "#DC2626",
+                      weight: 3,
+                      opacity: 0.9,
+                      fillColor: "#FEE2E2",
+                      fillOpacity: 0.4,
+                      // dashArray: "10, 5",
+                    }}
+                  >
+                    <Popup>
+                      <div className="text-sm">
+                        <p className="font-bold text-red-600">⚠️ Suspected Illegal Transshipment</p>
+                        {area.confidence && (
+                          <p className="text-xs mt-1">
+                            Confidence: {(area.confidence * 100).toFixed(1)}%
+                          </p>
+                        )}
+                        <p className="text-xs mt-1">
+                          Coordinates:
+                        </p>
+                        <p className="text-xs">
+                          Top: {area.latTop.toFixed(6)}
+                        </p>
+                        <p className="text-xs">
+                          Bottom: {area.latBottom.toFixed(6)}
+                        </p>
+                        <p className="text-xs">
+                          Left: {area.lonLeft.toFixed(6)}
+                        </p>
+                        <p className="text-xs">
+                          Right: {area.lonRight.toFixed(6)}
+                        </p>
+                        {area.timestamp && (
+                          <p className="text-xs mt-1">
+                            Detected: {new Date(area.timestamp).toLocaleString()}
+                          </p>
+                        )}
+                      </div>
+                    </Popup>
+                  </Rectangle>
+                );
+              })}
+            </>
+          </LayersControl.Overlay>
+        )}
 
         {/* KP Points - only show when zoomed in enough */}
         {sizes.showKpPoints && (

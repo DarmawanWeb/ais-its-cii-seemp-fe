@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 type SidebarState = {
   isOpen: boolean;
@@ -6,11 +6,11 @@ type SidebarState = {
 };
 
 export const useSidebarStore = create<SidebarState>((set) => ({
-  isOpen: JSON.parse(localStorage.getItem("sidebarOpen") || "false"),
+  isOpen: JSON.parse(localStorage.getItem('sidebarOpen') || 'false'),
   toggleSidebar: () =>
     set((state) => {
       const newState = !state.isOpen;
-      localStorage.setItem("sidebarOpen", JSON.stringify(newState));
+      localStorage.setItem('sidebarOpen', JSON.stringify(newState));
       return { isOpen: newState };
     }),
 }));

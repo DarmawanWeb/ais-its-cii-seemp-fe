@@ -9,6 +9,7 @@ const TelemetryPage = lazy(() => import("../pages/telemetry-page"));
 const NotFoundPage = lazy(() => import("../pages/not-found-page"));
 const EWSPage = lazy(() => import("../pages/ews"));
 const AnomalyPage = lazy(() => import("../pages/anomaly"));
+const IllegalTranshipmentPage = lazy(() => import("../pages/illegal-transhipment"));
 
 const withAppWrappers = <
   LProps extends { children?: React.ReactNode } = { children?: React.ReactNode }
@@ -64,9 +65,14 @@ export const router = createBrowserRouter([
       title: "EWS Page",
     }),
   },
-
-
-
+  {
+    path: "/illegal-transhipment",
+    element: withAppWrappers(IllegalTranshipmentPage, DefaultLayout, {
+      pageTitle: "Illegal Transhipment Detection",
+      title: "Illegal Transhipment Page",
+    } 
+    ),
+  },
   {
     path: "*",
     element: (
