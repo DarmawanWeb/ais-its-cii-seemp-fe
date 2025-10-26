@@ -225,7 +225,6 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
       <Card className="flex-1 overflow-hidden rounded-lg border-2 border-red-400 flex flex-col shadow-lg">
         <CardHeader className="bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-3 flex-shrink-0">
           <div className="flex items-center justify-center gap-2">
-            <span className="text-2xl">🚨</span>
             <h3 className="text-base font-bold">Illegal Transhipment Detection</h3>
           </div>
           <p className="text-sm text-center text-red-100 mt-1">
@@ -235,20 +234,20 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
         <CardContent className="px-4 py-3 flex-1 overflow-y-auto bg-gray-50">
           <div className="flex flex-col gap-3">
             {isLoading ? (
-              <div className="flex flex-col items-center justify-center h-40 text-center">
+              <div className="flex flex-col items-center justify-center text-center h-[70vh]">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-red-600 mb-3"></div>
                 <p className="text-sm font-medium text-gray-700">Loading detections...</p>
               </div>
-            ) : results.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-40 text-center bg-white rounded-lg border-2 border-green-300 p-6">
-                <div className="text-green-500 text-4xl mb-3">✓</div>
-                <p className="text-base font-bold text-gray-800 mb-2">
+            ) : results.length === 0 ? (           
+            <div className="flex flex-col items-center justify-center text-center py-8  h-[70vh]">
+                <div className="text-green-500 text-2xl mb-2">✓</div>
+                   <p className="text-base font-bold text-gray-800 mb-2">
                   No Illegal Activity Detected
                 </p>
                 <p className="text-sm text-gray-600">
                   All vessel movements appear normal
                 </p>
-              </div>
+          </div>
             ) : (
               results.map((result) => renderResultItem(result))
             )}
