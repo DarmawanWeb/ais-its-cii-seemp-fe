@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write 'src/**/*.{ts,js,json,md}'",
-    "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "start": "vite preview --port 3000"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.5",
