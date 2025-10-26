@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .ts",
     "format": "prettier --write 'src/**/*.{ts,js,json,md}'",
     "prepare": "husky",
-    "start": "vite preview --port 3000"
+    "start": "serve -s dist -l 3000"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.5",
@@ -60,6 +60,7 @@
     "globals": "^15.15.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.0",
+    "serve": "^14.2.5",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0"
