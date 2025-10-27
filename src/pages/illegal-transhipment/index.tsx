@@ -43,7 +43,7 @@ interface RouteApiResponse {
 const IllegalTranshipment: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
-  const [routes, setRoutes] = useState<ShipRoute[] | null>(null);
+  const [routes, setRoutes] = useState<ShipRoute[]>([]);
   const [selectedResult, setSelectedResult] =
     useState<IllegalTranshipmentResult | null>(null);
   const [isLoadingRoutes, setIsLoadingRoutes] = useState(false);
@@ -62,9 +62,10 @@ const IllegalTranshipment: FC = () => {
     const fetchShipData = async () => {
       try {
         const response = await axios.get(`${VITE_BACKEND_URI}/ais`);
-        setShipData(response.data.data);
+        setShipData(response.data.data || []);
       } catch (error) {
         console.error("Error fetching ship data:", error);
+        setShipData([]);
       }
     };
 
@@ -101,7 +102,7 @@ const IllegalTranshipment: FC = () => {
 
           const shipRoutes: ShipRoute[] = [];
 
-          if (ship1Positions && ship1Positions.length > 0) {
+          if (Array.isArray(ship1Positions) && ship1Positions.length > 0) {
             shipRoutes.push({
               mmsi: result.ship1MMSI,
               positions: ship1Positions.map((pos) => ({
@@ -119,7 +120,7 @@ const IllegalTranshipment: FC = () => {
             });
           }
 
-          if (ship2Positions && ship2Positions.length > 0) {
+          if (Array.isArray(ship2Positions) && ship2Positions.length > 0) {
             shipRoutes.push({
               mmsi: result.ship2MMSI,
               positions: ship2Positions.map((pos) => ({
@@ -138,19 +139,19 @@ const IllegalTranshipment: FC = () => {
           }
 
           if (shipRoutes.length === 0) {
-            setRoutes(null);
+            setRoutes([]);
             setZoomToRoutes(false);
           } else {
             setRoutes(shipRoutes);
             setZoomToRoutes(true);
           }
         } else {
-          setRoutes(null);
+          setRoutes([]);
           setZoomToRoutes(false);
         }
       } catch (error) {
         console.error("Error fetching route data:", error);
-        setRoutes(null);
+        setRoutes([]);
         setZoomToRoutes(false);
       } finally {
         setIsLoadingRoutes(false);
@@ -168,7 +169,7 @@ const IllegalTranshipment: FC = () => {
   );
 
   const clearRoutes = useCallback(() => {
-    setRoutes(null);
+    setRoutes([]);
     setSelectedResult(null);
     setZoomToRoutes(false);
   }, []);
@@ -181,7 +182,7 @@ const IllegalTranshipment: FC = () => {
           selectedResult={selectedResult}
           onClearRoutes={clearRoutes}
           isLoadingRoutes={isLoadingRoutes}
-          routesLoaded={routes !== null && routes.length > 0}
+          routesLoaded={routes.length > 0}
         />
       </aside>
 
@@ -189,7 +190,7 @@ const IllegalTranshipment: FC = () => {
         markers={shipData}
         selectedMmsi={selectedMmsi}
         setSelectedMmsi={setSelectedMmsi}
-        routes={routes}
+        routes={routes.length > 0 ? routes : undefined}
         zoomToRoutes={zoomToRoutes}
       />
     </main>
