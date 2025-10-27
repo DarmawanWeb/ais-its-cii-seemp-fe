@@ -48,18 +48,23 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
   const [results, setResults] = useState<IllegalTranshipmentResult[]>([]);
   const [shipNames, setShipNames] = useState<{ [mmsi: string]: string }>({});
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const getRelativeTime = useCallback((timestamp: Date): string => {
-    const now = new Date();
-    const diff = now.getTime() - new Date(timestamp).getTime();
-    const minutes = Math.floor(diff / 60000);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
+    try {
+      const now = new Date();
+      const diff = now.getTime() - new Date(timestamp).getTime();
+      const minutes = Math.floor(diff / 60000);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
 
-    if (days > 0) return `${days}d ago`;
-    if (hours > 0) return `${hours}h ago`;
-    if (minutes > 0) return `${minutes}m ago`;
-    return "Now";
+      if (days > 0) return `${days}d ago`;
+      if (hours > 0) return `${hours}h ago`;
+      if (minutes > 0) return `${minutes}m ago`;
+      return "Now";
+    } catch {
+      return "Unknown";
+    }
   }, []);
 
   const fetchShipDetails = useCallback(
@@ -68,9 +73,9 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
         const response = await axios.get(
           `${VITE_BACKEND_URI}/ships/data/secondary/mmsi/${mmsi}`
         );
-        return response.data.data;
+        return response.data?.data || null;
       } catch (error) {
-          console.error(`Error fetching ship details for MMSI ${mmsi}:`, error);
+        console.error(`Error fetching ship details for MMSI ${mmsi}:`, error);
         return null;
       }
     },
@@ -80,17 +85,20 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
   useEffect(() => {
     const fetchResults = async () => {
       setIsLoading(true);
+      setError(null);
+      
       try {
         const response = await axios.get(
           `${VITE_BACKEND_URI}/illegal-transhipment/results`
         );
-        if (response.data.success) {
+        
+        if (response.data?.success && Array.isArray(response.data.data)) {
           setResults(response.data.data);
 
           const uniqueMMSIs = new Set<string>();
           response.data.data.forEach((result: IllegalTranshipmentResult) => {
-            uniqueMMSIs.add(result.ship1MMSI);
-            uniqueMMSIs.add(result.ship2MMSI);
+            if (result?.ship1MMSI) uniqueMMSIs.add(result.ship1MMSI);
+            if (result?.ship2MMSI) uniqueMMSIs.add(result.ship2MMSI);
           });
 
           const mmsiArray = Array.from(uniqueMMSIs);
@@ -105,10 +113,13 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
             if (name) namesMap[mmsi] = name;
           });
           setShipNames(namesMap);
+        } else {
+          setResults([]);
         }
       } catch (error) {
         console.error("Error fetching illegal transhipment results:", error);
-        
+        setError("Failed to load detection results");
+        setResults([]);
       } finally {
         setIsLoading(false);
       }
@@ -176,7 +187,7 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
             <div className={`rounded-lg p-3 text-center ${getAccuracyBgColor(result.accuracy || 0)}`}>
               <p className="text-xs text-gray-700 font-medium mb-1">Detection Accuracy</p>
               <p className={`text-3xl font-bold ${getAccuracyColor(result.accuracy || 0)}`}>
-                {result.accuracy?.toFixed(1)}%
+                {result.accuracy?.toFixed(1) || 0}%
               </p>
             </div>
 
@@ -220,6 +231,8 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
     [shipNames, selectedResult, getRelativeTime, onSelectResult, getAccuracyColor, getAccuracyBgColor]
   );
 
+  const resultCount = Array.isArray(results) ? results.length : 0;
+
   return (
     <div className="h-full flex flex-col gap-3">
       <Card className="flex-1 overflow-hidden rounded-lg border-2 border-red-400 flex flex-col shadow-lg">
@@ -228,7 +241,7 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
             <h3 className="text-base font-bold">Illegal Transhipment Detection</h3>
           </div>
           <p className="text-sm text-center text-red-100 mt-1">
-            {results.length} case{results.length === 1 ? "" : "s"} detected
+            {resultCount} case{resultCount === 1 ? "" : "s"} detected
           </p>
         </CardHeader>
         <CardContent className="px-4 py-3 flex-1 overflow-y-auto bg-gray-50">
@@ -238,16 +251,26 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
                 <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-red-600 mb-3"></div>
                 <p className="text-sm font-medium text-gray-700">Loading detections...</p>
               </div>
-            ) : results.length === 0 ? (           
-            <div className="flex flex-col items-center justify-center text-center py-8  h-[70vh]">
+            ) : error ? (
+              <div className="flex flex-col items-center justify-center text-center py-8 h-[70vh]">
+                <div className="text-red-500 text-2xl mb-2">⚠️</div>
+                <p className="text-base font-bold text-gray-800 mb-2">
+                  {error}
+                </p>
+                <p className="text-sm text-gray-600">
+                  Please try again later
+                </p>
+              </div>
+            ) : resultCount === 0 ? (           
+              <div className="flex flex-col items-center justify-center text-center py-8 h-[70vh]">
                 <div className="text-green-500 text-2xl mb-2">✓</div>
-                   <p className="text-base font-bold text-gray-800 mb-2">
+                <p className="text-base font-bold text-gray-800 mb-2">
                   No Illegal Activity Detected
                 </p>
                 <p className="text-sm text-gray-600">
                   All vessel movements appear normal
                 </p>
-          </div>
+              </div>
             ) : (
               results.map((result) => renderResultItem(result))
             )}
