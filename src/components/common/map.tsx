@@ -308,7 +308,7 @@ const MapComponent: FC<MapComponentProps> = ({
   // Function to check if timestamp is too old (12 hours)
   const isTimestampTooOld = (timestamp: Date): boolean => {
     const currentTime = new Date();
-    const twelveHoursAgo = new Date(currentTime.getTime() - 0.5 * 60 * 60 * 1000);
+    const twelveHoursAgo = new Date(currentTime.getTime() - 12 * 60 * 60 * 1000);
     return new Date(timestamp) < twelveHoursAgo;
   };
 
