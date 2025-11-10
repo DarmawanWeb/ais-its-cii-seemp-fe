@@ -2,14 +2,9 @@ import axios from "axios";
 import { FC, useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import { VITE_BACKEND_URI } from "../../lib/env";
-import {
-  MarkerData,
-  ShipRoute,
-} from "../../components/common/map";
+import { MarkerData, ShipRoute } from "../../components/common/map";
 import MapComponent from "../../components/common/map";
-import IllegalTranshipmentCard, {
-  IllegalTranshipmentResult,
-} from "./components/illegal-transhipment-card";
+import IllegalTranshipmentCard, { IllegalTranshipmentResult } from "./components/illegal-transhipment-card";
 
 interface RouteApiResponse {
   message: string;
@@ -44,8 +39,7 @@ const IllegalTranshipment: FC = () => {
   const [shipData, setShipData] = useState<MarkerData[]>([]);
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
   const [routes, setRoutes] = useState<ShipRoute[]>([]);
-  const [selectedResult, setSelectedResult] =
-    useState<IllegalTranshipmentResult | null>(null);
+  const [selectedResult, setSelectedResult] = useState<IllegalTranshipmentResult | null>(null);
   const [isLoadingRoutes, setIsLoadingRoutes] = useState(false);
   const [zoomToRoutes, setZoomToRoutes] = useState(false);
   const location = useLocation();
@@ -53,131 +47,90 @@ const IllegalTranshipment: FC = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const mmsiParam = urlParams.get("mmsi");
-    if (mmsiParam) {
-      setSelectedMmsi(mmsiParam);
-    }
+    if (mmsiParam) setSelectedMmsi(mmsiParam);
   }, [location.search]);
 
   useEffect(() => {
     const fetchShipData = async () => {
-   try {
-        const response = await axios.get(`${VITE_BACKEND_URI}/ais`);
+      try {
+        const response = await axios.get(`${VITE_BACKEND_URI}/ais`, {
+          params: { hours: 12 },
+        });
         const allData = response.data.data;
-        
         let i = 0;
-        const chunkSize = 5; 
-
+        const chunkSize = 10;
         const interval = setInterval(() => {
-          setShipData((prev) => [
-            ...prev,
-            ...allData.slice(i, i + chunkSize)
-          ]);
+          setShipData((prev) => [...prev, ...allData.slice(i, i + chunkSize)]);
           i += chunkSize;
           if (i >= allData.length) clearInterval(interval);
-        }, 100);
+        }, 80);
       } catch (error) {
         console.error("Error fetching ship data:", error);
       }
     };
-
     fetchShipData();
     const interval = setInterval(fetchShipData, 10000);
     return () => clearInterval(interval);
   }, []);
 
-  const fetchRouteData = useCallback(
-    async (result: IllegalTranshipmentResult) => {
-      if (!result.startTimestamp || !result.endTimestamp) {
-        return;
-      }
-
-      setIsLoadingRoutes(true);
-      setZoomToRoutes(false);
-
-      try {
-        const startTime = new Date(result.startTimestamp).toISOString();
-        const endTime = new Date(result.endTimestamp).toISOString();
-
-        const response = await axios.get<RouteApiResponse>(
-          `${VITE_BACKEND_URI}/ais/routes/${result.ship1MMSI}/${result.ship2MMSI}`,
-          {
-            params: {
-              startTime,
-              endTime,
-            },
-          }
-        );
-
-        if (response.data.success && response.data.data) {
-          const { ship1Positions, ship2Positions } = response.data.data;
-
-          const shipRoutes: ShipRoute[] = [];
-
-          if (Array.isArray(ship1Positions) && ship1Positions.length > 0) {
-            shipRoutes.push({
-              mmsi: result.ship1MMSI,
-              positions: ship1Positions.map((pos) => ({
-                navstatus: pos.navstatus,
-                predictedNavStatus: pos.predictedNavStatus,
-                ewsStatus: pos.ewsStatus,
-                lat: pos.lat,
-                lon: pos.lon,
-                sog: pos.sog,
-                cog: pos.cog,
-                hdg: pos.hdg,
-                timestamp: new Date(pos.timestamp),
-              })),
-              color: "#FF6B6B",
-            });
-          }
-
-          if (Array.isArray(ship2Positions) && ship2Positions.length > 0) {
-            shipRoutes.push({
-              mmsi: result.ship2MMSI,
-              positions: ship2Positions.map((pos) => ({
-                navstatus: pos.navstatus,
-                predictedNavStatus: pos.predictedNavStatus,
-                ewsStatus: pos.ewsStatus,
-                lat: pos.lat,
-                lon: pos.lon,
-                sog: pos.sog,
-                cog: pos.cog,
-                hdg: pos.hdg,
-                timestamp: new Date(pos.timestamp),
-              })),
-              color: "#4ECDC4",
-            });
-          }
-
-          if (shipRoutes.length === 0) {
-            setRoutes([]);
-            setZoomToRoutes(false);
-          } else {
-            setRoutes(shipRoutes);
-            setZoomToRoutes(true);
-          }
-        } else {
+  const fetchRouteData = useCallback(async (result: IllegalTranshipmentResult) => {
+    if (!result.startTimestamp || !result.endTimestamp) return;
+    setIsLoadingRoutes(true);
+    setZoomToRoutes(false);
+    try {
+      const startTime = new Date(result.startTimestamp).toISOString();
+      const endTime = new Date(result.endTimestamp).toISOString();
+      const response = await axios.get<RouteApiResponse>(
+        `${VITE_BACKEND_URI}/ais/routes/${result.ship1MMSI}/${result.ship2MMSI}`,
+        { params: { startTime, endTime } }
+      );
+      if (response.data.success && response.data.data) {
+        const { ship1Positions, ship2Positions } = response.data.data;
+        const shipRoutes: ShipRoute[] = [];
+        if (Array.isArray(ship1Positions) && ship1Positions.length > 0) {
+          shipRoutes.push({
+            mmsi: result.ship1MMSI,
+            positions: ship1Positions.map((p) => ({
+              ...p,
+              timestamp: new Date(p.timestamp),
+            })),
+            color: "#FF6B6B",
+          });
+        }
+        if (Array.isArray(ship2Positions) && ship2Positions.length > 0) {
+          shipRoutes.push({
+            mmsi: result.ship2MMSI,
+            positions: ship2Positions.map((p) => ({
+              ...p,
+              timestamp: new Date(p.timestamp),
+            })),
+            color: "#4ECDC4",
+          });
+        }
+        if (shipRoutes.length === 0) {
           setRoutes([]);
           setZoomToRoutes(false);
+        } else {
+          setRoutes(shipRoutes);
+          setZoomToRoutes(true);
         }
-      } catch (error) {
-        console.error("Error fetching route data:", error);
+      } else {
         setRoutes([]);
         setZoomToRoutes(false);
-      } finally {
-        setIsLoadingRoutes(false);
       }
-    },
-    []
-  );
+    } catch (error) {
+      console.error("Error fetching route data:", error);
+      setRoutes([]);
+      setZoomToRoutes(false);
+    } finally {
+      setIsLoadingRoutes(false);
+    }
+  }, []);
 
-  const handleSelectResult = useCallback(
-    (result: IllegalTranshipmentResult) => {
-      setSelectedResult(result);
-      fetchRouteData(result);
-    },
-    [fetchRouteData]
-  );
+  const handleSelectResult = useCallback((result: IllegalTranshipmentResult) => {
+    setSelectedResult(result);
+    fetchRouteData(result);
+  }, [fetchRouteData]);
 
   const clearRoutes = useCallback(() => {
     setRoutes([]);
@@ -196,7 +149,6 @@ const IllegalTranshipment: FC = () => {
           routesLoaded={routes.length > 0}
         />
       </aside>
-
       <MapComponent
         markers={shipData}
         selectedMmsi={selectedMmsi}
@@ -206,7 +158,7 @@ const IllegalTranshipment: FC = () => {
         isBatamView={true}
       />
     </main>
-  );
+  )
 };
 
 export default IllegalTranshipment;

@@ -110,26 +110,24 @@ const TelemetryPage: FC = () => {
   useEffect(() => {
     const fetchShipData = async () => {
       try {
-        const response = await axios.get(`${VITE_BACKEND_URI}/ais`);
+        const response = await axios.get(`${VITE_BACKEND_URI}/ais`, {
+          params: { hours: 12 },
+        });
         const allData = response.data.data;
-        
         let i = 0;
-        const chunkSize = 5; 
-
+        const chunkSize = 10;
         const interval = setInterval(() => {
-          setShipData((prev) => [
-            ...prev,
-            ...allData.slice(i, i + chunkSize)
-          ]);
+          setShipData((prev) => [...prev, ...allData.slice(i, i + chunkSize)]);
           i += chunkSize;
           if (i >= allData.length) clearInterval(interval);
-        }, 100);
+        }, 80);
       } catch (error) {
         console.error("Error fetching ship data:", error);
       }
     };
-
     fetchShipData();
+    const interval = setInterval(fetchShipData, 10000);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
