@@ -27,17 +27,27 @@ const EWSPage: FC = () => {
     const fetchShipData = async () => {
       try {
         const response = await axios.get(`${VITE_BACKEND_URI}/ais`);
-        setShipData(response.data.data);
+        const allData = response.data.data;
+        
+        let i = 0;
+        const chunkSize = 5; 
+
+        const interval = setInterval(() => {
+          setShipData((prev) => [
+            ...prev,
+            ...allData.slice(i, i + chunkSize)
+          ]);
+          i += chunkSize;
+          if (i >= allData.length) clearInterval(interval);
+        }, 100);
       } catch (error) {
         console.error("Error fetching ship data:", error);
       }
     };
 
     fetchShipData();
+
   }, []);
-
-  console.log("Ship Data:", shipData);
-
 
   return (
     <main className="h-screen w-screen relative bg-gray-300 overflow-hidden z-1">

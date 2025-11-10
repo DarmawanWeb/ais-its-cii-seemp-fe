@@ -85,13 +85,26 @@ const CIIPage: FC = () => {
 
   // Fetch functions with error handling
   const fetchShipData = useCallback(async () => {
-    try {
-      const response = await axios.get(`${VITE_BACKEND_URI}/ais`);
-      setShipData(response.data.data);
-    } catch (error) {
-      console.error("Error fetching ship data:", error);
-    }
+   try {
+        const response = await axios.get(`${VITE_BACKEND_URI}/ais`);
+        const allData = response.data.data;
+        
+        let i = 0;
+        const chunkSize = 5; 
+
+        const interval = setInterval(() => {
+          setShipData((prev) => [
+            ...prev,
+            ...allData.slice(i, i + chunkSize)
+          ]);
+          i += chunkSize;
+          if (i >= allData.length) clearInterval(interval);
+        }, 100);
+      } catch (error) {
+        console.error("Error fetching ship data:", error);
+      }
   }, []);
+
 
   const fetchShipDetail = useCallback(async (mmsi: string) => {
     try {

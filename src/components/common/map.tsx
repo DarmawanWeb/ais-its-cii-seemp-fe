@@ -64,6 +64,7 @@ export interface MapComponentProps {
   routes?: ShipRoute[] | null;
   illegalAreas?: IllegalTransshipmentArea[] | null;
   zoomToRoutes?: boolean;
+  isBatamView?: boolean;
 }
 
 // Data points from the provided JSON
@@ -259,10 +260,16 @@ const MapComponent: FC<MapComponentProps> = ({
   setSelectedMmsi,
   routes,
   zoomToRoutes = false,
+  isBatamView = false,
 }) => {
   const { setSelectedTile, selectedTile } = useTileStore();
-  const [zoomLevel, setZoomLevel] = useState(12);
+  const [zoomLevel, setZoomLevel] = useState(7);
 
+    const defaultCenter: [number, number] = isBatamView
+    ? [1.143238, 103.856406] 
+    : [-7.431460, 113.904856]; 
+  
+  
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const mmsiParam = urlParams.get("mmsi");
@@ -401,8 +408,8 @@ const MapComponent: FC<MapComponentProps> = ({
 
   return (
     <MapContainer
-      center={[1.143238, 103.856406]}
-      zoom={12}
+      center={defaultCenter}
+      zoom={zoomLevel}
       style={{ height: "100vh", width: "100vw" }}
       className="w-full h-full z-0"
       zoomControl={false}
