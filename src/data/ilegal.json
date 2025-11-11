@@ -18,6 +18,15 @@
     "year": "2015"
   },
   {
+    "name": "KM. Berkat Jaya",
+    "country": "Indonesia",
+    "lat": 0.422,
+    "lng": 104.105167,
+    "violation": "Operasional penangkapan ikan, tidak memiliki SLO",
+    "action": "Diadhock ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
     "name": "BTH 96110 TS",
     "country": "Vietnam",
     "lat": 4.510167,
@@ -25,5 +34,3596 @@
     "violation": "Tidak memiliki dokumen perizinan",
     "action": "Dikawal ke Stasiun PSDKP Pontianak",
     "year": "2015"
+  },
+  {
+    "name": "BTH 96782 TS",
+    "country": "Vietnam",
+    "lat": 4.5095,
+    "lng": 107.717667,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "BTH 96783 TS",
+    "country": "Vietnam",
+    "lat": 4.5065,
+    "lng": 107.701667,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "BTH 98092 TS",
+    "country": "Vietnam",
+    "lat": 4.551167,
+    "lng": 107.680667,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Hollywood 03",
+    "country": "Indonesia",
+    "lat": 1.1225,
+    "lng": 125.371167,
+    "violation": "ABK Asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Samudera Jaya Raya - I",
+    "country": "Indonesia",
+    "lat": -0.265067,
+    "lng": 129.296483,
+    "violation": "Persyaratan & Prosedur Operasional Penangkapan Ikan (beroperasi Grup sementara Izinya beroperasi Tunggal",
+    "action": "Dikawal ke Satker PSDKP Sorong",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Samudera Jaya Raya Perkasa",
+    "country": "Indonesia",
+    "lat": -0.265067,
+    "lng": 129.296483,
+    "violation": "Persyaratan & Prosedur Operasional Penangkapan Ikan (beroperasi Grup sementara Izinya beroperasi Tunggal",
+    "action": "Dikawal ke Satker PSDKP Sorong",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Cahaya Samudera",
+    "country": "Indonesia",
+    "lat": -0.3923,
+    "lng": 126.59565,
+    "violation": "Persyaratan & Prosedur Operasional Penangkapan Ikan (beroperasi Grup sementara Izinya beroperasi Tunggal",
+    "action": "Dikawal ke Satker PSDKP Sorong",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Cahaya Samudera 02",
+    "country": "Indonesia",
+    "lat": -0.392167,
+    "lng": 126.59565,
+    "violation": "Persyaratan & Prosedur Operasional Penangkapan Ikan (beroperasi Grup sementara Izinya beroperasi Tunggal",
+    "action": "Dikawal ke Satker PSDKP Sorong",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Garuda 05",
+    "country": "Philipina",
+    "lat": 4.93,
+    "lng": 126.718333,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Garuda 06",
+    "country": "Philipina",
+    "lat": 4.466667,
+    "lng": 126.733333,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. 026",
+    "country": "Thailand",
+    "lat": 5.8,
+    "lng": 98.033333,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Pelabuhan Perikanan Idi Rayeuk, Aceh Timur",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Maharani Nusantara",
+    "country": "Indonesia",
+    "lat": 2.900717,
+    "lng": 100.731383,
+    "violation": "Tidak memiliki SLO dan SIB",
+    "action": "Dikawal ke Dermaga PPS Belawan",
+    "year": "2015"
+  },
+  {
+    "name": "PKFB677",
+    "country": "Malaysia",
+    "lat": 3.235,
+    "lng": 100.45,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Stasiun PSDKP Belawan",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Berkah Melimpah - II",
+    "country": "Indonesia",
+    "lat": -6.023333,
+    "lng": 112.928333,
+    "violation": "Fishing Ground tidak sesuai izin",
+    "action": "Diadhock ke Satker PSDKP Probolinggo",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Jala Komira 807",
+    "country": "Indonesia",
+    "lat": 0.873483,
+    "lng": 106.95,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Sudita 27",
+    "country": "Thailand",
+    "lat": 0.801083,
+    "lng": 106.8762,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Sumber Laut",
+    "country": "Indonesia",
+    "lat": -6.066667,
+    "lng": 106.783333,
+    "violation": "Dokumen kapal mati, Alat tangkap terlarang",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Sumber Samudera I",
+    "country": "Indonesia",
+    "lat": 3.925367,
+    "lng": 98.71985,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Dermaga PPS Belawan",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Sumber Samudera II",
+    "country": "Indonesia",
+    "lat": 3.92555,
+    "lng": 98.7205,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Dermaga PPS Belawan",
+    "year": "2015"
+  },
+  {
+    "name": "KM. BKM 9",
+    "country": "Thailand",
+    "lat": 2.964683,
+    "lng": 107.8221,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Lancar Subur - 2",
+    "country": "Indonesia",
+    "lat": -6.0,
+    "lng": 106.816667,
+    "violation": "Tidak dilengkapin SLO dan SPB",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Sudita - 15",
+    "country": "Thailand",
+    "lat": 2.687783,
+    "lng": 107.4825,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Seroja",
+    "country": "Malaysia",
+    "lat": 3.512517,
+    "lng": 104.88675,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Selasih",
+    "country": "Malaysia",
+    "lat": 3.512517,
+    "lng": 104.88675,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Aljabar I",
+    "country": "Indonesia",
+    "lat": -6.0,
+    "lng": 106.816667,
+    "violation": "Tidak dilengkapi TPKP",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2015"
+  },
+  {
+    "name": "KG 90512 TS",
+    "country": "Vietnam",
+    "lat": 2.475,
+    "lng": 109.623167,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "KG 94152 TS",
+    "country": "Vietnam",
+    "lat": 2.489667,
+    "lng": 109.674833,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "KG 91395 TS",
+    "country": "Vietnam",
+    "lat": 2.493667,
+    "lng": 109.746833,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "KG 91751 TS",
+    "country": "Vietnam",
+    "lat": 2.526167,
+    "lng": 109.7365,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Arnavat 02",
+    "country": "Philipina",
+    "lat": 2.631667,
+    "lng": 124.745,
+    "violation": "Tidak memiliki dokumen perizinan, penggunaan ABK asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Ulam Sari",
+    "country": "Indonesia",
+    "lat": -5.883333,
+    "lng": 107.366667,
+    "violation": "Tidak dilengkapin SIPI, SLO dan SPB",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2015"
+  },
+  {
+    "name": "KG 90540 TS",
+    "country": "Vietnam",
+    "lat": 3.910083,
+    "lng": 105.08725,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "KG 92728 TS",
+    "country": "Vietnam",
+    "lat": 3.90565,
+    "lng": 105.091983,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "KM. D'Regs - 03",
+    "country": "Philipina",
+    "lat": 3.028,
+    "lng": 124.845167,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Khosin Pra Than Chai 5",
+    "country": "Thailand",
+    "lat": 4.16225,
+    "lng": 104.988333,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Pandu 07",
+    "country": "Indonesia",
+    "lat": 1.2376,
+    "lng": 125.894433,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Rambe",
+    "country": "Indonesia",
+    "lat": -2.960617,
+    "lng": 120.326433,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pelabuhan Perikanan Palopo",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Kuda Laut",
+    "country": "Indonesia",
+    "lat": -2.964483,
+    "lng": 120.331767,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pelabuhan Perikanan Palopo",
+    "year": "2015"
+  },
+  {
+    "name": "BD 955820 TS",
+    "country": "Vietnam",
+    "lat": 5.195667,
+    "lng": 105.789167,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "BD 96797 TS",
+    "country": "Vietnam",
+    "lat": 5.162667,
+    "lng": 105.8085,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "BD 95980 TS",
+    "country": "Vietnam",
+    "lat": 5.235333,
+    "lng": 105.7895,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "BD 95443 TS",
+    "country": "Vietnam",
+    "lat": 5.311833,
+    "lng": 105.795333,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "BD 96884 TS",
+    "country": "Vietnam",
+    "lat": 5.351667,
+    "lng": 105.722,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "TG 92420 TS",
+    "country": "Vietnam",
+    "lat": 5.3595,
+    "lng": 105.65,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "BD 95159 TS",
+    "country": "Vietnam",
+    "lat": 5.367,
+    "lng": 105.6115,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Tuna Jaya 3",
+    "country": "Philipina",
+    "lat": 5.608333,
+    "lng": 126.235,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "BV 92442 TS",
+    "country": "Vietnam",
+    "lat": 6.160517,
+    "lng": 106.1834,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "BV 92443 TS",
+    "country": "Vietnam",
+    "lat": 6.160517,
+    "lng": 106.1834,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Laut Natuna 12",
+    "country": "Thailand",
+    "lat": 2.624,
+    "lng": 105.179833,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "KM.  Altri 88",
+    "country": "Indonesia",
+    "lat": 3.0045,
+    "lng": 124.732,
+    "violation": "Tidak memiliki dokumen perizinan, penggunaan ABK asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Marinir",
+    "country": "Philipina",
+    "lat": 3.157667,
+    "lng": 124.734167,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Solavide",
+    "country": "Indonesia",
+    "lat": 0.621,
+    "lng": 125.842833,
+    "violation": "Tidak memiliki dokumen perizinan, penggunaan ABK asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Badit",
+    "country": "Indonesia",
+    "lat": 0.621667,
+    "lng": 125.8415,
+    "violation": "Tidak memiliki dokumen perizinan, penggunaan ABK asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Christian",
+    "country": "Indonesia",
+    "lat": 0.866833,
+    "lng": 125.585167,
+    "violation": "Tidak memiliki dokumen perizinan, penggunaan ABK asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Roni Jaya",
+    "country": "Indonesia",
+    "lat": -5.866667,
+    "lng": 107.216667,
+    "violation": "Tidak dilengkapin SLO dan SPB",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Dua Putri Jaya",
+    "country": "Indonesia",
+    "lat": -5.866667,
+    "lng": 107.233333,
+    "violation": "Tidak dilengkapin SLO dan SPB",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Sidah Jaya",
+    "country": "Indonesia",
+    "lat": -5.85,
+    "lng": 107.233333,
+    "violation": "Tidak dilengkapin SLO dan SPB",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2015"
+  },
+  {
+    "name": "PPF 729",
+    "country": "Malaysia",
+    "lat": 5.471733,
+    "lng": 98.764117,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Stasiun PSDKP Belawan",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Dewa Ruci",
+    "country": "Indonesia",
+    "lat": 3.667967,
+    "lng": 125.2315,
+    "violation": "Penggunaan ABK asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Haleluya - 02",
+    "country": "Indonesia",
+    "lat": 2.773667,
+    "lng": 124.603,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Yordan 01",
+    "country": "Indonesia",
+    "lat": 2.7375,
+    "lng": 124.489667,
+    "violation": "Penggunaan ABK Asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Tanpa Nama",
+    "country": "Indonesia",
+    "lat": 2.688833,
+    "lng": 124.502,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "BV 9619 TS",
+    "country": "Vietnam",
+    "lat": 3.303167,
+    "lng": 109.7595,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "BV 8281 TS",
+    "country": "Vietnam",
+    "lat": 3.303167,
+    "lng": 109.7595,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "BV 9947 TS",
+    "country": "Vietnam",
+    "lat": 3.226333,
+    "lng": 109.793167,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "BV 7282 TS",
+    "country": "Vietnam",
+    "lat": 3.303167,
+    "lng": 109.7595,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "BV 95228 TS",
+    "country": "Vietnam",
+    "lat": 3.2138,
+    "lng": 104.957017,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "BV 95038 TS",
+    "country": "Vietnam",
+    "lat": 3.188617,
+    "lng": 104.980967,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "BV 95609 TS",
+    "country": "Vietnam",
+    "lat": 3.16895,
+    "lng": 104.986933,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "BV 95472 TS",
+    "country": "Vietnam",
+    "lat": 3.1788,
+    "lng": 105.031217,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "BV 95632 TS",
+    "country": "Vietnam",
+    "lat": 3.2155,
+    "lng": 105.076767,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "BV 75169 TS",
+    "country": "Vietnam",
+    "lat": 3.242367,
+    "lng": 105.071817,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Hollywood - 01",
+    "country": "Indonesia",
+    "lat": 0.618333,
+    "lng": 126.12,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "JHF 6901 T",
+    "country": "Malaysia",
+    "lat": 4.000033,
+    "lng": 104.852167,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satker PSDKP Tarempa",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Pison - 04",
+    "country": "Indonesia",
+    "lat": 3.1298,
+    "lng": 124.471967,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Malinggaheng",
+    "country": "Indonesia",
+    "lat": 2.892967,
+    "lng": 124.50485,
+    "violation": "Penggunaan ABK Asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Arnavat 02",
+    "country": "Indonesia",
+    "lat": 0.95,
+    "lng": 126.616667,
+    "violation": "Tidak memiliki dokumen perizinan, penggunaan ABK asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Pertiwi - 01",
+    "country": "Indonesia",
+    "lat": 1.15,
+    "lng": 126.546667,
+    "violation": "Tidak memiliki dokumen perizinan, penggunaan ABK asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KG 93525 TS",
+    "country": "Vietnam",
+    "lat": 5.365,
+    "lng": 108.9005,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "KG 91490 TS",
+    "country": "Vietnam",
+    "lat": 5.346167,
+    "lng": 108.905167,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "KG 93877 TS",
+    "country": "Vietnam",
+    "lat": 5.3395,
+    "lng": 108.925667,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "KG 93577 TS",
+    "country": "Vietnam",
+    "lat": 5.341,
+    "lng": 108.928167,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Ethan Gofir - 02",
+    "country": "Indonesia",
+    "lat": 2.251667,
+    "lng": 124.575,
+    "violation": "Dokumen perizinan tidak sesuai, penggunaan ABK asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Bintang Terang",
+    "country": "Indonesia",
+    "lat": 3.663333,
+    "lng": 124.368333,
+    "violation": "Dokumen perizinan tidak sesuai, penggunaan ABK asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "BV 9980 TS",
+    "country": "Vietnam",
+    "lat": 5.15,
+    "lng": 109.233333,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Satker PSDKP Natuna",
+    "year": "2015"
+  },
+  {
+    "name": "BV 99252 TS",
+    "country": "Vietnam",
+    "lat": 5.077717,
+    "lng": 109.1208,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Satker PSDKP Natuna",
+    "year": "2015"
+  },
+  {
+    "name": "BV 9261 TS",
+    "country": "Vietnam",
+    "lat": 5.076367,
+    "lng": 109.130283,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Satker PSDKP Natuna",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Mitra Jaya - I",
+    "country": "Indonesia",
+    "lat": 3.953033,
+    "lng": 98.692867,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Stasiun PSDKP Belawan",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Mitra Jaya - II",
+    "country": "Indonesia",
+    "lat": 3.953033,
+    "lng": 98.692867,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Stasiun PSDKP Belawan",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Jaya Samudera",
+    "country": "Indonesia",
+    "lat": -2.328017,
+    "lng": 130.32255,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satker PSDKP Sorong",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Kulsumber",
+    "country": "Indonesia",
+    "lat": -5.916667,
+    "lng": 106.5,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2015"
+  },
+  {
+    "name": "FBCa. RGJ",
+    "country": "Philipina",
+    "lat": 2.030417,
+    "lng": 131.4884,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke PPP Sorong",
+    "year": "2015"
+  },
+  {
+    "name": "FBCa. Green Mile",
+    "country": "Philipina",
+    "lat": 2.030417,
+    "lng": 131.4884,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke PPP Sorong",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Selancar Jaya",
+    "country": "Indonesia",
+    "lat": -1.124333,
+    "lng": 104.634583,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke PPS Muntok",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Harapan VII",
+    "country": "Indonesia",
+    "lat": -1.048333,
+    "lng": 104.485,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Satker PSDKP Kuala Tungkal",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Harapan XIV",
+    "country": "Indonesia",
+    "lat": -1.035,
+    "lng": 104.521667,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Satker PSDKP Kuala Tungkal",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Mina Bahari 19",
+    "country": "Indonesia",
+    "lat": -1.175,
+    "lng": 104.605,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Satker PSDKP Kuala Tungkal",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Tenggiri - A",
+    "country": "Indonesia",
+    "lat": 4.0,
+    "lng": 98.816667,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Stasiun PSDKP Belawan",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Suryati Jaya",
+    "country": "Indonesia",
+    "lat": 3.21955,
+    "lng": 100.38435,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Stasiun PSDKP Belawan",
+    "year": "2015"
+  },
+  {
+    "name": "SLFA 2675",
+    "country": "Malaysia",
+    "lat": 3.365,
+    "lng": 100.308367,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Diadhock ke Stasiun PSDKP Belawan",
+    "year": "2015"
+  },
+  {
+    "name": "PPF 609",
+    "country": "Malaysia",
+    "lat": 3.229683,
+    "lng": 100.41855,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "SLFA 4586",
+    "country": "Malaysia",
+    "lat": 3.133267,
+    "lng": 100.636683,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "SLFA 3416",
+    "country": "Malaysia",
+    "lat": 3.1362,
+    "lng": 100.628767,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "SLFA 4421",
+    "country": "Malaysia",
+    "lat": 3.072267,
+    "lng": 100.696883,
+    "violation": "Tidak memiliki dokumen perizinan, alat tangkap terlarang",
+    "action": "Dikawal ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "KM. RIA VII",
+    "country": "Indonesia",
+    "lat": 1.889733,
+    "lng": 102.163833,
+    "violation": "Penyelundupan",
+    "action": "Dilimpahkan ke Bea Cukai Dumai",
+    "year": "2016"
+  },
+  {
+    "name": "SLFA 2915",
+    "country": "Malaysia",
+    "lat": 2.981767,
+    "lng": 100.836233,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "PKFB 376",
+    "country": "Malaysia",
+    "lat": 2.955,
+    "lng": 100.85805,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "KHF 451",
+    "country": "Malaysia",
+    "lat": 2.897917,
+    "lng": 100.873883,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "PSF 2461",
+    "country": "Malaysia",
+    "lat": 2.893633,
+    "lng": 100.8443,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "PPF 164",
+    "country": "Malaysia",
+    "lat": 2.948783,
+    "lng": 100.853,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "PPF 593",
+    "country": "Malaysia",
+    "lat": 2.895333,
+    "lng": 100.847567,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "PKFA 8482",
+    "country": "Malaysia",
+    "lat": 2.938817,
+    "lng": 100.857083,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Flaminggo",
+    "country": "Indonesia",
+    "lat": 1.371667,
+    "lng": 125.151667,
+    "violation": "Penggunaan ABK asing",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "SLFA 4778",
+    "country": "Malaysia",
+    "lat": 2.901667,
+    "lng": 100.878333,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Belawan",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Usaha Jaya",
+    "country": "Indonesia",
+    "lat": -5.833333,
+    "lng": 106.65,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Berkat Efrata",
+    "country": "Indonesia",
+    "lat": 1.741633,
+    "lng": 125.045517,
+    "violation": "Tidak memiliki dokumen perizinan; penggunaan ABK asing",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "SLFA 4625",
+    "country": "Malaysia",
+    "lat": 2.934333,
+    "lng": 100.820033,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "PKFB 1512",
+    "country": "Malaysia",
+    "lat": 2.986083,
+    "lng": 100.839183,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "KHF 1917",
+    "country": "Malaysia",
+    "lat": 2.96325,
+    "lng": 100.825383,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "BD 96153 TS",
+    "country": "Vietnam",
+    "lat": 4.775783,
+    "lng": 105.33535,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "BTh 98996 TS",
+    "country": "Vietnam",
+    "lat": 4.505967,
+    "lng": 105.286083,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Kway Fey 10078",
+    "country": "China",
+    "lat": 5.124833,
+    "lng": 109.197167,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "nan",
+    "year": "2016"
+  },
+  {
+    "name": "KM. JJ-04",
+    "country": "Indonesia",
+    "lat": 0.021817,
+    "lng": 99.23425,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Dermaga PPS Bungus",
+    "year": "2016"
+  },
+  {
+    "name": "KNF 7440",
+    "country": "Vietnam",
+    "lat": 4.740833,
+    "lng": 105.501667,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Dermaga PPP Antang, Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "KNF 7441",
+    "country": "Vietnam",
+    "lat": 4.771667,
+    "lng": 105.49455,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Dermaga PPP Antang, Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "KNF 7442",
+    "country": "Vietnam",
+    "lat": 4.718717,
+    "lng": 105.354883,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Dermaga PPP Antang, Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "KNF 7443",
+    "country": "Vietnam",
+    "lat": 4.6879,
+    "lng": 105.384617,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Dermaga PPP Antang, Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "SLFA 693",
+    "country": "Malaysia",
+    "lat": 3.400167,
+    "lng": 100.335,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "KNF 7747",
+    "country": "Malaysia",
+    "lat": 4.810783,
+    "lng": 105.397083,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "KNF 7725",
+    "country": "Malaysia",
+    "lat": 4.825667,
+    "lng": 105.388217,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "PKFB 1098",
+    "country": "Malaysia",
+    "lat": 4.795067,
+    "lng": 105.384933,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "M/B CA Double J",
+    "country": "Philipina",
+    "lat": 2.618,
+    "lng": 123.687833,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "JHF 5151 T",
+    "country": "Malaysia",
+    "lat": 3.79095,
+    "lng": 104.876967,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 3392 TS",
+    "country": "Vietnam",
+    "lat": 5.10825,
+    "lng": 109.79215,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 5279 TS",
+    "country": "Vietnam",
+    "lat": 5.10955,
+    "lng": 109.748783,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 4806 TS",
+    "country": "Vietnam",
+    "lat": 5.22555,
+    "lng": 109.824417,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 97789 TS",
+    "country": "Vietnam",
+    "lat": 6.1269,
+    "lng": 108.170517,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 97679 TS",
+    "country": "Vietnam",
+    "lat": 6.131433,
+    "lng": 108.1726,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 99466 TS",
+    "country": "Vietnam",
+    "lat": 6.430467,
+    "lng": 108.160617,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 98667 TS",
+    "country": "Vietnam",
+    "lat": 6.12135,
+    "lng": 108.097917,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 5248 TS",
+    "country": "Vietnam",
+    "lat": 6.496883,
+    "lng": 108.0814,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 5688 TS",
+    "country": "Vietnam",
+    "lat": 6.4971,
+    "lng": 108.094417,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "Tanpa Nama",
+    "country": "Indonesia",
+    "lat": 1.739567,
+    "lng": 98.53765,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Sibolga",
+    "year": "2016"
+  },
+  {
+    "name": "KG  94127 TS",
+    "country": "Vietnam",
+    "lat": 3.319883,
+    "lng": 104.846483,
+    "violation": "Alat tangkap terlarang & tidak sesuai dengan SIPI",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "KG 94713 TS",
+    "country": "Vietnam",
+    "lat": 3.432883,
+    "lng": 104.836183,
+    "violation": "Alat tangkap terlarang & tidak sesuai dengan SIPI",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "KG 94037 TS",
+    "country": "Vietnam",
+    "lat": 3.690383,
+    "lng": 104.772133,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Sempurna",
+    "country": "Indonesia",
+    "lat": 1.190467,
+    "lng": 98.633767,
+    "violation": "Alat tangkap terlarang & tidak sesuai dengan SIPI",
+    "action": "dikawal ke Satker PSDKP Sibolga",
+    "year": "2016"
+  },
+  {
+    "name": "Sor Kunyakit 3",
+    "country": "Thailand",
+    "lat": 5.101483,
+    "lng": 105.745933,
+    "violation": "Diduga membawa muatan BBM (Solar) ilegal",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "BV 5185 TS",
+    "country": "Vietnam",
+    "lat": 5.308883,
+    "lng": 109.728017,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 5183 TS",
+    "country": "Vietnam",
+    "lat": 5.326633,
+    "lng": 109.720517,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 4661 TS",
+    "country": "Vietnam",
+    "lat": 5.511367,
+    "lng": 109.277367,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 92683 TS",
+    "country": "Vietnam",
+    "lat": 5.563,
+    "lng": 109.323,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 4515 TS",
+    "country": "Vietnam",
+    "lat": 5.590983,
+    "lng": 109.3628,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 92889 TS",
+    "country": "Vietnam",
+    "lat": 5.560617,
+    "lng": 109.26645,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 4516 TS",
+    "country": "Vietnam",
+    "lat": 5.524033,
+    "lng": 109.190283,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 92977 TS",
+    "country": "Vietnam",
+    "lat": 5.600583,
+    "lng": 109.259933,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 92888 TS",
+    "country": "Vietnam",
+    "lat": 5.605667,
+    "lng": 109.250267,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 92682 TS",
+    "country": "Vietnam",
+    "lat": 5.595967,
+    "lng": 109.242117,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 0634 TS",
+    "country": "Vietnam",
+    "lat": 5.59115,
+    "lng": 109.258783,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 92976 TS",
+    "country": "Vietnam",
+    "lat": 5.625517,
+    "lng": 109.23255,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "FBCa. Jharred",
+    "country": "Philipina",
+    "lat": 1.942833,
+    "lng": 131.86245,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "FBCa. Jebo 1",
+    "country": "Philipina",
+    "lat": 2.156683,
+    "lng": 131.82555,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "FB. Lourdz",
+    "country": "Philipina",
+    "lat": 2.156683,
+    "lng": 131.82555,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "FB. Kenzo 04",
+    "country": "Philipina",
+    "lat": 2.156683,
+    "lng": 131.82555,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "QNG 95337 TS",
+    "country": "Vietnam",
+    "lat": 1.924167,
+    "lng": 131.305383,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "BV 9397 TS",
+    "country": "Vietnam",
+    "lat": 5.213567,
+    "lng": 106.357383,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 4663 TS",
+    "country": "Vietnam",
+    "lat": 5.212467,
+    "lng": 106.361317,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 92788 TS",
+    "country": "Vietnam",
+    "lat": 5.207083,
+    "lng": 106.361167,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 92789 TS",
+    "country": "Vietnam",
+    "lat": 5.198717,
+    "lng": 106.360667,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 0259 TS",
+    "country": "Vietnam",
+    "lat": 5.1867,
+    "lng": 106.360883,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 92972 TS",
+    "country": "Vietnam",
+    "lat": 5.194283,
+    "lng": 106.374867,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 97397 TS",
+    "country": "Vietnam",
+    "lat": 5.158783,
+    "lng": 106.3789,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Pulau Tiga, Kumbik, Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "FBCa. SNATOP",
+    "country": "Philipina",
+    "lat": 4.3883,
+    "lng": 126.362283,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "FBCa. Justine",
+    "country": "Philipina",
+    "lat": 4.388367,
+    "lng": 126.362067,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "BV 5286 TS",
+    "country": "Vietnam",
+    "lat": 6.6394,
+    "lng": 109.0356,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 5295 TS",
+    "country": "Vietnam",
+    "lat": 6.6509,
+    "lng": 109.156367,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 93186 TS",
+    "country": "Vietnam",
+    "lat": 6.617817,
+    "lng": 109.1323,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 5352 TS",
+    "country": "Vietnam",
+    "lat": 6.117283,
+    "lng": 109.113283,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Matulende - 01",
+    "country": "Indonesia",
+    "lat": 3.554533,
+    "lng": 125.04155,
+    "violation": "Tidak memiliki dokumen perizinan; penggunaan ABK asing",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Hj. Ani 2",
+    "country": "Indonesia",
+    "lat": 3.507,
+    "lng": 125.055833,
+    "violation": "Tidak memiliki dokumen perizinan; penggunaan ABK asing",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "BTh 98602 TS",
+    "country": "Vietnam",
+    "lat": 6.359383,
+    "lng": 109.587533,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BTh 99514 TS",
+    "country": "Vietnam",
+    "lat": 6.267917,
+    "lng": 109.635933,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BTh 97729 TS",
+    "country": "Vietnam",
+    "lat": 6.291983,
+    "lng": 109.622683,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BTh 97974 TS",
+    "country": "Vietnam",
+    "lat": 6.333067,
+    "lng": 109.571733,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BTh 97292 TS",
+    "country": "Vietnam",
+    "lat": 6.3601,
+    "lng": 109.60605,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BTh 98869 TS",
+    "country": "Vietnam",
+    "lat": 6.40685,
+    "lng": 109.5695,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BTh 98350 TS",
+    "country": "Vietnam",
+    "lat": 6.497533,
+    "lng": 109.477667,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BTh 99962 TS",
+    "country": "Vietnam",
+    "lat": 6.497533,
+    "lng": 109.477767,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "KNF 7858",
+    "country": "Malaysia",
+    "lat": 4.768883,
+    "lng": 105.387083,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "TRF 1156",
+    "country": "Malaysia",
+    "lat": 4.706167,
+    "lng": 105.296583,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "KG 92688 TS",
+    "country": "Vietnam",
+    "lat": 2.746583,
+    "lng": 104.943133,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "JHF 6525 T",
+    "country": "Malaysia",
+    "lat": 2.7693,
+    "lng": 104.9109,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "BD 95244 TS",
+    "country": "Vietnam",
+    "lat": 5.787133,
+    "lng": 105.737667,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "BD 97088 TS",
+    "country": "Vietnam",
+    "lat": 5.430767,
+    "lng": 105.95775,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "TG 90701 TS",
+    "country": "Vietnam",
+    "lat": 5.501817,
+    "lng": 105.9201,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "PKFB 1152",
+    "country": "Malaysia",
+    "lat": 3.600917,
+    "lng": 100.09415,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Belawan",
+    "year": "2016"
+  },
+  {
+    "name": "PKFA 8115",
+    "country": "Malaysia",
+    "lat": 3.55215,
+    "lng": 100.020133,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Belawan",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Sempurna",
+    "country": "Indonesia",
+    "lat": 0.8516,
+    "lng": 98.791833,
+    "violation": "Tidak sesuai SIPI dan tidak  memiliki SLO",
+    "action": "dikawal ke Dermaga PPS Bungus",
+    "year": "2016"
+  },
+  {
+    "name": "KHF 1767",
+    "country": "Malaysia",
+    "lat": 3.557967,
+    "lng": 100.055833,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Belawan",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Camar 01",
+    "country": "Indonesia",
+    "lat": 2.880417,
+    "lng": 124.054,
+    "violation": "Penggunaan ABK asing",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Rifka",
+    "country": "Indonesia",
+    "lat": 2.94,
+    "lng": 123.47,
+    "violation": "Penggunaan ABK asing",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "M/BCA J-BOY",
+    "country": "Philipina",
+    "lat": 5.305,
+    "lng": 126.928333,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "M/BCA SHARLENEE",
+    "country": "Philipina",
+    "lat": 5.305,
+    "lng": 126.928333,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "M/BCA FISHER FOLKS 1",
+    "country": "Philipina",
+    "lat": 5.265,
+    "lng": 126.965,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "F/B RENZ",
+    "country": "Philipina",
+    "lat": 5.26585,
+    "lng": 126.965067,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "KM. TRIPLE D-00",
+    "country": "Indonesia",
+    "lat": 5.225,
+    "lng": 127.161667,
+    "violation": "Penggunaan ABK asing",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "M/BCA PAREKOY",
+    "country": "Philipina",
+    "lat": 5.3909,
+    "lng": 127.04555,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "M/BCA JUHAZEN 9-1",
+    "country": "Philipina",
+    "lat": 5.26245,
+    "lng": 127.086567,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "KM D'VON",
+    "country": "Indonesia",
+    "lat": 5.26235,
+    "lng": 127.12285,
+    "violation": "Penggunaan ABK asing",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Lancar Jaya Santosa 2",
+    "country": "Indonesia",
+    "lat": -3.03285,
+    "lng": 117.358467,
+    "violation": "Fishing Ground tidak sesuai SIPI",
+    "action": "dikawal ke Pos PSDKP Balikpapan",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Puji Manunggal 08",
+    "country": "Indonesia",
+    "lat": -3.995,
+    "lng": 117.353333,
+    "violation": "Fishing Ground tidak sesuai SIPI",
+    "action": "dikawal ke Pos PSDKP Balikpapan",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Utomo Tambah Makmur 2",
+    "country": "Indonesia",
+    "lat": -3.001817,
+    "lng": 117.273483,
+    "violation": "Fishing Ground tidak sesuai SIPI",
+    "action": "dikawal ke Pos PSDKP Balikpapan",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Puji Manunggal II",
+    "country": "Indonesia",
+    "lat": -3.08,
+    "lng": 117.24,
+    "violation": "Fishing Ground tidak sesuai SIPI",
+    "action": "dikawal ke Pos PSDKP Balikpapan",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Nagama Biru 01",
+    "country": "Indonesia",
+    "lat": -2.16,
+    "lng": 116.966667,
+    "violation": "Tidak memiliki SPB, Memuat ikan yang dilindungi (Napoleon)",
+    "action": "dikawal ke Pos PSDKP Balikpapan",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Lautan Samudra - 8",
+    "country": "Indonesia",
+    "lat": -1.953333,
+    "lng": 117.05,
+    "violation": "Fishing Ground tidak sesuai SIPI",
+    "action": "dikawal ke Pos PSDKP Balikpapan",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Prima Sukses 2",
+    "country": "Indonesia",
+    "lat": -1.908667,
+    "lng": 117.04115,
+    "violation": "Fishing Ground tidak sesuai SIPI",
+    "action": "dikawal ke Pos PSDKP Balikpapan",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Zhang Marina 89",
+    "country": "Indonesia",
+    "lat": -1.851633,
+    "lng": 117.118017,
+    "violation": "Fishing Ground tidak sesuai SIPI",
+    "action": "dikawal ke Pos PSDKP Balikpapan",
+    "year": "2016"
+  },
+  {
+    "name": "KM. Hasil Tuna Utama",
+    "country": "Indonesia",
+    "lat": -1.91855,
+    "lng": 116.999467,
+    "violation": "Fishing Ground tidak sesuai SIPI",
+    "action": "dikawal ke Pos PSDKP Balikpapan",
+    "year": "2016"
+  },
+  {
+    "name": "FB. MARGARETH",
+    "country": "Philipina",
+    "lat": 5.11645,
+    "lng": 125.7193,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "KARANG-6",
+    "country": "Vietnam",
+    "lat": 1.540083,
+    "lng": 104.775283,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "JMS 00637",
+    "country": "Vietnam",
+    "lat": 1.5372,
+    "lng": 104.76465,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "MURKHAN 5",
+    "country": "Vietnam",
+    "lat": 1.494317,
+    "lng": 104.769533,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "VIVE JULIA 02",
+    "country": "Philipina",
+    "lat": 5.11645,
+    "lng": 125.7193,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "FESHENDO 01",
+    "country": "Philipina",
+    "lat": 5.11645,
+    "lng": 125.7193,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "JEWEL 04",
+    "country": "Philipina",
+    "lat": 5.1655,
+    "lng": 126.66735,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "BTH 96467 TS",
+    "country": "Vietnam",
+    "lat": 4.167067,
+    "lng": 105.008817,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "JHF 7009 TU1",
+    "country": "Malaysia",
+    "lat": 4.320133,
+    "lng": 105.100067,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "JHF 7009 TU2",
+    "country": "Malaysia",
+    "lat": 4.304217,
+    "lng": 105.070767,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "JHFA 398 TU2",
+    "country": "Malaysia",
+    "lat": 4.168067,
+    "lng": 105.058933,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "KG 93194 TS",
+    "country": "Vietnam",
+    "lat": 3.618467,
+    "lng": 109.8535,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BWFMAI4",
+    "country": "Vietnam",
+    "lat": 3.592067,
+    "lng": 109.82305,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BWFMAI3",
+    "country": "Vietnam",
+    "lat": 3.559717,
+    "lng": 109.801317,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BD 95377 TS",
+    "country": "Vietnam",
+    "lat": 5.9816,
+    "lng": 106.276783,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BD 97583 TS",
+    "country": "Vietnam",
+    "lat": 6.169,
+    "lng": 106.236133,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 4985 TS",
+    "country": "Vietnam",
+    "lat": 5.997733,
+    "lng": 106.25625,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 4984 TS",
+    "country": "Vietnam",
+    "lat": 5.9952,
+    "lng": 106.25445,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 92421 TS",
+    "country": "Vietnam",
+    "lat": 6.171717,
+    "lng": 106.343517,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 5424 TS",
+    "country": "Vietnam",
+    "lat": 5.949033,
+    "lng": 106.36415,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 92455 TS",
+    "country": "Vietnam",
+    "lat": 6.134717,
+    "lng": 106.353167,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 92458 TS",
+    "country": "Vietnam",
+    "lat": 5.90955,
+    "lng": 106.232417,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "BV 0595 TS",
+    "country": "Vietnam",
+    "lat": 6.446583,
+    "lng": 107.57215,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 0027 TS",
+    "country": "Vietnam",
+    "lat": 6.453483,
+    "lng": 107.541417,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 5201 TS",
+    "country": "Vietnam",
+    "lat": 6.482833,
+    "lng": 107.504683,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "BV 92255 TS",
+    "country": "Vietnam",
+    "lat": 6.462683,
+    "lng": 107.502867,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Natuna",
+    "year": "2016"
+  },
+  {
+    "name": "PAF 4767",
+    "country": "Vietnam",
+    "lat": 2.771917,
+    "lng": 105.013333,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "FBCA. JULEI JANE",
+    "country": "Philipina",
+    "lat": 6.072,
+    "lng": 126.813833,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "FB. ELYZA",
+    "country": "Philipina",
+    "lat": 6.00485,
+    "lng": 126.8732,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "KM. ALVIN TROY",
+    "country": "Philipina",
+    "lat": 6.00485,
+    "lng": 126.8732,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "FB. IAN JADE",
+    "country": "Philipina",
+    "lat": 6.00485,
+    "lng": 126.8732,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "FBCA. JESSA",
+    "country": "Philipina",
+    "lat": 5.981583,
+    "lng": 127.099633,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "FBCA. ROMEL",
+    "country": "Philipina",
+    "lat": 5.899317,
+    "lng": 127.077183,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "BV 4667 TS",
+    "country": "Vietnam",
+    "lat": 6.2635,
+    "lng": 107.7145,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "BV 0589 TS",
+    "country": "Vietnam",
+    "lat": 6.285,
+    "lng": 107.67375,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "BV 99688 TS",
+    "country": "Vietnam",
+    "lat": 6.367,
+    "lng": 107.535083,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "SLFA 4654",
+    "country": "Malaysia",
+    "lat": 2.970667,
+    "lng": 100.859,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "KG 94792 TS",
+    "country": "Vietnam",
+    "lat": 4.6538,
+    "lng": 105.26085,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Tarempa",
+    "year": "2016"
+  },
+  {
+    "name": "SURIA TIMUR",
+    "country": "Vietnam",
+    "lat": 4.27095,
+    "lng": 105.256217,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "SURIA TIMUR 11",
+    "country": "Vietnam",
+    "lat": 4.255067,
+    "lng": 105.261883,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "PAF 4457",
+    "country": "Vietnam",
+    "lat": 4.339483,
+    "lng": 105.31075,
+    "violation": "Alat tangkap terlarang; tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "JHF 8918 T",
+    "country": "Vietnam",
+    "lat": 4.188367,
+    "lng": 105.21285,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2016"
+  },
+  {
+    "name": "FB. GINISIS",
+    "country": "Philipina",
+    "lat": 5.9554,
+    "lng": 127.02295,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "FBCA. PMC - 26",
+    "country": "Philipina",
+    "lat": 5.94625,
+    "lng": 127.038167,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "FBCA. GARLYN 888",
+    "country": "Philipina",
+    "lat": 5.930967,
+    "lng": 126.937083,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "FB. FRANCESKA",
+    "country": "Philipina",
+    "lat": 5.929933,
+    "lng": 126.983883,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "FB. LOUIE - 18",
+    "country": "Philipina",
+    "lat": 6.034,
+    "lng": 126.922833,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "FB. LB VIENT-06",
+    "country": "Philipina",
+    "lat": 6.034,
+    "lng": 126.922833,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2016"
+  },
+  {
+    "name": "BTH 85800 TS",
+    "country": "Vietnam",
+    "lat": 5.878083,
+    "lng": 106.895467,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "dikawal ke Satker PSDKP Batam",
+    "year": "2016"
+  },
+  {
+    "name": "KM. LA GRACIA",
+    "country": "Indonesia",
+    "lat": 1.438833,
+    "lng": 125.1581,
+    "violation": "Pemalsuan Dokumen; Penggunaan ABK Asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "KM. LA GRACIA-1",
+    "country": "Indonesia",
+    "lat": 1.438833,
+    "lng": 125.1581,
+    "violation": "Pemalsuan Dokumen; Penggunaan ABK Asing",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "SLFA 5066",
+    "country": "Malaysia",
+    "lat": 2.879867,
+    "lng": 100.922,
+    "violation": "Tidak memiliki dokumen perizinan; Penggunaan ABK Asing",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "PKFB 381",
+    "country": "Malaysia",
+    "lat": 3.4859,
+    "lng": 100.207733,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Belawan",
+    "year": "2017"
+  },
+  {
+    "name": "KM. LAMPU SAKTI - 10",
+    "country": "Indonesia",
+    "lat": -2.60845,
+    "lng": 128.829233,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Ambon",
+    "year": "2017"
+  },
+  {
+    "name": "KM. LAMPU SAKTI - 5",
+    "country": "Indonesia",
+    "lat": -2.60845,
+    "lng": 128.829233,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Ambon",
+    "year": "2017"
+  },
+  {
+    "name": "KH 91009 TS",
+    "country": "Vietnam",
+    "lat": 4.730483,
+    "lng": 105.395833,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KH 96056 TS",
+    "country": "Vietnam",
+    "lat": 4.69695,
+    "lng": 105.401333,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KH 97722 TS",
+    "country": "Vietnam",
+    "lat": 4.92095,
+    "lng": 105.4203,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KH 95581 TS",
+    "country": "Vietnam",
+    "lat": 4.772983,
+    "lng": 105.601133,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "BV 3240 TS",
+    "country": "Vietnam",
+    "lat": 6.174567,
+    "lng": 106.494117,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "KG 90486 TS",
+    "country": "Vietnam",
+    "lat": 6.253667,
+    "lng": 106.602833,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "KG 90487 TS",
+    "country": "Vietnam",
+    "lat": 6.253667,
+    "lng": 106.602833,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "BV 93198 TS",
+    "country": "Vietnam",
+    "lat": 6.340883,
+    "lng": 106.62375,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "BV 93199 TS",
+    "country": "Vietnam",
+    "lat": 6.340883,
+    "lng": 106.62375,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "BV 4393 TS",
+    "country": "Vietnam",
+    "lat": 6.498667,
+    "lng": 108.748867,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Kepulauan Anambas",
+    "year": "2017"
+  },
+  {
+    "name": "BV 93157 TS",
+    "country": "Vietnam",
+    "lat": 6.49275,
+    "lng": 108.74545,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Kepulauan Anambas",
+    "year": "2017"
+  },
+  {
+    "name": "KM. ABADI 01 (BV 97769 TS)",
+    "country": "Vietnam",
+    "lat": 5.575283,
+    "lng": 106.179533,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "KM. ABADI 02 (BV 9982 TS)",
+    "country": "Vietnam",
+    "lat": 5.5753,
+    "lng": 106.179517,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "KM. ABADI 03 (BV 96698 TS)",
+    "country": "Vietnam",
+    "lat": 5.66035,
+    "lng": 106.052767,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "KM. ABADI 04 (BV 96698 TS)",
+    "country": "Vietnam",
+    "lat": 5.66035,
+    "lng": 106.052767,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "KM. ABADI 05 (BV 91771 TS)",
+    "country": "Vietnam",
+    "lat": 5.6875,
+    "lng": 106.091217,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "KM. ABADI 06 (BV 98887 TS)",
+    "country": "Vietnam",
+    "lat": 5.68345,
+    "lng": 106.087933,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "F/B QUIMAY",
+    "country": "Philipina",
+    "lat": 5.1917,
+    "lng": 126.897217,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "F/B ALEXANDREA",
+    "country": "Philipina",
+    "lat": 5.193117,
+    "lng": 126.897367,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "F/B BRAVE HEART",
+    "country": "Philipina",
+    "lat": 5.193433,
+    "lng": 126.89755,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "F/B JEFEAH",
+    "country": "Philipina",
+    "lat": 5.194467,
+    "lng": 126.8977,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "BV 92553 TS",
+    "country": "Vietnam",
+    "lat": 5.25755,
+    "lng": 109.874067,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 92552 TS",
+    "country": "Vietnam",
+    "lat": 5.261667,
+    "lng": 109.884167,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 5273 TS",
+    "country": "Vietnam",
+    "lat": 5.138333,
+    "lng": 109.771667,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 5271 TS",
+    "country": "Vietnam",
+    "lat": 5.151167,
+    "lng": 109.786,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 5525 TS",
+    "country": "Vietnam",
+    "lat": 5.141667,
+    "lng": 109.8265,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 0480 TS",
+    "country": "Vietnam",
+    "lat": 5.140333,
+    "lng": 109.8775,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 94437 TS",
+    "country": "Vietnam",
+    "lat": 5.1045,
+    "lng": 109.68,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 92886 TS",
+    "country": "Vietnam",
+    "lat": 5.1235,
+    "lng": 109.693833,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 55028 TS",
+    "country": "Vietnam",
+    "lat": 5.069383,
+    "lng": 109.6902,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 92709 TS",
+    "country": "Vietnam",
+    "lat": 4.995833,
+    "lng": 109.683,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 92696 TS",
+    "country": "Vietnam",
+    "lat": 4.982833,
+    "lng": 109.6515,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 92206 TS",
+    "country": "Vietnam",
+    "lat": 4.989167,
+    "lng": 109.612667,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 90951 TS",
+    "country": "Vietnam",
+    "lat": 5.074033,
+    "lng": 109.519083,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "KM. SARI ASIH 2",
+    "country": "Indonesia",
+    "lat": 2.95805,
+    "lng": 109.403967,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "KM. TIEN SUDARMO-01",
+    "country": "Indonesia",
+    "lat": 2.694933,
+    "lng": 109.45835,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "PKFB 1089",
+    "country": "Malaysia",
+    "lat": 3.219083,
+    "lng": 100.544267,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "BV 0329 TS",
+    "country": "Vietnam",
+    "lat": 5.654667,
+    "lng": 109.570833,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 0216 TS",
+    "country": "Vietnam",
+    "lat": 5.581667,
+    "lng": 109.686333,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 97778 TS",
+    "country": "Vietnam",
+    "lat": 5.757667,
+    "lng": 109.743,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "BV 97575 TS",
+    "country": "Vietnam",
+    "lat": 5.875333,
+    "lng": 109.543,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "KG 93895 TS",
+    "country": "Vietnam",
+    "lat": 6.521717,
+    "lng": 106.394467,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KG 95359 TS",
+    "country": "Vietnam",
+    "lat": 6.509133,
+    "lng": 106.411767,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KG 90946 TS",
+    "country": "Vietnam",
+    "lat": 6.56785,
+    "lng": 106.449817,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KG 92503 TS",
+    "country": "Vietnam",
+    "lat": 6.5789,
+    "lng": 106.498633,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KG 90793 TS",
+    "country": "Vietnam",
+    "lat": 6.508767,
+    "lng": 106.519767,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "BV 5356 TS",
+    "country": "Vietnam",
+    "lat": 6.458817,
+    "lng": 106.472883,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "BV 92533 TS",
+    "country": "Vietnam",
+    "lat": 6.480167,
+    "lng": 106.456733,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KM. BANGUN JAYA",
+    "country": "Indonesia",
+    "lat": -5.9631,
+    "lng": 106.669667,
+    "violation": "Alat Tangkap Terlarang; Dokumen  perizinan sudah tidak berlaku",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2017"
+  },
+  {
+    "name": "KM. BATUR SADULUR",
+    "country": "Indonesia",
+    "lat": -5.964233,
+    "lng": 106.66555,
+    "violation": "Alat Tangkap Terlarang; Dokumen  perizinan sudah tidak berlaku",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2017"
+  },
+  {
+    "name": "KM WINDRI 02",
+    "country": "Indonesia",
+    "lat": 0.844567,
+    "lng": 124.894133,
+    "violation": "Tidak dilengkapi Transmitter; Tidak ada SLO dan SPB",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "KM.  BUNGA DESA 3",
+    "country": "Indonesia",
+    "lat": -5.495183,
+    "lng": 105.938433,
+    "violation": "Alat Tangkap Terlarang; Dokumen  perizinan sudah tidak berlaku",
+    "action": "Dikawal ke Satwas SDKP Serang",
+    "year": "2017"
+  },
+  {
+    "name": "KM.  SUKMA SARI",
+    "country": "Indonesia",
+    "lat": -5.486533,
+    "lng": 105.98455,
+    "violation": "Alat Tangkap Terlarang; Dokumen  perizinan sudah tidak berlaku",
+    "action": "Dikawal ke Satwas SDKP Serang",
+    "year": "2017"
+  },
+  {
+    "name": "TG 94196 TS",
+    "country": "Vietnam",
+    "lat": 6.538533,
+    "lng": 107.460933,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "TG 91917 TS",
+    "country": "Vietnam",
+    "lat": 6.539967,
+    "lng": 107.4349,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "TG 90869 TS",
+    "country": "Vietnam",
+    "lat": 6.62205,
+    "lng": 107.320467,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "TG 92367 TS",
+    "country": "Vietnam",
+    "lat": 6.630367,
+    "lng": 107.24305,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "TG 92512 TS",
+    "country": "Vietnam",
+    "lat": 6.618983,
+    "lng": 107.1667,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2017"
+  },
+  {
+    "name": "TG 94169 TS",
+    "country": "Vietnam",
+    "lat": 6.364183,
+    "lng": 107.572217,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "TG 94916 TS",
+    "country": "Vietnam",
+    "lat": 6.322367,
+    "lng": 107.419533,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "TG 93395 TS",
+    "country": "Vietnam",
+    "lat": 6.454533,
+    "lng": 107.2422,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "TG 91705 TS",
+    "country": "Vietnam",
+    "lat": 6.343433,
+    "lng": 107.0907,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "KM. NAILI - X",
+    "country": "Indonesia",
+    "lat": -4.498817,
+    "lng": 131.676,
+    "violation": "Pelabuhan Muat Singgah Tidak Sesuai SIKPI",
+    "action": "Dikawal ke Pangkalan PSDKP Tual",
+    "year": "2017"
+  },
+  {
+    "name": "KG 93374 TS",
+    "country": "Vietnam",
+    "lat": 6.476633,
+    "lng": 106.444333,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KG 92673 TS",
+    "country": "Vietnam",
+    "lat": 6.465733,
+    "lng": 106.438417,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KG 90430 TS",
+    "country": "Vietnam",
+    "lat": 6.3576,
+    "lng": 106.276683,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KG 90429 TS",
+    "country": "Vietnam",
+    "lat": 6.338717,
+    "lng": 106.27565,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "BV 95008 TS",
+    "country": "Vietnam",
+    "lat": 6.296067,
+    "lng": 106.2387,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "BV 6666 TS",
+    "country": "Vietnam",
+    "lat": 6.26245,
+    "lng": 106.359933,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KM. ALINA SEJAHTERA",
+    "country": "Indonesia",
+    "lat": -5.858433,
+    "lng": 107.070883,
+    "violation": "Alat Tangkap Terlarang; Dokumen perizinan tidak sesuai",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2017"
+  },
+  {
+    "name": "KM ALFIT-05",
+    "country": "Indonesia",
+    "lat": 3.51765,
+    "lng": 125.120867,
+    "violation": "Penggunaan ABK Asing (Daftar ABK tidak sesuai); Tidak dilengkapi SLO dan SIUP",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "KH 95858 TS",
+    "country": "Vietnam",
+    "lat": 6.8691,
+    "lng": 109.217783,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Tindakan Lain (dilepaskan karena terjadi insiden dengan CG Vietnam)",
+    "year": "2017"
+  },
+  {
+    "name": "KH 99055 TS",
+    "country": "Vietnam",
+    "lat": 6.997017,
+    "lng": 109.197217,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Tindakan Lain (dilepaskan karena terjadi insiden dengan CG Vietnam)",
+    "year": "2017"
+  },
+  {
+    "name": "KH 97579 TS",
+    "country": "Vietnam",
+    "lat": 7.100317,
+    "lng": 109.1829,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Tenggelam",
+    "year": "2017"
+  },
+  {
+    "name": "KH 90206 TS",
+    "country": "Vietnam",
+    "lat": 7.1292,
+    "lng": 109.075167,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Tindakan Lain (dilepaskan karena terjadi insiden dengan CG Vietnam)",
+    "year": "2017"
+  },
+  {
+    "name": "KH 93979 TS",
+    "country": "Vietnam",
+    "lat": 7.008233,
+    "lng": 109.14005,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Tindakan Lain (dilepaskan karena terjadi insiden dengan CG Vietnam)",
+    "year": "2017"
+  },
+  {
+    "name": "KM. SAHABAT 03",
+    "country": "Indonesia",
+    "lat": -5.232183,
+    "lng": 106.218183,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2017"
+  },
+  {
+    "name": "KM. SRI BUNGA BR",
+    "country": "Indonesia",
+    "lat": -5.220283,
+    "lng": 106.22285,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki SLO",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2017"
+  },
+  {
+    "name": "KM. RAHAYU LESTARI",
+    "country": "Indonesia",
+    "lat": -5.22575,
+    "lng": 106.17925,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki SLO",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2017"
+  },
+  {
+    "name": "KM. PUTRA TUNGGAL 2",
+    "country": "Indonesia",
+    "lat": -5.1676,
+    "lng": 106.103533,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Jakarta",
+    "year": "2017"
+  },
+  {
+    "name": "KM. SENTOSA XII",
+    "country": "Indonesia",
+    "lat": 0.351733,
+    "lng": 131.426583,
+    "violation": "DPI/Fishing Ground tidak sesuai izin",
+    "action": "Dikawal ke Satwas SDKP Sorong",
+    "year": "2017"
+  },
+  {
+    "name": "KM. EDEN",
+    "country": "Indonesia",
+    "lat": 0.06865,
+    "lng": 128.780867,
+    "violation": "Pelanggaran DPI",
+    "action": "Diadhock ke Satwas SDKP Ternate",
+    "year": "2017"
+  },
+  {
+    "name": "KM. MULIN 13",
+    "country": "Indonesia",
+    "lat": 0.030167,
+    "lng": 128.698683,
+    "violation": "Dokumen SIKPI digunakan untuk menangkap",
+    "action": "Diadhock ke Satwas SDKP Ternate",
+    "year": "2017"
+  },
+  {
+    "name": "KM. MAZMUR 86",
+    "country": "Indonesia",
+    "lat": 0.054267,
+    "lng": 128.67745,
+    "violation": "Pelanggaran DPI",
+    "action": "Diadhock ke Pangkalan  PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "KM. SHALOM",
+    "country": "Indonesia",
+    "lat": 0.075267,
+    "lng": 128.712867,
+    "violation": "Pelanggaran DPI",
+    "action": "Diadhock ke Pangkalan  PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "KMN. FERRY BARU",
+    "country": "Indonesia",
+    "lat": -6.022633,
+    "lng": 111.2032,
+    "violation": "Tidak memiliki dokumen perizinan (SIPI, SPB, dan SLO)",
+    "action": "Diadhock ke PPN Brondong",
+    "year": "2017"
+  },
+  {
+    "name": "SLFA 4641",
+    "country": "Malaysia",
+    "lat": 3.298033,
+    "lng": 100.5514,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Pangkalan  PSDKP Lampulo",
+    "year": "2017"
+  },
+  {
+    "name": "SLFA 4948",
+    "country": "Malaysia",
+    "lat": 3.381217,
+    "lng": 100.548783,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Pangkalan  PSDKP Lampulo",
+    "year": "2017"
+  },
+  {
+    "name": "BD 96743 TS",
+    "country": "Vietnam",
+    "lat": 5.550267,
+    "lng": 105.949017,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KNF 7825",
+    "country": "Vietnam",
+    "lat": 5.66235,
+    "lng": 105.975183,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "BV 5770 TS",
+    "country": "Vietnam",
+    "lat": 3.007083,
+    "lng": 109.764683,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "BV 9484 TS",
+    "country": "Vietnam",
+    "lat": 2.990117,
+    "lng": 109.7611,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "BV 92389 TS",
+    "country": "Vietnam",
+    "lat": 3.12295,
+    "lng": 109.80645,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KHF 1980",
+    "country": "Malaysia",
+    "lat": 4.62705,
+    "lng": 99.416083,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Stasiun PSDKP Belawan",
+    "year": "2017"
+  },
+  {
+    "name": "KHF 2228",
+    "country": "Malaysia",
+    "lat": 4.53855,
+    "lng": 99.388433,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Stasiun PSDKP Belawan",
+    "year": "2017"
+  },
+  {
+    "name": "KM BIMANTARA - I",
+    "country": "Indonesia",
+    "lat": -6.5025,
+    "lng": 109.29,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Satwas Cirebon",
+    "year": "2017"
+  },
+  {
+    "name": "KHF 2069",
+    "country": "Malaysia",
+    "lat": 4.54145,
+    "lng": 99.392367,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Stasiun PSDKP Belawan",
+    "year": "2017"
+  },
+  {
+    "name": "PAF 4646",
+    "country": "Malaysia",
+    "lat": 1.59235,
+    "lng": 104.858467,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "BD 95599 TS",
+    "country": "Vietnam",
+    "lat": 5.495717,
+    "lng": 105.806733,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "BD 96623 TS",
+    "country": "Vietnam",
+    "lat": 5.558967,
+    "lng": 105.842917,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "KM KECAPI 2",
+    "country": "Indonesia",
+    "lat": 1.140967,
+    "lng": 105.479817,
+    "violation": "Dokumen SIPI tidak sesuai",
+    "action": "Diadhock ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "KM SUKMA D",
+    "country": "Indonesia",
+    "lat": 3.36425,
+    "lng": 125.261417,
+    "violation": "Tidak memiliki SPB",
+    "action": "Diadhock ke Stasiun PSDKP Tahuna",
+    "year": "2017"
+  },
+  {
+    "name": "KM CITRA RIZKI BAROKAH",
+    "country": "Indonesia",
+    "lat": -6.799783,
+    "lng": 115.028383,
+    "violation": "Pelanggaran DPI",
+    "action": "Diadhock ke PP Mayangan, Probolinggo",
+    "year": "2017"
+  },
+  {
+    "name": "KM BINTANG ARINDO",
+    "country": "Indonesia",
+    "lat": -6.78755,
+    "lng": 115.02195,
+    "violation": "Pelanggaran DPI",
+    "action": "Diadhock ke PP Mayangan, Probolinggo",
+    "year": "2017"
+  },
+  {
+    "name": "KM PUTRA LEO PERKASA",
+    "country": "Indonesia",
+    "lat": -6.875717,
+    "lng": 115.936733,
+    "violation": "Pelanggaran DPI",
+    "action": "Diadhock ke Pangkalan PSDKP Benoa",
+    "year": "2017"
+  },
+  {
+    "name": "KM SUKMA JAYA",
+    "country": "Indonesia",
+    "lat": -3.936417,
+    "lng": 122.835817,
+    "violation": "Tidak memiliki dokumen perizinan (SIPI, SPB, dan SLO)",
+    "action": "Diadhock ke PPS Kendari",
+    "year": "2017"
+  },
+  {
+    "name": "KM FAJAR INDAH 03",
+    "country": "Indonesia",
+    "lat": 0.783317,
+    "lng": 125.36045,
+    "violation": "Penggunaan ABK Asing",
+    "action": "Diadhock ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "KM MATER MERY 01",
+    "country": "Indonesia",
+    "lat": 0.723517,
+    "lng": 125.312217,
+    "violation": "Penggunaan ABK Asing",
+    "action": "Diadhock ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "KM DESRIL",
+    "country": "Indonesia",
+    "lat": 0.73755,
+    "lng": 125.361533,
+    "violation": "Penggunaan ABK Asing",
+    "action": "Diadhock ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "KM VIO HARVETA",
+    "country": "Indonesia",
+    "lat": 1.09325,
+    "lng": 125.719767,
+    "violation": "Penggunaan ABK Asing",
+    "action": "Diadhock ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "KM ALKATIK",
+    "country": "Indonesia",
+    "lat": 1.099333,
+    "lng": 125.726367,
+    "violation": "Penggunaan ABK Asing",
+    "action": "Diadhock ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "KM CAKRAWALA 04",
+    "country": "Indonesia",
+    "lat": 1.086933,
+    "lng": 125.728717,
+    "violation": "Penggunaan ABK Asing",
+    "action": "Diadhock ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "KM HIDAYAH",
+    "country": "Indonesia",
+    "lat": 1.222017,
+    "lng": 125.539717,
+    "violation": "Penggunaan ABK Asing",
+    "action": "Diadhock ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "KM SUMBER PELITA 02",
+    "country": "Indonesia",
+    "lat": 1.282517,
+    "lng": 125.757983,
+    "violation": "Penggunaan ABK Asing",
+    "action": "Diadhock ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "KM INKA MINA 764",
+    "country": "Indonesia",
+    "lat": -3.943683,
+    "lng": 122.747867,
+    "violation": "Tidak memiliki SIPI, SLO dan SPB",
+    "action": "Diadhock ke PPS Kendari",
+    "year": "2017"
+  },
+  {
+    "name": "F/BCA JEBO-7",
+    "country": "Philipina",
+    "lat": 3.6923,
+    "lng": 122.547067,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Pangkalan PSDKP Bitung",
+    "year": "2017"
+  },
+  {
+    "name": "KM KARYA JAYA 2",
+    "country": "Indonesia",
+    "lat": -5.298517,
+    "lng": 111.5305,
+    "violation": "Tidak memiliki SIPI, SLO dan SPB",
+    "action": "Diadhock ke Dermaga Umum Jepara",
+    "year": "2017"
+  },
+  {
+    "name": "KM AR ROHMAN MINA PELINDO III - I",
+    "country": "Indonesia",
+    "lat": -5.426,
+    "lng": 111.4354,
+    "violation": "Tidak memiliki SIPI, SLO dan SPB",
+    "action": "Diadhock ke Dermaga Umum Jepara",
+    "year": "2017"
+  },
+  {
+    "name": "KM KAWAL BAHARI I",
+    "country": "Indonesia",
+    "lat": 0.874567,
+    "lng": 104.40285,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Pangkalan PSDKP Batam",
+    "year": "2017"
+  },
+  {
+    "name": "KM RIZKI BAHARI",
+    "country": "Indonesia",
+    "lat": -5.979,
+    "lng": 111.414017,
+    "violation": "Tidak memiliki SIPI, SLO dan SPB",
+    "action": "Diadhock ke Dermaga Umum Jepara",
+    "year": "2017"
+  },
+  {
+    "name": "KG 91526 TS",
+    "country": "Malaysia",
+    "lat": 4.134133,
+    "lng": 104.852733,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KNF 7788",
+    "country": "Malaysia",
+    "lat": 4.258817,
+    "lng": 105.001683,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Satwas SDKP Natuna",
+    "year": "2017"
+  },
+  {
+    "name": "KM SELAT JAYA",
+    "country": "Indonesia",
+    "lat": -5.846,
+    "lng": 106.696717,
+    "violation": "Alat Tangkap Terlarang; Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Pangkalan PSDKP Jakarta",
+    "year": "2017"
+  },
+  {
+    "name": "FU YUAN YU 831",
+    "country": "Timor Leste",
+    "lat": -11.165717,
+    "lng": 126.20685,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Dermaga Perikanan Tenau Kupang",
+    "year": "2017"
+  },
+  {
+    "name": "KM BINTANG TERANG JAYA",
+    "country": "Indonesia",
+    "lat": -6.56925,
+    "lng": 108.734583,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Satwas SDKP Cirebon",
+    "year": "2017"
+  },
+  {
+    "name": "KM SUMBER SEPAKAT",
+    "country": "Indonesia",
+    "lat": -6.62605,
+    "lng": 108.74055,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Diadhock ke Satwas SDKP Cirebon",
+    "year": "2017"
   }
 ]
