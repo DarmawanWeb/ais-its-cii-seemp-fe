@@ -50,7 +50,7 @@ const IllegalTranshipment: FC = () => {
     if (mmsiParam) setSelectedMmsi(mmsiParam);
   }, [location.search]);
 
-  useEffect(() => {
+   useEffect(() => {
     const fetchShipData = async () => {
       try {
         const response = await axios.get(`${VITE_BACKEND_URI}/ais`, {
