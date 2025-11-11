@@ -299,11 +299,12 @@ const MapComponent: FC<MapComponentProps> = ({
 
   // Enhanced zoom-based sizing for all elements
   const getZoomBasedSizes = (zoom: number) => {
-    const baseMultiplier = Math.pow(1.2, zoom - 12);
-    const iconWidth = Math.max(6, Math.min(32, 10 * baseMultiplier));
-    const iconHeight = Math.max(9, Math.min(48, 15 * baseMultiplier));
-    const selectedWidth = Math.max(8, Math.min(40, 20 * baseMultiplier));
-    const selectedHeight = Math.max(12, Math.min(60, 30 * baseMultiplier));
+    const baseMultiplier = Math.pow(1.15, zoom - 12);
+    // Reduce ship icon size - smaller multiplier and lower max
+    const iconWidth = Math.max(6, Math.min(24, 8 * baseMultiplier));
+    const iconHeight = Math.max(9, Math.min(36, 12 * baseMultiplier));
+    const selectedWidth = Math.max(8, Math.min(30, 15 * baseMultiplier));
+    const selectedHeight = Math.max(12, Math.min(45, 22 * baseMultiplier));
     
     return {
       markerSize: [iconWidth, iconHeight] as [number, number],
@@ -313,8 +314,8 @@ const MapComponent: FC<MapComponentProps> = ({
       clusterSize: Math.max(12, Math.min(32, 16 * baseMultiplier)),
       fontSize: Math.max(8, Math.min(14, 10 * baseMultiplier)),
       showKpPoints: zoom >= 13, // KP points only show when zoomed in enough
-      routeWeight: Math.max(2, Math.min(5, zoom / 3)),
-      routePointRadius: Math.max(2, Math.min(6, zoom / 2.5)),
+      routeWeight: Math.max(3, Math.min(7, zoom / 2.2)), // Increase route thickness
+      routePointRadius: Math.max(2, Math.min(4, zoom / 4)), // Reduce point size significantly
     };
   };
 
@@ -392,17 +393,17 @@ const MapComponent: FC<MapComponentProps> = ({
   };
 
   // Filter valid markers and create clusters
-  const validMarkers = useMemo(() => {
+  const validMarkers = useMemo<MarkerData[]>(() => {
     return markers?.filter(marker => {
       const latestPosition = marker.positions[0];
       return latestPosition && !isTimestampTooOld(latestPosition.timestamp);
     }) || [];
   }, [markers]);
 
-  const clusteredMarkers = useMemo(() => {
-      const clusterDistance = Math.max(500, 2000 - (zoomLevel * 100)); // Dynamic clustering distance
-      return createClusters(validMarkers, zoomLevel, clusterDistance) as Array<MarkerData & { isCluster: boolean; count: number; clusteredMarkers?: MarkerData[] }>;
-    }, [validMarkers, zoomLevel]);
+  const clusteredMarkers = useMemo<Array<MarkerData & { isCluster: boolean; count: number; clusteredMarkers?: MarkerData[] }>>(() => {
+    const clusterDistance = Math.max(500, 2000 - (zoomLevel * 100)); // Dynamic clustering distance
+    return createClusters(validMarkers, zoomLevel, clusterDistance);
+  }, [validMarkers, zoomLevel]);
 
   // Process routes with colors and segments
   const processedRoutes = useMemo(() => {
@@ -562,8 +563,8 @@ const MapComponent: FC<MapComponentProps> = ({
                         positions={segmentCoordinates}
                         pathOptions={{
                           color: segment.isIllegal ? '#FF0000' : segment.color,
-                          weight: segment.isIllegal ? sizes.routeWeight + 3 : sizes.routeWeight,
-                          opacity: segment.isIllegal ? 1 : 0.7,
+                          weight: segment.isIllegal ? sizes.routeWeight + 2 : sizes.routeWeight,
+                          opacity: segment.isIllegal ? 1 : 0.8,
                           dashArray: segment.isIllegal ? "15, 10" : undefined,
                         }}
                       >
@@ -607,12 +608,12 @@ const MapComponent: FC<MapComponentProps> = ({
                       <CircleMarker
                         key={`route-point-${route.mmsi}-${posIndex}`}
                         center={[pos.lat, pos.lon]}
-                        radius={sizes.routePointRadius + 1}
+                        radius={sizes.routePointRadius}
                         pathOptions={{
                           color: '#FF0000',
                           fillColor: '#FFD93D',
                           fillOpacity: 0.95,
-                          weight: 2.5,
+                          weight: 2,
                         }}
                       >
                         <Popup>
