@@ -1,0 +1,29 @@
+[
+  {
+    "name": "KM. Mandiri 777",
+    "country": "Indonesia",
+    "lat": 0.566667,
+    "lng": 125.883333,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Pangkalan PSDKP Bitung",
+    "year": "2015"
+  },
+  {
+    "name": "KM. Galang Permai",
+    "country": "Indonesia",
+    "lat": 0.443833,
+    "lng": 104.122667,
+    "violation": "Operasional penangkapan ikan, tidak memiliki SLO dan SPB",
+    "action": "Diadhock ke Satker PSDKP Batam",
+    "year": "2015"
+  },
+  {
+    "name": "BTH 96110 TS",
+    "country": "Vietnam",
+    "lat": 4.510167,
+    "lng": 107.726167,
+    "violation": "Tidak memiliki dokumen perizinan",
+    "action": "Dikawal ke Stasiun PSDKP Pontianak",
+    "year": "2015"
+  }
+]
