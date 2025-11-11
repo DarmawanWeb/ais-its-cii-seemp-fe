@@ -46,10 +46,17 @@ export interface IllegalTransshipmentArea {
   timestamp?: Date;
 }
 
+export interface IllegalSegment {
+  start: Date;
+  end: Date;
+  color?: string;
+}
+
 export interface ShipRoute {
   mmsi: string;
   positions: IAisPosition[];
   color?: string;
+  illegalSegment?: IllegalSegment;
 }
 
 interface ZoomToRoutesProps {
@@ -265,7 +272,7 @@ const MapComponent: FC<MapComponentProps> = ({
   const { setSelectedTile, selectedTile } = useTileStore();
   const [zoomLevel, setZoomLevel] = useState(7);
 
-    const defaultCenter: [number, number] = isBatamView
+  const defaultCenter: [number, number] = isBatamView
     ? [1.143238, 103.856406] 
     : [-7.431460, 113.904856]; 
   
@@ -307,6 +314,7 @@ const MapComponent: FC<MapComponentProps> = ({
       fontSize: Math.max(8, Math.min(14, 10 * baseMultiplier)),
       showKpPoints: zoom >= 13, // KP points only show when zoomed in enough
       routeWeight: Math.max(2, Math.min(5, zoom / 3)),
+      routePointRadius: Math.max(2, Math.min(6, zoom / 2.5)),
     };
   };
 
@@ -368,20 +376,20 @@ const MapComponent: FC<MapComponentProps> = ({
     });
   };
 
-  const handleMarkerClick = (mmsi: string, clusteredMarkers?: MarkerData[]) => {
-    if (clusteredMarkers && clusteredMarkers.length > 1) {
-      // If it's a cluster, select the first one
-      setSelectedMmsi(clusteredMarkers[0].mmsi);
-      const urlParams = new URLSearchParams(window.location.search);
-      urlParams.set("mmsi", clusteredMarkers[0].mmsi);
-      window.history.pushState(null, "", "?" + urlParams.toString());
-    } else {
-      setSelectedMmsi(mmsi);
-      const urlParams = new URLSearchParams(window.location.search);
-      urlParams.set("mmsi", mmsi);
-      window.history.pushState(null, "", "?" + urlParams.toString());
-    }
-  };
+  // const handleMarkerClick = (mmsi: string, clusteredMarkers?: MarkerData[]) => {
+  //   if (clusteredMarkers && clusteredMarkers.length > 1) {
+  //     // If it's a cluster, select the first one
+  //     setSelectedMmsi(clusteredMarkers[0].mmsi);
+  //     const urlParams = new URLSearchParams(window.location.search);
+  //     urlParams.set("mmsi", clusteredMarkers[0].mmsi);
+  //     window.history.pushState(null, "", "?" + urlParams.toString());
+  //   } else {
+  //     setSelectedMmsi(mmsi);
+  //     const urlParams = new URLSearchParams(window.location.search);
+  //     urlParams.set("mmsi", mmsi);
+  //     window.history.pushState(null, "", "?" + urlParams.toString());
+  //   }
+  // };
 
   // Filter valid markers and create clusters
   const validMarkers = useMemo(() => {
@@ -396,14 +404,70 @@ const MapComponent: FC<MapComponentProps> = ({
     return createClusters(validMarkers, zoomLevel, clusterDistance);
   }, [validMarkers, zoomLevel]);
 
-  // Process routes with colors
+  // Process routes with colors and segments
   const processedRoutes = useMemo(() => {
     if (!routes || routes.length === 0) return [];
     
-    return routes.map((route, index) => ({
-      ...route,
-      color: route.color || DEFAULT_ROUTE_COLORS[index % DEFAULT_ROUTE_COLORS.length],
-    }));
+    return routes.map((route, index) => {
+      const routeColor = route.color || DEFAULT_ROUTE_COLORS[index % DEFAULT_ROUTE_COLORS.length];
+      
+      // Split route into segments based on illegal activity
+      const segments: Array<{
+        positions: IAisPosition[];
+        isIllegal: boolean;
+        color: string;
+      }> = [];
+
+      if (route.illegalSegment) {
+        const illegalStart = route.illegalSegment.start.getTime();
+        const illegalEnd = route.illegalSegment.end.getTime();
+        const illegalColor = route.illegalSegment.color || '#FFD93D';
+
+        let currentSegment: IAisPosition[] = [];
+        let isInIllegalZone = false;
+
+        route.positions.forEach((pos, idx) => {
+          const posTime = pos.timestamp.getTime();
+          const wasInIllegalZone = isInIllegalZone;
+          isInIllegalZone = posTime >= illegalStart && posTime <= illegalEnd;
+
+          if (wasInIllegalZone !== isInIllegalZone && currentSegment.length > 0) {
+            // Save current segment and start new one
+            segments.push({
+              positions: [...currentSegment],
+              isIllegal: wasInIllegalZone,
+              color: wasInIllegalZone ? illegalColor : routeColor,
+            });
+            // Keep last point for continuity
+            currentSegment = [currentSegment[currentSegment.length - 1]];
+          }
+
+          currentSegment.push(pos);
+
+          // Save last segment
+          if (idx === route.positions.length - 1 && currentSegment.length > 0) {
+            segments.push({
+              positions: currentSegment,
+              isIllegal: isInIllegalZone,
+              color: isInIllegalZone ? illegalColor : routeColor,
+            });
+          }
+        });
+      } else {
+        // No illegal segment, use entire route
+        segments.push({
+          positions: route.positions,
+          isIllegal: false,
+          color: routeColor,
+        });
+      }
+
+      return {
+        ...route,
+        color: routeColor,
+        segments,
+      };
+    });
   }, [routes]);
 
   return (
@@ -478,42 +542,86 @@ const MapComponent: FC<MapComponentProps> = ({
           />
         </LayersControl.Overlay>
 
+        {/* Ship Routes with Segments */}
         {processedRoutes && processedRoutes.length > 0 && (
           <LayersControl.Overlay checked name="Ship Routes">
             <>
-              {processedRoutes.map((route, routeIndex) => {
-                // Ensure that route.positions has valid data
-                const routeCoordinates: [number, number][] = route.positions
-                  .filter(pos => pos.lat && pos.lon) // Ensure lat and lon are defined
-                  .map(pos => [pos.lat, pos.lon]);
+              {processedRoutes.map((route, routeIndex) => (
+                <div key={`route-${route.mmsi}-${routeIndex}`}>
+                  {/* Render each segment */}
+                  {route.segments?.map((segment, segmentIndex) => {
+                    const segmentCoordinates: [number, number][] = segment.positions
+                      .filter(pos => pos.lat && pos.lon)
+                      .map(pos => [pos.lat, pos.lon]);
 
-                console.log('Route Coordinates:', routeCoordinates); 
+                    if (segmentCoordinates.length < 2) return null;
 
-                if (routeCoordinates.length < 2) return null; // Ensure there are at least two points for the polyline
+                    return (
+                      <Polyline
+                        key={`segment-${route.mmsi}-${routeIndex}-${segmentIndex}`}
+                        positions={segmentCoordinates}
+                        pathOptions={{
+                          color: segment.color,
+                          weight: segment.isIllegal ? sizes.routeWeight + 1 : sizes.routeWeight,
+                          opacity: segment.isIllegal ? 1 : 0.7,
+                          dashArray: segment.isIllegal ? "10, 5" : undefined,
+                        }}
+                      >
+                        <Popup>
+                          <div className="text-sm">
+                            <p className="font-bold">
+                              {segment.isIllegal ? "⚠️ Illegal Activity Segment" : "Ship Route"}
+                            </p>
+                            <p className="text-xs">MMSI: {route.mmsi}</p>
+                            <p className="text-xs">Points: {segmentCoordinates.length}</p>
+                            {segment.isIllegal && (
+                              <p className="text-xs text-red-600 font-semibold">
+                                Suspected Illegal Transshipment
+                              </p>
+                            )}
+                          </div>
+                        </Popup>
+                      </Polyline>
+                    );
+                  })}
 
-                return (
-                  <Polyline
-                    key={`route-${route.mmsi}-${routeIndex}`}
-                    positions={routeCoordinates}
-                    pathOptions={{
-                      color: route.color,
-                      weight: sizes.routeWeight,
-                      opacity: 0.8,
-                    }}
-                  >
-                    <Popup>
-                      <div className="text-sm">
-                        <p className="font-bold">Ship Route</p>
-                        <p className="text-xs">MMSI: {route.mmsi}</p>
-                        <p className="text-xs">Points: {routeCoordinates.length}</p>
-                        <p className="text-xs">
-                          Time Range: {new Date(route.positions[0].timestamp).toLocaleString()} - {new Date(route.positions[route.positions.length - 1].timestamp).toLocaleString()}
-                        </p>
-                      </div>
-                    </Popup>
-                  </Polyline>
-                );
-              })}
+                  {/* Render points on the route */}
+                  {route.positions.map((pos, posIndex) => {
+                    if (!pos.lat || !pos.lon) return null;
+                    
+                    const isIllegalPoint = route.illegalSegment && 
+                      pos.timestamp.getTime() >= route.illegalSegment.start.getTime() &&
+                      pos.timestamp.getTime() <= route.illegalSegment.end.getTime();
+
+                    return (
+                      <CircleMarker
+                        key={`route-point-${route.mmsi}-${posIndex}`}
+                        center={[pos.lat, pos.lon]}
+                        radius={sizes.routePointRadius}
+                        pathOptions={{
+                          color: isIllegalPoint ? '#FF0000' : route.color,
+                          fillColor: isIllegalPoint ? '#FFD93D' : route.color,
+                          fillOpacity: isIllegalPoint ? 0.9 : 0.6,
+                          weight: isIllegalPoint ? 2 : 1,
+                        }}
+                      >
+                        <Popup>
+                          <div className="text-xs">
+                            <p className="font-bold">
+                              {isIllegalPoint ? "⚠️ Illegal Activity Point" : "Route Point"}
+                            </p>
+                            <p>MMSI: {route.mmsi}</p>
+                            <p>Time: {new Date(pos.timestamp).toLocaleString()}</p>
+                            <p>Speed: {pos.sog.toFixed(1)} knots</p>
+                            <p>Course: {pos.cog.toFixed(0)}°</p>
+                            <p>Position: {pos.lat.toFixed(6)}, {pos.lon.toFixed(6)}</p>
+                          </div>
+                        </Popup>
+                      </CircleMarker>
+                    );
+                  })}
+                </div>
+              ))}
             </>
           </LayersControl.Overlay>
         )}
@@ -567,12 +675,14 @@ const MapComponent: FC<MapComponentProps> = ({
               marker.isCluster, 
               marker.count
             )}
-            eventHandlers={{
-              click: () => handleMarkerClick(marker.mmsi),
-            }}
           >
             {marker.isCluster && marker.count > 1 ? (
-              ""
+              <Popup>
+                <div className="text-sm">
+                  <p className="font-bold">Cluster of {marker.count} ships</p>
+                  <p className="text-xs">Click to select</p>
+                </div>
+              </Popup>
             ) : (
               <MarkerPopup marker={marker} />
             )}
