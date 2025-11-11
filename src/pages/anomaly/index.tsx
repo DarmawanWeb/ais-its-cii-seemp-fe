@@ -29,6 +29,7 @@ const AnomalyPage: FC = () => {
         const response = await axios.get(`${VITE_BACKEND_URI}/ais`, {
           params: { hours: 12 },
         });
+        setShipData([]);
         const allData = response.data.data;
         let i = 0;
         const chunkSize = 10;
