@@ -130,10 +130,10 @@ const ZoomToRoutes: FC<ZoomToRoutesProps> = ({ routes, shouldZoom }) => {
       if (allPositions.length > 0) {
         const bounds = L.latLngBounds(allPositions as L.LatLngBoundsLiteral);
         map.fitBounds(bounds, {
-          padding: [50, 50],
-          maxZoom: 20,
+          padding: [100, 100],
+          maxZoom: 15,
           animate: true,
-          duration: 1
+          duration: 0.5
         });
       }
     }
@@ -376,20 +376,20 @@ const MapComponent: FC<MapComponentProps> = ({
     });
   };
 
-  // const handleMarkerClick = (mmsi: string, clusteredMarkers?: MarkerData[]) => {
-  //   if (clusteredMarkers && clusteredMarkers.length > 1) {
-  //     // If it's a cluster, select the first one
-  //     setSelectedMmsi(clusteredMarkers[0].mmsi);
-  //     const urlParams = new URLSearchParams(window.location.search);
-  //     urlParams.set("mmsi", clusteredMarkers[0].mmsi);
-  //     window.history.pushState(null, "", "?" + urlParams.toString());
-  //   } else {
-  //     setSelectedMmsi(mmsi);
-  //     const urlParams = new URLSearchParams(window.location.search);
-  //     urlParams.set("mmsi", mmsi);
-  //     window.history.pushState(null, "", "?" + urlParams.toString());
-  //   }
-  // };
+  const handleMarkerClick = (mmsi: string, clusteredMarkers?: MarkerData[]) => {
+    if (clusteredMarkers && clusteredMarkers.length > 1) {
+      // If it's a cluster, select the first one
+      setSelectedMmsi(clusteredMarkers[0].mmsi);
+      const urlParams = new URLSearchParams(window.location.search);
+      urlParams.set("mmsi", clusteredMarkers[0].mmsi);
+      window.history.pushState(null, "", "?" + urlParams.toString());
+    } else {
+      setSelectedMmsi(mmsi);
+      const urlParams = new URLSearchParams(window.location.search);
+      urlParams.set("mmsi", mmsi);
+      window.history.pushState(null, "", "?" + urlParams.toString());
+    }
+  };
 
   // Filter valid markers and create clusters
   const validMarkers = useMemo(() => {
@@ -400,9 +400,9 @@ const MapComponent: FC<MapComponentProps> = ({
   }, [markers]);
 
   const clusteredMarkers = useMemo(() => {
-    const clusterDistance = Math.max(500, 2000 - (zoomLevel * 100)); // Dynamic clustering distance
-    return createClusters(validMarkers, zoomLevel, clusterDistance);
-  }, [validMarkers, zoomLevel]);
+      const clusterDistance = Math.max(500, 2000 - (zoomLevel * 100)); // Dynamic clustering distance
+      return createClusters(validMarkers, zoomLevel, clusterDistance) as Array<MarkerData & { isCluster: boolean; count: number; clusteredMarkers?: MarkerData[] }>;
+    }, [validMarkers, zoomLevel]);
 
   // Process routes with colors and segments
   const processedRoutes = useMemo(() => {
@@ -561,10 +561,10 @@ const MapComponent: FC<MapComponentProps> = ({
                         key={`segment-${route.mmsi}-${routeIndex}-${segmentIndex}`}
                         positions={segmentCoordinates}
                         pathOptions={{
-                          color: segment.color,
-                          weight: segment.isIllegal ? sizes.routeWeight + 1 : sizes.routeWeight,
+                          color: segment.isIllegal ? '#FF0000' : segment.color,
+                          weight: segment.isIllegal ? sizes.routeWeight + 3 : sizes.routeWeight,
                           opacity: segment.isIllegal ? 1 : 0.7,
-                          dashArray: segment.isIllegal ? "10, 5" : undefined,
+                          dashArray: segment.isIllegal ? "15, 10" : undefined,
                         }}
                       >
                         <Popup>
@@ -575,9 +575,17 @@ const MapComponent: FC<MapComponentProps> = ({
                             <p className="text-xs">MMSI: {route.mmsi}</p>
                             <p className="text-xs">Points: {segmentCoordinates.length}</p>
                             {segment.isIllegal && (
-                              <p className="text-xs text-red-600 font-semibold">
-                                Suspected Illegal Transshipment
-                              </p>
+                              <>
+                                <p className="text-xs text-red-600 font-semibold mt-1">
+                                  ⛔ Suspected Illegal Transshipment
+                                </p>
+                                <p className="text-xs mt-1">
+                                  Start: {new Date(segment.positions[0].timestamp).toLocaleString()}
+                                </p>
+                                <p className="text-xs">
+                                  End: {new Date(segment.positions[segment.positions.length - 1].timestamp).toLocaleString()}
+                                </p>
+                              </>
                             )}
                           </div>
                         </Popup>
@@ -585,36 +593,38 @@ const MapComponent: FC<MapComponentProps> = ({
                     );
                   })}
 
-                  {/* Render points on the route */}
-                  {route.positions.map((pos, posIndex) => {
+                  {/* Render points ONLY on illegal segments */}
+                  {route.illegalSegment && route.positions.map((pos, posIndex) => {
                     if (!pos.lat || !pos.lon) return null;
                     
-                    const isIllegalPoint = route.illegalSegment && 
-                      pos.timestamp.getTime() >= route.illegalSegment.start.getTime() &&
-                      pos.timestamp.getTime() <= route.illegalSegment.end.getTime();
+                    const isIllegalPoint = pos.timestamp.getTime() >= route.illegalSegment!.start.getTime() &&
+                      pos.timestamp.getTime() <= route.illegalSegment!.end.getTime();
+
+                    // Only render points in illegal segment
+                    if (!isIllegalPoint) return null;
 
                     return (
                       <CircleMarker
                         key={`route-point-${route.mmsi}-${posIndex}`}
                         center={[pos.lat, pos.lon]}
-                        radius={sizes.routePointRadius}
+                        radius={sizes.routePointRadius + 1}
                         pathOptions={{
-                          color: isIllegalPoint ? '#FF0000' : route.color,
-                          fillColor: isIllegalPoint ? '#FFD93D' : route.color,
-                          fillOpacity: isIllegalPoint ? 0.9 : 0.6,
-                          weight: isIllegalPoint ? 2 : 1,
+                          color: '#FF0000',
+                          fillColor: '#FFD93D',
+                          fillOpacity: 0.95,
+                          weight: 2.5,
                         }}
                       >
                         <Popup>
                           <div className="text-xs">
-                            <p className="font-bold">
-                              {isIllegalPoint ? "⚠️ Illegal Activity Point" : "Route Point"}
-                            </p>
-                            <p>MMSI: {route.mmsi}</p>
+                            <p className="font-bold text-red-600">⚠️ Illegal Activity Point</p>
+                            <p className="font-semibold mt-1">MMSI: {route.mmsi}</p>
                             <p>Time: {new Date(pos.timestamp).toLocaleString()}</p>
                             <p>Speed: {pos.sog.toFixed(1)} knots</p>
                             <p>Course: {pos.cog.toFixed(0)}°</p>
-                            <p>Position: {pos.lat.toFixed(6)}, {pos.lon.toFixed(6)}</p>
+                            <p className="text-gray-600 text-[10px] mt-1">
+                              {pos.lat.toFixed(6)}, {pos.lon.toFixed(6)}
+                            </p>
                           </div>
                         </Popup>
                       </CircleMarker>
@@ -675,6 +685,9 @@ const MapComponent: FC<MapComponentProps> = ({
               marker.isCluster, 
               marker.count
             )}
+            eventHandlers={{
+              click: () => handleMarkerClick(marker.mmsi, marker.clusteredMarkers),
+            }}
           >
             {marker.isCluster && marker.count > 1 ? (
               <Popup>

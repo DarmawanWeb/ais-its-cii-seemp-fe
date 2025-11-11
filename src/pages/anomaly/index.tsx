@@ -26,26 +26,17 @@ const AnomalyPage: FC = () => {
   useEffect(() => {
     const fetchShipData = async () => {
       try {
-        const response = await axios.get(`${VITE_BACKEND_URI}/ais`, {
-          params: { hours: 12 },
-        });
-        setShipData([]);
-        const allData = response.data.data;
-        let i = 0;
-        const chunkSize = 10;
-        const interval = setInterval(() => {
-          setShipData((prev) => [...prev, ...allData.slice(i, i + chunkSize)]);
-          i += chunkSize;
-          if (i >= allData.length) clearInterval(interval);
-        }, 80);
+        const response = await axios.get(`${VITE_BACKEND_URI}/ais`);
+        setShipData(response.data.data);
       } catch (error) {
         console.error("Error fetching ship data:", error);
       }
     };
+
     fetchShipData();
-    const interval = setInterval(fetchShipData, 10000);
-    return () => clearInterval(interval);
   }, []);
+
+  console.log("Ship Data:", shipData);
 
 
   return (

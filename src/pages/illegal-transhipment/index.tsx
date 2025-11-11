@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { VITE_BACKEND_URI } from "../../lib/env";
 import { MarkerData, ShipRoute, IAisPosition } from "../../components/common/map";
 import MapComponent from "../../components/common/map";
-import IllegalTranshipmentCard, { IllegalTranshipmentResult } from "./components/illegal-transhipment-card";
+import IllegalTranshipmentCard, { IllegalTranshipmentResult } from "./components/illegal-transhipment-card"
 
 interface RouteApiResponse {
   message: string;
@@ -119,60 +119,86 @@ const IllegalTranshipment: FC = () => {
         const { ship1Positions, ship2Positions } = response.data.data;
         const shipRoutes: ShipRoute[] = [];
 
+        // Filter function to keep only positions within time window
+        const filterPositionsByTimeWindow = (positions: Array<{
+          navstatus: number;
+          predictedNavStatus: number;
+          ewsStatus: number;
+          lat: number;
+          lon: number;
+          sog: number;
+          cog: number;
+          hdg: number;
+          timestamp: string;
+        }>) => {
+          return positions.filter((p) => {
+            const posTime = new Date(p.timestamp).getTime();
+            return posTime >= adjustedStart.getTime() && posTime <= adjustedEnd.getTime();
+          });
+        };
+
         // Process ship 1 route
         if (Array.isArray(ship1Positions) && ship1Positions.length > 0) {
-          const positions: IAisPosition[] = ship1Positions.map((p) => ({
-            navstatus: p.navstatus,
-            predictedNavStatus: p.predictedNavStatus,
-            ewsStatus: p.ewsStatus,
-            lat: p.lat,
-            lon: p.lon,
-            sog: p.sog,
-            cog: p.cog,
-            hdg: p.hdg,
-            timestamp: new Date(p.timestamp),
-          }));
+          const filteredPositions = filterPositionsByTimeWindow(ship1Positions);
+          
+          if (filteredPositions.length > 0) {
+            const positions: IAisPosition[] = filteredPositions.map((p) => ({
+              navstatus: p.navstatus,
+              predictedNavStatus: p.predictedNavStatus,
+              ewsStatus: p.ewsStatus,
+              lat: p.lat,
+              lon: p.lon,
+              sog: p.sog,
+              cog: p.cog,
+              hdg: p.hdg,
+              timestamp: new Date(p.timestamp),
+            }));
 
-          shipRoutes.push({
-            mmsi: result.ship1MMSI,
-            positions,
-            color: "#FF6B6B",
-            illegalSegment: {
-              start: new Date(result.startTimestamp),
-              end: new Date(result.endTimestamp),
-              color: "#FFD93D",
-            },
-          });
+            shipRoutes.push({
+              mmsi: result.ship1MMSI,
+              positions,
+              color: "#FF6B6B",
+              illegalSegment: {
+                start: new Date(result.startTimestamp),
+                end: new Date(result.endTimestamp),
+                color: "#FFD93D",
+              },
+            });
 
-          console.log(`Ship 1 route added: ${positions.length} positions`);
+            console.log(`Ship 1 route added: ${positions.length} positions (filtered from ${ship1Positions.length})`);
+          }
         }
 
         // Process ship 2 route
         if (Array.isArray(ship2Positions) && ship2Positions.length > 0) {
-          const positions: IAisPosition[] = ship2Positions.map((p) => ({
-            navstatus: p.navstatus,
-            predictedNavStatus: p.predictedNavStatus,
-            ewsStatus: p.ewsStatus,
-            lat: p.lat,
-            lon: p.lon,
-            sog: p.sog,
-            cog: p.cog,
-            hdg: p.hdg,
-            timestamp: new Date(p.timestamp),
-          }));
+          const filteredPositions = filterPositionsByTimeWindow(ship2Positions);
+          
+          if (filteredPositions.length > 0) {
+            const positions: IAisPosition[] = filteredPositions.map((p) => ({
+              navstatus: p.navstatus,
+              predictedNavStatus: p.predictedNavStatus,
+              ewsStatus: p.ewsStatus,
+              lat: p.lat,
+              lon: p.lon,
+              sog: p.sog,
+              cog: p.cog,
+              hdg: p.hdg,
+              timestamp: new Date(p.timestamp),
+            }));
 
-          shipRoutes.push({
-            mmsi: result.ship2MMSI,
-            positions,
-            color: "#4ECDC4",
-            illegalSegment: {
-              start: new Date(result.startTimestamp),
-              end: new Date(result.endTimestamp),
-              color: "#FFD93D",
-            },
-          });
+            shipRoutes.push({
+              mmsi: result.ship2MMSI,
+              positions,
+              color: "#4ECDC4",
+              illegalSegment: {
+                start: new Date(result.startTimestamp),
+                end: new Date(result.endTimestamp),
+                color: "#FFD93D",
+              },
+            });
 
-          console.log(`Ship 2 route added: ${positions.length} positions`);
+            console.log(`Ship 2 route added: ${positions.length} positions (filtered from ${ship2Positions.length})`);
+          }
         }
 
         if (shipRoutes.length === 0) {
@@ -182,7 +208,10 @@ const IllegalTranshipment: FC = () => {
         } else {
           console.log(`Total routes loaded: ${shipRoutes.length}`);
           setRoutes(shipRoutes);
-          setZoomToRoutes(true);
+          // Use setTimeout to ensure map renders routes before zooming
+          setTimeout(() => {
+            setZoomToRoutes(true);
+          }, 100);
         }
       } else {
         console.warn("API response unsuccessful or no data");
