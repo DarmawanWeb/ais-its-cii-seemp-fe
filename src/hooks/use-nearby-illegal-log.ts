@@ -1,11 +1,14 @@
-import { useMemo } from "react";
-import { dataIllegalLogs, IllegalLog } from "../pages/ilegal/components/data-illegal-log";
-import { calculateDistance } from "../components/common/maps/utils";
+import { useMemo } from 'react';
+import {
+  dataIllegalLogs,
+  IllegalLog,
+} from '../pages/ilegal/components/data-illegal-log';
+import { calculateDistance } from '../components/common/maps/utils';
 
 export default function useNearbyIllegalLogs(
   lat?: number,
   lng?: number,
-  radiusKm?: number
+  radiusKm?: number,
 ) {
   return useMemo<IllegalLog[]>(() => {
     if (!lat || !lng || !radiusKm) return [];

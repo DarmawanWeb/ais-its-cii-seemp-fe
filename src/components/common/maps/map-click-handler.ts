@@ -1,5 +1,5 @@
-import { useMapEvents } from "react-leaflet";
-import { zoomToRadiusKm } from "./utils";
+import { useMapEvents } from 'react-leaflet';
+import { zoomToRadiusKm } from './utils';
 
 type ClickPayload = {
   lat: number;
