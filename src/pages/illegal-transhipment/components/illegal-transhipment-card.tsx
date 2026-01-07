@@ -3,6 +3,8 @@ import { Card, CardHeader, CardContent } from "../../../components/ui/card";
 import { VITE_BACKEND_URI } from "../../../lib/env";
 import axios from "axios";
 
+const ACCURACY_SCALING_FACTOR = 93;
+
 export interface IllegalTranshipmentResult {
   _id: string;
   ship1MMSI: string;
@@ -152,6 +154,10 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
     return "bg-gray-100";
   }, []);
 
+  const calculateScaledAccuracy = useCallback((accuracy: number): number => {
+    return (accuracy / 100) * ACCURACY_SCALING_FACTOR;
+  }, []);
+
   const renderResultItem = useCallback(
     (result: IllegalTranshipmentResult) => {
       const ship1Name = shipNames[result.ship1MMSI];
@@ -199,7 +205,7 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
             <div className={`rounded-lg p-3 text-center ${getAccuracyBgColor(result.accuracy || 0)}`}>
               <p className="text-xs text-gray-700 font-medium mb-1">Detection Accuracy</p>
               <p className={`text-3xl font-bold ${getAccuracyColor(result.accuracy || 0)}`}>
-                {(((result.accuracy || 0) / 100) * 93).toFixed(1)}%
+                {calculateScaledAccuracy(result.accuracy || 0).toFixed(1)}%
               </p>
             </div>
 
@@ -240,7 +246,7 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
         </div>
       );
     },
-    [shipNames, shipTypes, selectedResult, getRelativeTime, onSelectResult, getAccuracyColor, getAccuracyBgColor]
+    [shipNames, shipTypes, selectedResult, getRelativeTime, onSelectResult, getAccuracyColor, getAccuracyBgColor, calculateScaledAccuracy]
   );
 
   const resultCount = Array.isArray(results) ? results.length : 0;
