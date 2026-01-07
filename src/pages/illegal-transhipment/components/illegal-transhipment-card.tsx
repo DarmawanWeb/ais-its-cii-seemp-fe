@@ -154,8 +154,8 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
     return "bg-gray-100";
   }, []);
 
-  const calculateScaledAccuracy = useCallback((accuracy: number): number => {
-    return (accuracy / 100) * ACCURACY_SCALING_FACTOR;
+  const calculateScaledAccuracy = useCallback((accuracy?: number): number => {
+    return ((accuracy || 0) / 100) * ACCURACY_SCALING_FACTOR;
   }, []);
 
   const renderResultItem = useCallback(
@@ -205,7 +205,7 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
             <div className={`rounded-lg p-3 text-center ${getAccuracyBgColor(result.accuracy || 0)}`}>
               <p className="text-xs text-gray-700 font-medium mb-1">Detection Accuracy</p>
               <p className={`text-3xl font-bold ${getAccuracyColor(result.accuracy || 0)}`}>
-                {calculateScaledAccuracy(result.accuracy || 0).toFixed(1)}%
+                {calculateScaledAccuracy(result.accuracy).toFixed(1)}%
               </p>
             </div>
 
