@@ -18,6 +18,7 @@ import useTileStore from "../../hooks/use-selected-tile";
 import { MarkerPopup } from "./marker-popup";
 import { STADIA_MAPS_API_KEY } from "../../lib/env";
 import restrictedZoneData from "../../data/pipe.json";
+import HeatmapLayer from "./maps/heatmap-layer";
 
 export interface IAisPosition {
   navstatus: number;
@@ -72,6 +73,7 @@ export interface MapComponentProps {
   illegalAreas?: IllegalTransshipmentArea[] | null;
   zoomToRoutes?: boolean;
   isBatamView?: boolean;
+  heatmapEnabled?: boolean;
 }
 
 // Data points from the provided JSON
@@ -268,6 +270,7 @@ const MapComponent: FC<MapComponentProps> = ({
   routes,
   zoomToRoutes = false,
   isBatamView = false,
+  heatmapEnabled = false,
 }) => {
   const { setSelectedTile, selectedTile } = useTileStore();
   const [zoomLevel, setZoomLevel] = useState(7);
@@ -405,6 +408,14 @@ const MapComponent: FC<MapComponentProps> = ({
     return createClusters(validMarkers, zoomLevel, clusterDistance);
   }, [validMarkers, zoomLevel]);
 
+  const heatmapData = useMemo(() => {
+    if (!heatmapEnabled) return [];
+    return validMarkers
+      .map((m) => m.positions?.[0])
+      .filter((p): p is IAisPosition => Boolean(p && typeof p.lat === "number" && typeof p.lon === "number"))
+      .map((p) => ({ lat: p.lat, lon: p.lon }));
+  }, [heatmapEnabled, validMarkers]);
+
   // Process routes with colors and segments
   const processedRoutes = useMemo(() => {
     if (!routes || routes.length === 0) return [];
@@ -480,6 +491,11 @@ const MapComponent: FC<MapComponentProps> = ({
       zoomControl={false}
     >
       <LayerChangeHandler />
+
+      {heatmapEnabled && heatmapData.length > 0 && (
+        <HeatmapLayer data={heatmapData} />
+      )}
+
       <LayersControl position="bottomleft">
         <LayersControl.BaseLayer
           checked={selectedTile === "Leaflet"}
