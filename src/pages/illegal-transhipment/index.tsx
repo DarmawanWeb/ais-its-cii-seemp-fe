@@ -258,6 +258,7 @@ const IllegalTranshipment: FC = () => {
       <MapComponent
         markers={shipData}
         selectedMmsi={selectedMmsi}
+        heatmapEnabled={true}
         setSelectedMmsi={setSelectedMmsi}
         routes={routes.length > 0 ? routes : undefined}
         zoomToRoutes={zoomToRoutes}
