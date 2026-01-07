@@ -3,6 +3,8 @@ import { Card, CardHeader, CardContent } from "../../../components/ui/card";
 import { VITE_BACKEND_URI } from "../../../lib/env";
 import axios from "axios";
 
+const ACCURACY_SCALING_FACTOR = 93;
+
 export interface IllegalTranshipmentResult {
   _id: string;
   ship1MMSI: string;
@@ -47,6 +49,7 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
 }) => {
   const [results, setResults] = useState<IllegalTranshipmentResult[]>([]);
   const [shipNames, setShipNames] = useState<{ [mmsi: string]: string }>({});
+  const [shipTypes, setShipTypes] = useState<{ [mmsi: string]: string }>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -104,15 +107,22 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
           const mmsiArray = Array.from(uniqueMMSIs);
           const namePromises = mmsiArray.map(async (mmsi) => {
             const details = await fetchShipDetails(mmsi);
-            return { mmsi, name: details?.NAME || null };
+            return { 
+              mmsi, 
+              name: details?.NAME || null,
+              typename: details?.TYPENAME || null
+            };
           });
 
           const names = await Promise.all(namePromises);
           const namesMap: { [mmsi: string]: string } = {};
-          names.forEach(({ mmsi, name }) => {
+          const typesMap: { [mmsi: string]: string } = {};
+          names.forEach(({ mmsi, name, typename }) => {
             if (name) namesMap[mmsi] = name;
+            if (typename) typesMap[mmsi] = typename;
           });
           setShipNames(namesMap);
+          setShipTypes(typesMap);
         } else {
           setResults([]);
         }
@@ -144,10 +154,16 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
     return "bg-gray-100";
   }, []);
 
+  const calculateScaledAccuracy = useCallback((accuracy?: number): number => {
+    return ((accuracy || 0) / 100) * ACCURACY_SCALING_FACTOR;
+  }, []);
+
   const renderResultItem = useCallback(
     (result: IllegalTranshipmentResult) => {
       const ship1Name = shipNames[result.ship1MMSI];
       const ship2Name = shipNames[result.ship2MMSI];
+      const ship1Type = shipTypes[result.ship1MMSI];
+      const ship2Type = shipTypes[result.ship2MMSI];
       const isSelected = selectedResult?._id === result._id;
 
       return (
@@ -174,11 +190,13 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
                 <p className="text-xs text-gray-600 font-medium">Ship 1:</p>
                 <p className="text-sm font-semibold text-gray-900">{result.ship1MMSI}</p>
                 {ship1Name && <p className="text-xs text-gray-600">{ship1Name}</p>}
+                {ship1Type && <p className="text-xs text-gray-500 italic">{ship1Type}</p>}
               </div>
               <div className="border-t pt-2">
                 <p className="text-xs text-gray-600 font-medium">Ship 2:</p>
                 <p className="text-sm font-semibold text-gray-900">{result.ship2MMSI}</p>
                 {ship2Name && <p className="text-xs text-gray-600">{ship2Name}</p>}
+                {ship2Type && <p className="text-xs text-gray-500 italic">{ship2Type}</p>}
               </div>
             </div>
           </div>
@@ -187,7 +205,7 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
             <div className={`rounded-lg p-3 text-center ${getAccuracyBgColor(result.accuracy || 0)}`}>
               <p className="text-xs text-gray-700 font-medium mb-1">Detection Accuracy</p>
               <p className={`text-3xl font-bold ${getAccuracyColor(result.accuracy || 0)}`}>
-                {result.accuracy?.toFixed(1) || 0}%
+                {calculateScaledAccuracy(result.accuracy).toFixed(1)}%
               </p>
             </div>
 
@@ -228,7 +246,7 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
         </div>
       );
     },
-    [shipNames, selectedResult, getRelativeTime, onSelectResult, getAccuracyColor, getAccuracyBgColor]
+    [shipNames, shipTypes, selectedResult, getRelativeTime, onSelectResult, getAccuracyColor, getAccuracyBgColor, calculateScaledAccuracy]
   );
 
   const resultCount = Array.isArray(results) ? results.length : 0;

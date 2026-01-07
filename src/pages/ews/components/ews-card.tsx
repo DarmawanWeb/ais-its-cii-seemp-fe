@@ -35,6 +35,7 @@ interface EarlyWarningSystemCardProps {
 
 const EarlyWarningSystemCard: FC<EarlyWarningSystemCardProps> = ({ markers }) => {
   const [shipNames, setShipNames] = useState<{ [mmsi: string]: string }>({});
+  const [shipTypes, setShipTypes] = useState<{ [mmsi: string]: string }>({});
   const fetchedMMSIs = useRef<Set<string>>(new Set());
   const fetchingMMSIs = useRef<Set<string>>(new Set());
 
@@ -146,6 +147,12 @@ const EarlyWarningSystemCard: FC<EarlyWarningSystemCardProps> = ({ markers }) =>
               [mmsi]: details.NAME
             }));
           }
+          if (details?.TYPENAME) {
+            setShipTypes(prev => ({
+              ...prev,
+              [mmsi]: details.TYPENAME
+            }));
+          }
         } catch (error) {
           console.error(`Error fetching ship ${mmsi}:`, error);
           // Still mark as fetched to prevent retry loops
@@ -164,6 +171,7 @@ const EarlyWarningSystemCard: FC<EarlyWarningSystemCardProps> = ({ markers }) =>
 
   const renderAlertItem = useCallback((alert: IAisPosition & { mmsi: string }, index: number, isWarning: boolean) => {
     const shipName = shipNames[alert.mmsi];
+    const shipType = shipTypes[alert.mmsi];
     const isLoading = fetchingMMSIs.current.has(alert.mmsi);
     
     return (
@@ -183,7 +191,10 @@ const EarlyWarningSystemCard: FC<EarlyWarningSystemCardProps> = ({ markers }) =>
             {isLoading ? (
               <p className="text-xs text-gray-500 italic">Loading name...</p>
             ) : shipName ? (
-              <p className="text-xs text-gray-600 font-medium">{shipName}</p>
+              <>
+                <p className="text-xs text-gray-600 font-medium">{shipName}</p>
+                {shipType && <p className="text-xs text-gray-500 italic">{shipType}</p>}
+              </>
             ) : (
               <p className="text-xs text-gray-500">Name not available</p>
             )}
@@ -235,7 +246,7 @@ const EarlyWarningSystemCard: FC<EarlyWarningSystemCardProps> = ({ markers }) =>
         </div>
       </div>
     );
-  }, [shipNames, getRelativeTime, getNavStatusDescription, formatCoordinates]);
+  }, [shipNames, shipTypes, getRelativeTime, getNavStatusDescription, formatCoordinates]);
 
   return (
     <div className="flex flex-col gap-4 h-full">

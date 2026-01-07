@@ -35,6 +35,7 @@ interface NavstatusAnomalySidebarProps {
 
 const NavstatusAnomalySidebar: FC<NavstatusAnomalySidebarProps> = ({ markers }) => {
   const [shipNames, setShipNames] = useState<{ [mmsi: string]: string }>({});
+  const [shipTypes, setShipTypes] = useState<{ [mmsi: string]: string }>({});
   const fetchedMMSIs = useRef<Set<string>>(new Set());
   const fetchingMMSIs = useRef<Set<string>>(new Set());
 
@@ -155,6 +156,12 @@ const NavstatusAnomalySidebar: FC<NavstatusAnomalySidebarProps> = ({ markers }) 
               [mmsi]: details.NAME
             }));
           }
+          if (details?.TYPENAME) {
+            setShipTypes(prev => ({
+              ...prev,
+              [mmsi]: details.TYPENAME
+            }));
+          }
         } catch (error) {
           console.error(`Error fetching ship ${mmsi}:`, error);
           // Still mark as fetched to prevent retry loops
@@ -192,6 +199,7 @@ const NavstatusAnomalySidebar: FC<NavstatusAnomalySidebarProps> = ({ markers }) 
           anomalies.map((anomaly, index) => {
             const ewsInfo = getEwsStatusInfo(anomaly.ewsStatus);
             const shipName = shipNames[anomaly.mmsi];
+            const shipType = shipTypes[anomaly.mmsi];
             const isLoading = fetchingMMSIs.current.has(anomaly.mmsi);
             
             return (
@@ -213,7 +221,10 @@ const NavstatusAnomalySidebar: FC<NavstatusAnomalySidebarProps> = ({ markers }) 
                     {isLoading ? (
                       <p className="text-xs text-gray-500 italic">Loading name...</p>
                     ) : shipName ? (
-                      <p className="text-xs text-gray-600 font-medium">{shipName}</p>
+                      <>
+                        <p className="text-xs text-gray-600 font-medium">{shipName}</p>
+                        {shipType && <p className="text-xs text-gray-500 italic">{shipType}</p>}
+                      </>
                     ) : (
                       <p className="text-xs text-gray-500">Name not available</p>
                     )}
