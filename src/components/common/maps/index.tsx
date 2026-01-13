@@ -37,6 +37,7 @@ type Props = {
 };
 
 export default function BaseMap({
+  center,
   heatmapData,
   onMapClick,
 }: Props) {
@@ -94,7 +95,7 @@ export default function BaseMap({
   return (
     <div className="relative w-full h-full">
   <MapContainer
-  center={defaultCenter}
+  center={center ?? defaultCenter}
   zoom={zoomLevel}
   style={{ height: "100vh", width: "100%" }}
   zoomControl={false}

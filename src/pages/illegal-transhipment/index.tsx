@@ -1,271 +1,253 @@
 import axios from "axios";
-import { FC, useState, useEffect, useCallback } from "react";
-import { useLocation } from "react-router-dom";
+import { useCallback, useEffect, useRef, useState } from "react";
+import MapComponent, {
+  IAisPosition,
+  MarkerData,
+  ShipRoute,
+} from "../../components/common/map";
 import { VITE_BACKEND_URI } from "../../lib/env";
-import { MarkerData, ShipRoute, IAisPosition } from "../../components/common/map";
-import MapComponent from "../../components/common/map";
-import IllegalTranshipmentCard, { IllegalTranshipmentResult } from "./components/illegal-transhipment-card"
+import IllegalTranshipmentCard, {
+  IllegalTranshipmentResult,
+} from "./components/illegal-transhipment-card";
 
-interface RouteApiResponse {
+type RawRoutePosition = {
+  navstatus: number;
+  predictedNavStatus: number;
+  ewsStatus: number;
+  lat: number;
+  lon: number;
+  sog: number;
+  cog: number;
+  hdg: number;
+  timestamp: string;
+};
+
+type RoutesApiResponse = {
   message: string;
   data: {
-    ship1Positions: Array<{
-      navstatus: number;
-      predictedNavStatus: number;
-      ewsStatus: number;
-      lat: number;
-      lon: number;
-      sog: number;
-      cog: number;
-      hdg: number;
-      timestamp: string;
-    }>;
-    ship2Positions: Array<{
-      navstatus: number;
-      predictedNavStatus: number;
-      ewsStatus: number;
-      lat: number;
-      lon: number;
-      sog: number;
-      cog: number;
-      hdg: number;
-      timestamp: string;
-    }>;
+    ship1Positions: RawRoutePosition[];
+    ship2Positions: RawRoutePosition[];
   };
   success: boolean;
-}
+};
 
-const IllegalTranshipment: FC = () => {
+export default function IllegalTranshipmentPage() {
+  const [selectedResult, setSelectedResult] =
+    useState<IllegalTranshipmentResult | null>(null);
+  const [routes, setRoutes] = useState<ShipRoute[] | null>(null);
   const [shipData, setShipData] = useState<MarkerData[]>([]);
   const [selectedMmsi, setSelectedMmsi] = useState<string | null>(null);
-  const [routes, setRoutes] = useState<ShipRoute[]>([]);
-  const [selectedResult, setSelectedResult] = useState<IllegalTranshipmentResult | null>(null);
   const [isLoadingRoutes, setIsLoadingRoutes] = useState(false);
-  const [zoomToRoutes, setZoomToRoutes] = useState(false);
-  const location = useLocation();
+  const [routesLoaded, setRoutesLoaded] = useState(false);
+  const routeAbortRef = useRef<AbortController | null>(null);
+  const routeRequestIdRef = useRef(0);
+  const routesCacheRef = useRef(
+    new Map<string, { routes: ShipRoute[]; selectedMmsi: string; routesLoaded: boolean }>(),
+  );
+
+  const onClearRoutes = useCallback(() => {
+    if (routeAbortRef.current) {
+      routeAbortRef.current.abort();
+      routeAbortRef.current = null;
+    }
+    setIsLoadingRoutes(false);
+    setRoutes(null);
+    setRoutesLoaded(false);
+    setSelectedResult(null);
+    setSelectedMmsi(null);
+  }, []);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
-    const mmsiParam = urlParams.get("mmsi");
-    if (mmsiParam) setSelectedMmsi(mmsiParam);
-  }, [location.search]);
-
-   useEffect(() => {
     const fetchShipData = async () => {
       try {
         const response = await axios.get(`${VITE_BACKEND_URI}/ais`, {
           params: { hours: 12 },
         });
-        const allData = response.data.data;
+
+        const allData = (response.data?.data ?? []) as MarkerData[];
+
+        // Normalize timestamps to Date objects for map logic
+        const normalized: MarkerData[] = allData.map((m) => ({
+          ...m,
+          positions: (m.positions ?? []).map((p) => ({
+            ...p,
+            timestamp: new Date(p.timestamp as unknown as string),
+          })),
+        }));
+
+        // Keep the original “stream in chunks” behavior for rendering responsiveness
         let i = 0;
         const chunkSize = 10;
-        const interval = setInterval(() => {
-          setShipData((prev) => [...prev, ...allData.slice(i, i + chunkSize)]);
+        setShipData([]);
+
+        const interval = window.setInterval(() => {
+          setShipData((prev) => [...prev, ...normalized.slice(i, i + chunkSize)]);
           i += chunkSize;
-          if (i >= allData.length) clearInterval(interval);
+          if (i >= normalized.length) window.clearInterval(interval);
         }, 80);
       } catch (error) {
         console.error("Error fetching ship data:", error);
       }
     };
+
     fetchShipData();
-    const interval = setInterval(fetchShipData, 10000);
-    return () => clearInterval(interval);
+    const interval = window.setInterval(fetchShipData, 10000);
+    return () => window.clearInterval(interval);
   }, []);
 
-  const fetchRouteData = useCallback(async (result: IllegalTranshipmentResult) => {
-    if (!result.startTimestamp || !result.endTimestamp) {
-      console.warn("Missing timestamp data in result");
-      return;
+  const toAisPosition = useCallback((p: RawRoutePosition): IAisPosition => {
+    return {
+      navstatus: p.navstatus,
+      predictedNavStatus: p.predictedNavStatus,
+      ewsStatus: p.ewsStatus,
+      lat: p.lat,
+      lon: p.lon,
+      sog: p.sog,
+      cog: p.cog,
+      hdg: p.hdg,
+      timestamp: new Date(p.timestamp),
+    };
+  }, []);
+
+  const loadRoutesForResult = useCallback(async (result: IllegalTranshipmentResult) => {
+    const requestId = ++routeRequestIdRef.current;
+    if (routeAbortRef.current) {
+      routeAbortRef.current.abort();
     }
-    
+    const controller = new AbortController();
+    routeAbortRef.current = controller;
+
     setIsLoadingRoutes(true);
-    setZoomToRoutes(false);
-    
+    setRoutesLoaded(false);
+
     try {
-      const startTime = new Date(result.startTimestamp);
-      const endTime = new Date(result.endTimestamp);
-      
-      // Validate timestamps
-      if (isNaN(startTime.getTime()) || isNaN(endTime.getTime())) {
-        console.error("Invalid timestamp format");
-        setRoutes([]);
+      const mmsi1 = result.ship1MMSI;
+      const mmsi2 = result.ship2MMSI;
+      const cacheKey =
+        result._id && result.updatedAt
+          ? `${result._id}-${String(result.updatedAt)}`
+          : result._id || `${mmsi1}-${mmsi2}-${result.detectedAt}`;
+      const cached = routesCacheRef.current.get(cacheKey);
+
+      if (cached) {
+        setRoutes(cached.routes);
+        setSelectedMmsi(cached.selectedMmsi);
+        setRoutesLoaded(cached.routesLoaded);
         setIsLoadingRoutes(false);
         return;
       }
-      
-      const sixHoursMs = 6 * 60 * 60 * 1000;
-      const adjustedStart = new Date(startTime.getTime() - sixHoursMs);
-      const adjustedEnd = new Date(Math.min(endTime.getTime() + sixHoursMs, Date.now()));
-      
-      console.log("Fetching routes:", {
-        ship1: result.ship1MMSI,
-        ship2: result.ship2MMSI,
-        startTime: adjustedStart.toISOString(),
-        endTime: adjustedEnd.toISOString(),
-      });
 
-      const response = await axios.get<RouteApiResponse>(
-        `${VITE_BACKEND_URI}/ais/routes/${result.ship1MMSI}/${result.ship2MMSI}`,
-        { 
-          params: { 
-            startTime: adjustedStart.toISOString(), 
-            endTime: adjustedEnd.toISOString() 
-          } 
-        }
+      const detectedAt = new Date(result.detectedAt);
+
+      const baseStart = result.startTimestamp
+        ? new Date(result.startTimestamp)
+        : new Date(detectedAt.getTime() - 30 * 60 * 1000);
+      const baseEnd = result.endTimestamp
+        ? new Date(result.endTimestamp)
+        : new Date(detectedAt.getTime() + 30 * 60 * 1000);
+
+      const sixHoursMs = 6 * 60 * 60 * 1000;
+      const start = new Date(baseStart.getTime() - sixHoursMs);
+      const end = new Date(Math.min(baseEnd.getTime() + sixHoursMs, Date.now()));
+
+      const response = await axios.get<RoutesApiResponse>(
+        `${VITE_BACKEND_URI}/ais/routes/${mmsi1}/${mmsi2}`,
+        {
+          params: {
+            startTime: start.toISOString(),
+            endTime: end.toISOString(),
+          },
+          signal: controller.signal,
+        },
       );
 
-      if (response.data.success && response.data.data) {
-        const { ship1Positions, ship2Positions } = response.data.data;
-        const shipRoutes: ShipRoute[] = [];
+      const ship1PositionsRaw = response.data?.data?.ship1Positions ?? [];
+      const ship2PositionsRaw = response.data?.data?.ship2Positions ?? [];
 
-        // Filter function to keep only positions within time window
-        const filterPositionsByTimeWindow = (positions: Array<{
-          navstatus: number;
-          predictedNavStatus: number;
-          ewsStatus: number;
-          lat: number;
-          lon: number;
-          sog: number;
-          cog: number;
-          hdg: number;
-          timestamp: string;
-        }>) => {
-          return positions.filter((p) => {
-            const posTime = new Date(p.timestamp).getTime();
-            return posTime >= adjustedStart.getTime() && posTime <= adjustedEnd.getTime();
-          });
-        };
+      const ship1Positions = ship1PositionsRaw.map(toAisPosition);
+      const ship2Positions = ship2PositionsRaw.map(toAisPosition);
 
-        // Process ship 1 route
-        if (Array.isArray(ship1Positions) && ship1Positions.length > 0) {
-          const filteredPositions = filterPositionsByTimeWindow(ship1Positions);
-          
-          if (filteredPositions.length > 0) {
-            const positions: IAisPosition[] = filteredPositions.map((p) => ({
-              navstatus: p.navstatus,
-              predictedNavStatus: p.predictedNavStatus,
-              ewsStatus: p.ewsStatus,
-              lat: p.lat,
-              lon: p.lon,
-              sog: p.sog,
-              cog: p.cog,
-              hdg: p.hdg,
-              timestamp: new Date(p.timestamp),
-            }));
-
-            shipRoutes.push({
-              mmsi: result.ship1MMSI,
-              positions,
-              color: "#FF6B6B",
-              illegalSegment: {
-                start: new Date(result.startTimestamp),
-                end: new Date(result.endTimestamp),
-                color: "#FFD93D",
-              },
-            });
-
-            console.log(`Ship 1 route added: ${positions.length} positions (filtered from ${ship1Positions.length})`);
-          }
-        }
-
-        // Process ship 2 route
-        if (Array.isArray(ship2Positions) && ship2Positions.length > 0) {
-          const filteredPositions = filterPositionsByTimeWindow(ship2Positions);
-          
-          if (filteredPositions.length > 0) {
-            const positions: IAisPosition[] = filteredPositions.map((p) => ({
-              navstatus: p.navstatus,
-              predictedNavStatus: p.predictedNavStatus,
-              ewsStatus: p.ewsStatus,
-              lat: p.lat,
-              lon: p.lon,
-              sog: p.sog,
-              cog: p.cog,
-              hdg: p.hdg,
-              timestamp: new Date(p.timestamp),
-            }));
-
-            shipRoutes.push({
-              mmsi: result.ship2MMSI,
-              positions,
-              color: "#4ECDC4",
-              illegalSegment: {
-                start: new Date(result.startTimestamp),
-                end: new Date(result.endTimestamp),
-                color: "#FFD93D",
-              },
-            });
-
-            console.log(`Ship 2 route added: ${positions.length} positions (filtered from ${ship2Positions.length})`);
-          }
-        }
-
-        if (shipRoutes.length === 0) {
-          console.warn("No route data available for either ship");
-          setRoutes([]);
-          setZoomToRoutes(false);
-        } else {
-          console.log(`Total routes loaded: ${shipRoutes.length}`);
-          setRoutes(shipRoutes);
-          // Use setTimeout to ensure map renders routes before zooming
-          setTimeout(() => {
-            setZoomToRoutes(true);
-          }, 100);
-        }
-      } else {
-        console.warn("API response unsuccessful or no data");
-        setRoutes([]);
-        setZoomToRoutes(false);
-      }
+      const nextRoutes: ShipRoute[] = [
+        {
+          mmsi: mmsi1,
+          positions: ship1Positions,
+          color: "#FF6B6B",
+          illegalSegment:
+            result.startTimestamp && result.endTimestamp
+              ? {
+                  start: new Date(result.startTimestamp),
+                  end: new Date(result.endTimestamp),
+                  color: "#FFD93D",
+                }
+              : undefined,
+        },
+        {
+          mmsi: mmsi2,
+          positions: ship2Positions,
+          color: "#4ECDC4",
+          illegalSegment:
+            result.startTimestamp && result.endTimestamp
+              ? {
+                  start: new Date(result.startTimestamp),
+                  end: new Date(result.endTimestamp),
+                  color: "#FFD93D",
+                }
+              : undefined,
+        },
+      ];
+      if (routeRequestIdRef.current !== requestId) return;
+      setRoutes(nextRoutes);
+      setSelectedMmsi(mmsi1);
+      const nextRoutesLoaded = ship1Positions.length > 0 || ship2Positions.length > 0;
+      setRoutesLoaded(nextRoutesLoaded);
+      routesCacheRef.current.set(cacheKey, {
+        routes: nextRoutes,
+        selectedMmsi: mmsi1,
+        routesLoaded: nextRoutesLoaded,
+      });
     } catch (error) {
-      console.error("Error fetching route data:", error);
-      if (axios.isAxiosError(error)) {
-        console.error("Response data:", error.response?.data);
-        console.error("Response status:", error.response?.status);
+      if (routeRequestIdRef.current !== requestId) return;
+      if (axios.isCancel(error) || (error as { code?: string }).code === "ERR_CANCELED") {
+        return;
       }
-      setRoutes([]);
-      setZoomToRoutes(false);
+      console.error("Error loading ship routes:", error);
+      setRoutes(null);
+      setRoutesLoaded(false);
     } finally {
-      setIsLoadingRoutes(false);
+      if (routeRequestIdRef.current === requestId) {
+        setIsLoadingRoutes(false);
+      }
     }
-  }, []);
+  }, [toAisPosition]);
 
-  const handleSelectResult = useCallback((result: IllegalTranshipmentResult) => {
-    console.log("Selected result:", result);
-    setSelectedResult(result);
-    fetchRouteData(result);
-  }, [fetchRouteData]);
-
-  const clearRoutes = useCallback(() => {
-    setRoutes([]);
-    setSelectedResult(null);
-    setZoomToRoutes(false);
-    console.log("Routes cleared");
-  }, []);
+  const onSelectResult = useCallback(
+    (result: IllegalTranshipmentResult) => {
+      setSelectedResult(result);
+      void loadRoutesForResult(result);
+    },
+    [loadRoutesForResult],
+  );
 
   return (
     <main className="h-screen w-screen relative bg-gray-300 overflow-hidden z-1">
-      <aside className="absolute top-0 right-0 z-100 w-[28%] h-full bg-slate-300 p-4 pr-20">
+      <aside className="absolute top-0 right-0 z-999 w-[28%] h-full bg-slate-300 p-4 pr-20">
         <IllegalTranshipmentCard
-          onSelectResult={handleSelectResult}
+          onSelectResult={onSelectResult}
           selectedResult={selectedResult}
-          onClearRoutes={clearRoutes}
+          onClearRoutes={onClearRoutes}
           isLoadingRoutes={isLoadingRoutes}
-          routesLoaded={routes.length > 0}
+          routesLoaded={routesLoaded}
         />
       </aside>
+
       <MapComponent
         markers={shipData}
         selectedMmsi={selectedMmsi}
-        heatmapEnabled={true}
         setSelectedMmsi={setSelectedMmsi}
-        routes={routes.length > 0 ? routes : undefined}
-        zoomToRoutes={zoomToRoutes}
-        isBatamView={true}
+        routes={routes}
+        zoomToRoutes
+        isBatamView
       />
     </main>
   );
-};
-
-export default IllegalTranshipment;
+}

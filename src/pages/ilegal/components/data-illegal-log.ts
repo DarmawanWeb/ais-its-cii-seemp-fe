@@ -29,7 +29,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Pukat Cincin Pelagis (Purse Seine)',
     perairan: 'WPPNRI 572 Perairan Sibolga',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi dengan perizi0 berusaha yang berlaku',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi dengan perizi0 berusaha yang berlaku',
     tindak_lanjut: 'Di Adhock ke PPN Sibolga',
     keterangan: 'Illegal Fishing',
   },
@@ -62,7 +62,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Light Boat',
     perairan: 'WPPNRI 716 Laut Sulawesi',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
     tindak_lanjut: 'Di Kawal ke Pangkalan PSDKP Bitung',
     keterangan: 'Illegal Fishing',
   },
@@ -95,7 +95,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Bom Ikan',
     perairan: 'WPPNRI 718 Perairan Pulau Ubur, Kota Tual',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia dengan alat tangkap terlarang bom ikan',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia dengan alat tangkap terlarang bom ikan',
     tindak_lanjut: 'Di Adhock ke Pangkalan PSDKP Tual',
     keterangan: 'Destructive Fishing',
   },
@@ -112,7 +112,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Trawl',
     perairan: 'WPPNRI 571 Perairan Selat Malaka',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia dengan alat tangkap terlarang trawl',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia dengan alat tangkap terlarang trawl',
     tindak_lanjut: 'Di Kawal ke Satwas PSDKP Langsa',
     keterangan: 'Illegal Fishing',
   },
@@ -129,7 +129,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Purse Seine',
     perairan: 'WPPNRI 718 Perairan Skouw Jayapura',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi dengan perizi0 berusaha yang berlaku (SIPI dan SLO)',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi dengan perizi0 berusaha yang berlaku (SIPI dan SLO)',
     tindak_lanjut: 'Di Adhock ke Pelabuhan Pangkalan Jayapura',
     keterangan: 'Illegal Fishing',
   },
@@ -146,7 +146,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Bom Ikan',
     perairan: 'WPPNRI 714 Laut Banda',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia dengan alat tangkap terlarang bom ikan',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia dengan alat tangkap terlarang bom ikan',
     tindak_lanjut: 'Di Adhock ke Pangkalan PSDKP Bitung',
     keterangan: 'Destructive Fishing',
   },
@@ -290,7 +290,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     jumlah_awak_wna: 0,
     alkap: 'Pancing Ulur Tuna (Hand Line)',
     perairan: 'WPPNRI 718 Laut Arafura',
-    duga_langgar: 'Pe0gkapan Ikan diluar Daerah Pe0gkapan Ikan (DPI)',
+    duga_langgar: 'penangkapan Ikan diluar Daerah penangkapan Ikan (DPI)',
     tindak_lanjut: 'Di Adhock ke Pangkalan PSDKP Tual',
     keterangan: 'Illegal Fishing',
   },
@@ -483,7 +483,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     jumlah_awak_wna: 0,
     alkap: 'Hand Line',
     perairan: 'WPPNRI 715 Laut Halmahera',
-    duga_langgar: 'Pelanggaran Daerah Pe0gkapan Ikan (DPI)',
+    duga_langgar: 'Pelanggaran Daerah penangkapan Ikan (DPI)',
     tindak_lanjut: 'Di Adhock ke Pangkalan PSDKP Bitung',
     keterangan: 'Illegal Fishing',
   },
@@ -499,7 +499,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     jumlah_awak_wna: 0,
     alkap: 'Purse Seine',
     perairan: 'WPPNRI 713 Selat Makassar',
-    duga_langgar: 'Pelanggaran Daerah Pe0gkapan Ikan (DPI)',
+    duga_langgar: 'Pelanggaran Daerah penangkapan Ikan (DPI)',
     tindak_lanjut: 'Ditarik menuju Satwas SDKP Kotabaru',
     keterangan: 'Illegal Fishing (BAKAMLA)',
   },
@@ -515,7 +515,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     jumlah_awak_wna: 0,
     alkap: 'Pukat Cincin Pelagis (Purse Seine)',
     perairan: 'WPPNRI 713 Selat Makassar',
-    duga_langgar: 'Pelanggaran Daerah Pe0gkapan Ikan (DPI)',
+    duga_langgar: 'Pelanggaran Daerah penangkapan Ikan (DPI)',
     tindak_lanjut: 'Di Adhock ke Satwas SDKP Kotabaru',
     keterangan: 'Illegal Fishing',
   },
@@ -644,7 +644,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Jaring Insang Hanyut (Gill Net)',
     perairan: 'WPPNRI 711 Perairan Kepri',
     duga_langgar:
-      'Melakukan Kegiatan Pe0gkapan Ikan diluar Zona Pe0gkapan Kapal Izin Daerah (DPI)',
+      'Melakukan Kegiatan penangkapan Ikan diluar Zona penangkapan Kapal Izin Daerah (DPI)',
     tindak_lanjut: 'Di Adhock ke Satwas PSDKP Kijang',
     keterangan: 'Illegal Fishing',
   },
@@ -693,7 +693,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Trawl',
     perairan: 'WPPNRI 571 Selat Malaka',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
     tindak_lanjut: 'Di Kawal ke Pangkalan PSDKP Batam',
     keterangan: 'Illegal Fishing',
   },
@@ -774,7 +774,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Jaring Tarik Berkantong',
     perairan: 'WPPNRI 712 Laut Jawa',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi Izin yang lengkap',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi Izin yang lengkap',
     tindak_lanjut: 'Di Adhock ke Pangkalan PSDKP Jakarta',
     keterangan: 'Illegal Fishing',
   },
@@ -839,7 +839,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Trawl',
     perairan: 'WPPNRI 571 Selat Malaka',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
     tindak_lanjut: 'Di Kawal ke Stasiun PSDKP Belawan',
     keterangan: 'Illegal Fishing',
   },
@@ -936,7 +936,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Trawl',
     perairan: 'WPPNRI 711 Laut Natuna Utara',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
     tindak_lanjut: 'Di Kawal ke Pangkalan PSDKP Batam',
     keterangan: 'Illegal Fishing',
   },
@@ -953,7 +953,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Trawl',
     perairan: 'WPPNRI 711 Laut Natuna Utara',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
     tindak_lanjut: 'Di Kawal ke Pangkalan PSDKP Batam',
     keterangan: 'Illegal Fishing',
   },
@@ -1051,7 +1051,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Jaring Tarik Berkantong',
     perairan: 'WPPNRI 711 Perairan Kalimantan Barat',
     duga_langgar:
-      'Melakukan pe0gkapan ikan tidak dilengkapi perizi0 subsektor pe0gkapan ikan yang berlaku',
+      'Melakukan penangkapan ikan tidak dilengkapi perizi0 subsektor penangkapan ikan yang berlaku',
     tindak_lanjut: 'Di Kawal ke Stasiun PSDKP Pontianak',
     keterangan: 'Illegal Fishing',
   },
@@ -1068,7 +1068,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Jaring Tarik Berkantong',
     perairan: 'WPPNRI 711 Perairan Kalimantan Barat',
     duga_langgar:
-      'Melakukan pe0gkapan ikan tidak dilengkapi perizi0 subsektor pe0gkapan ikan yang berlaku',
+      'Melakukan penangkapan ikan tidak dilengkapi perizi0 subsektor penangkapan ikan yang berlaku',
     tindak_lanjut: 'Di Kawal ke Stasiun PSDKP Pontianak',
     keterangan: 'Illegal Fishing',
   },
@@ -1148,7 +1148,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     jumlah_awak_wna: 0,
     alkap: 'Setrum Ikan',
     perairan: 'WPPNRI PD 711 Perairan Darat Sungai Kapuas',
-    duga_langgar: 'Melakukan pe0gkapan ikan dengan penyetruman ikan',
+    duga_langgar: 'Melakukan penangkapan ikan dengan penyetruman ikan',
     tindak_lanjut: 'Di Adhock ke Satwas PSDKP Kapuas Hulu',
     keterangan: 'Destructive Fishing',
   },
@@ -1165,7 +1165,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Jaring Insang Tetap (Gill Net)',
     perairan: 'WPPNRI 718 Laut Aru',
     duga_langgar:
-      'Tidak memiliki SLO, SPB, dan Perizi0 Berusaha Subsektor Pe0gkapan Ikan',
+      'Tidak memiliki SLO, SPB, dan Perizi0 Berusaha Subsektor penangkapan Ikan',
     tindak_lanjut: 'Pelabuhan Perika0 Dobo',
     keterangan: 'Illegal Fishing',
   },
@@ -1198,7 +1198,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Pe0gkap Ikan',
     perairan: 'WPPNRI 718 Laut Aru',
     duga_langgar:
-      'Tidak memiliki SLO, SPB, dan Perizi0 Berusaha Subsektor Pe0gkapan Ikan',
+      'Tidak memiliki SLO, SPB, dan Perizi0 Berusaha Subsektor penangkapan Ikan',
     tindak_lanjut: 'Pelabuhan Perika0 Dobo',
     keterangan: 'Illegal Fishing',
   },
@@ -1215,7 +1215,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Pukat Ikan',
     perairan: 'WPPNRI 718 Laut Arafura',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
     tindak_lanjut: 'Di Kawal ke Pangkalan PSDKP Tual',
     keterangan: 'Illegal Fishing',
   },
@@ -1249,7 +1249,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Hand Line',
     perairan: 'WPPNRI 716 Laut Sulawesi',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
     tindak_lanjut: 'Ditarik ke Pelabuhan Umum Tahuna',
     keterangan: 'Illegal Fishing',
   },
@@ -1266,7 +1266,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Hand Line',
     perairan: 'WPPNRI 716 Laut Sulawesi',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
     tindak_lanjut: 'Ditarik ke Pelabuhan Umum Tahuna',
     keterangan: 'Illegal Fishing',
   },
@@ -1283,7 +1283,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Hand Line',
     perairan: 'WPPNRI 716 Laut Sulawesi',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
     tindak_lanjut: 'Ditarik ke Pelabuhan Umum Tahuna',
     keterangan: 'Illegal Fishing',
   },
@@ -1300,7 +1300,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Jaring Tarik Berkantong',
     perairan: 'WPPNRI 713 Selat Makassar',
     duga_langgar:
-      'Melakukan pe0gkapan ikan tidak sesuai dengan dokumen perizi0 subsektor pe0gkapan ikan yang berlaku',
+      'Melakukan penangkapan ikan tidak sesuai dengan dokumen perizi0 subsektor penangkapan ikan yang berlaku',
     tindak_lanjut: 'Di Adhock ke Satwas PSDKP Kotabaru',
     keterangan: 'Illegal Fishing',
   },
@@ -1317,7 +1317,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Jaring Tarik Berkantong',
     perairan: 'WPPNRI 713 Selat Makassar',
     duga_langgar:
-      'Melakukan pe0gkapan ikan tidak sesuai dengan dokumen perizi0 subsektor pe0gkapan ikan yang berlaku',
+      'Melakukan penangkapan ikan tidak sesuai dengan dokumen perizi0 subsektor penangkapan ikan yang berlaku',
     tindak_lanjut: 'Di Adhock ke Satwas PSDKP Kotabaru',
     keterangan: 'Illegal Fishing',
   },
@@ -1334,7 +1334,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Hand Line',
     perairan: 'WPPNRI 715 Laut Maluku',
     duga_langgar:
-      'Melakukan Kegiatan Pe0gkapan Ikan diluar Zona Pe0gkapan Kapal Izin Daerah  ',
+      'Melakukan Kegiatan penangkapan Ikan diluar Zona penangkapan Kapal Izin Daerah  ',
     tindak_lanjut: 'Di Adhock ke Pangkalan PSDKP Bitung',
     keterangan: 'Illegal Fishing',
   },
@@ -1351,7 +1351,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Purse Seine',
     perairan: 'WPPNRI 717 Perairan Jayapura',
     duga_langgar:
-      'Melakukan pe0gkapan ikan tanpa dilengkapi perizi0 berusaha yang berlaku',
+      'Melakukan penangkapan ikan tanpa dilengkapi perizi0 berusaha yang berlaku',
     tindak_lanjut: 'Di Adhock ke Pelabuhan Pangkalan PP Hamadi',
     keterangan: 'Illegal Fishing',
   },
@@ -1368,7 +1368,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Purse Seine',
     perairan: 'WPPNRI 717 Perairan Jayapura',
     duga_langgar:
-      'Melakukan pe0gkapan ikan tanpa dilengkapi dengan Perizi0 Berusaha yang masih berlaku',
+      'Melakukan penangkapan ikan tanpa dilengkapi dengan Perizi0 Berusaha yang masih berlaku',
     tindak_lanjut: 'Di Adhock ke Pelabuhan Pangkalan PP Hamadi',
     keterangan: 'Illegal Fishing',
   },
@@ -1385,7 +1385,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Purse Seine',
     perairan: 'WPPNRI 717 Perairan Jayapura',
     duga_langgar:
-      'Melakukan pe0gkapan ikan tanpa dilengkapi dengan Perizi0 Berusaha yang masih berlaku',
+      'Melakukan penangkapan ikan tanpa dilengkapi dengan Perizi0 Berusaha yang masih berlaku',
     tindak_lanjut: 'Di Adhock ke Pelabuhan Pangkalan PP Hamadi',
     keterangan: 'Illegal Fishing',
   },
@@ -1402,7 +1402,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Hand Line',
     perairan: 'WPPNRI 715 Laut Seram',
     duga_langgar:
-      'Melakukan Pe0gkapan Ikan tidak sesuai SIPI dan tidak membawa SLO dan SPB',
+      'Melakukan penangkapan Ikan tidak sesuai SIPI dan tidak membawa SLO dan SPB',
     tindak_lanjut: 'Di addhock ke Pelabuhan Beba',
     keterangan: 'Illegal Fishing',
   },
@@ -1419,7 +1419,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Hand Line',
     perairan: 'WPPNRI 715 Laut Seram',
     duga_langgar:
-      'Melakukan Pe0gkapan Ikan tidak sesuai SIPI dan tidak membawa SLO dan SPB',
+      'Melakukan penangkapan Ikan tidak sesuai SIPI dan tidak membawa SLO dan SPB',
     tindak_lanjut: 'Di addhock ke Pelabuhan Beba',
     keterangan: 'Illegal Fishing',
   },
@@ -1436,7 +1436,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Hand Line',
     perairan: 'WPPNRI 715 Laut Seram',
     duga_langgar:
-      'Melakukan Pe0gkapan Ikan tidak sesuai SIPI dan tidak membawa SLO dan SPB',
+      'Melakukan penangkapan Ikan tidak sesuai SIPI dan tidak membawa SLO dan SPB',
     tindak_lanjut: 'Di ad hock ke Pelabuhan Beba',
     keterangan: 'Illegal Fishing',
   },
@@ -1453,7 +1453,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Hand Line',
     perairan: 'WPPNRI 715 Laut Seram',
     duga_langgar:
-      'Melakukan Pe0gkapan Ikan tidak sesuai SIPI dan tidak membawa SLO dan SPB',
+      'Melakukan penangkapan Ikan tidak sesuai SIPI dan tidak membawa SLO dan SPB',
     tindak_lanjut: 'Di ad hock ke Pelabuhan Beba',
     keterangan: 'Illegal Fishing',
   },
@@ -1470,7 +1470,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Pancing Ulur (Hand Line)',
     perairan: 'WPPNRI 717 Perairan Jayapura',
     duga_langgar:
-      'Melakukan pe0gkapan ikan tidak sesuai dengan ketentuan perundang-undangan yang berlaku (diduga melakukan pe0gkapan ikan yang merusak)',
+      'Melakukan penangkapan ikan tidak sesuai dengan ketentuan perundang-undangan yang berlaku (diduga melakukan penangkapan ikan yang merusak)',
     tindak_lanjut: 'Di Adhock ke Pelabuhan Pangkalan PP Hamadi',
     keterangan: 'Illegal Fishing',
   },
@@ -1487,7 +1487,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Purse Seine',
     perairan: 'WPPNRI 715 Laut Seram',
     duga_langgar:
-      'Melakukan Pe0gkapan Ikan tidak sesuai SIPI dan tidak membawa SLO dan SPB',
+      'Melakukan penangkapan Ikan tidak sesuai SIPI dan tidak membawa SLO dan SPB',
     tindak_lanjut: 'Di ad hock ke Pelabuhan Beba',
     keterangan: 'Illegal Fishing',
   },
@@ -1504,7 +1504,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Bom Ikan',
     perairan: 'WPPNRI 714 Laut Banda',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia dengan alat tangkap terlarang bom ikan',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia dengan alat tangkap terlarang bom ikan',
     tindak_lanjut: 'Di Adhock ke Pangkalan PSDKP Bitung',
     keterangan: 'Destructive Fishing',
   },
@@ -1537,7 +1537,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Hand Line',
     perairan: 'WPPNRI 716 Laut Sulawesi',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
     tindak_lanjut: 'Ditarik ke Pelabuhan Umum Tahuna',
     keterangan: 'Illegal Fishing',
   },
@@ -1554,7 +1554,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Hand Line',
     perairan: 'WPPNRI 716 Laut Sulawesi',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia',
     tindak_lanjut: 'Ditarik ke Pelabuhan Umum Tahuna',
     keterangan: 'Illegal Fishing',
   },
@@ -1603,7 +1603,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     alkap: 'Pengangkut',
     perairan: 'WPPNRI 714 Laut Banda',
     duga_langgar:
-      'Melakukan kegiatan pe0gkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia dengan alat tangkap terlarang bom ikan',
+      'Melakukan kegiatan penangkapan ikan tanpa dilengkapi izin dari Pemerintah Indonesia dengan alat tangkap terlarang bom ikan',
     tindak_lanjut: 'Di Adhock ke Pangkalan PSDKP Bitung',
     keterangan: 'Destructive Fishing',
   },
@@ -1651,7 +1651,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     jumlah_awak_wna: 0,
     alkap: 'Setrum Ikan',
     perairan: 'WPPNRI PD 716 Perairan Poala Satu Tanjung Selor',
-    duga_langgar: 'Melakukan pe0gkapan ikan dengan penyetruman ikan',
+    duga_langgar: 'Melakukan penangkapan ikan dengan penyetruman ikan',
     tindak_lanjut: 'Di Adhock ke Stasiun PSDKP Tarakan',
     keterangan: 'Destructive Fishing',
   },
@@ -1667,7 +1667,7 @@ export const dataIllegalLogs: IllegalLog[] = [
     jumlah_awak_wna: 0,
     alkap: 'Setrum Ikan',
     perairan: 'WPPNRI PD 716 Perairan Poala Satu Tanjung Selor',
-    duga_langgar: 'Melakukan pe0gkapan ikan dengan penyetruman ikan',
+    duga_langgar: 'Melakukan penangkapan ikan dengan penyetruman ikan',
     tindak_lanjut: 'Di Adhock ke Stasiun PSDKP Tarakan',
     keterangan: 'Destructive Fishing',
   },

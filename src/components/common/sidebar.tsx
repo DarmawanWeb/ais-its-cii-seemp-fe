@@ -1,6 +1,6 @@
 import { useSidebarStore } from "../../hooks/use-sidebar-store";
 import { FC } from "react";
-import { Menu, X, TriangleAlert, SirenIcon } from "lucide-react";
+import { Menu, X, TriangleAlert, SirenIcon, FileText } from "lucide-react";
 import { Button } from "../ui/button";
 
 const Sidebar: FC = () => {
@@ -14,6 +14,7 @@ const Sidebar: FC = () => {
     // { icon: TriangleAlert, redirect: "/ews" },
     // { icon: Anchor, redirect: "/anomaly" },
     { icon: SirenIcon, redirect: "/illegal-transhipment" },
+    { icon: FileText, redirect: "/illegal-transhipment-log" },
     { icon: TriangleAlert, redirect: "/illegal" },
   ];
 

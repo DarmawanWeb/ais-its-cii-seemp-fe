@@ -1,20 +1,22 @@
 import IllegalLogCard from "./illegal-log-card";
-import { IllegalLog } from "./data-illegal-log";
+import type { IllegalLog } from "./data-illegal-log";
 import { X } from "lucide-react";
 
 export default function IllegalLogSidebar({
   logs,
   onClear,
+  title = "Illegal Fishing Log",
 }: {
   logs: IllegalLog[];
   onClear: () => void;
+  title?: string;
 }) {
   return (
     <div className="w-full h-full bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 shadow-2xl flex flex-col">
       <div className="flex items-center justify-between p-3 border-b border-gray-200 dark:border-gray-700 bg-linier-to-r from-red-50 to-orange-50 dark:from-red-950 dark:to-orange-950">
         <div>
           <h3 className="font-bold text-base text-gray-900 dark:text-white">
-            Illegal Fishing Log
+            {title}
           </h3>
           <p className="text-xs text-gray-600 dark:text-gray-400">
             {logs.length} kapal dalam radius

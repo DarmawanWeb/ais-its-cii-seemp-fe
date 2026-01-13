@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useCallback } from "react";
+import { FC, useEffect, useState, useCallback, useRef } from "react";
 import { Card, CardHeader, CardContent } from "../../../components/ui/card";
 import { VITE_BACKEND_URI } from "../../../lib/env";
 import axios from "axios";
@@ -49,6 +49,8 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
   const [shipDetailsMap, setShipDetailsMap] = useState<{
     [mmsi: string]: { name?: string; typeName?: string };
   }>({});
+  const shipDetailsCacheRef = useRef<{ [mmsi: string]: { name?: string; typeName?: string } }>({});
+  const resultsRequestIdRef = useRef(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -86,6 +88,7 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
 
   useEffect(() => {
     const fetchResults = async () => {
+      const requestId = ++resultsRequestIdRef.current;
       setIsLoading(true);
       setError(null);
       
@@ -93,9 +96,12 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
         const response = await axios.get(
           `${VITE_BACKEND_URI}/illegal-transhipment/results`
         );
-        
+
+        if (resultsRequestIdRef.current !== requestId) return;
+
         if (response.data?.success && Array.isArray(response.data.data)) {
           setResults(response.data.data);
+          setIsLoading(false);
 
           const uniqueMMSIs = new Set<string>();
           response.data.data.forEach((result: IllegalTranshipmentResult) => {
@@ -104,7 +110,8 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
           });
 
           const mmsiArray = Array.from(uniqueMMSIs);
-          const detailsPromises = mmsiArray.map(async (mmsi) => {
+          const missingMmsi = mmsiArray.filter((mmsi) => !shipDetailsCacheRef.current[mmsi]);
+          const detailsPromises = missingMmsi.map(async (mmsi) => {
             const details = await fetchShipDetails(mmsi);
             return {
               mmsi,
@@ -113,21 +120,32 @@ const IllegalTranshipmentCard: FC<IllegalTranshipmentCardProps> = ({
             };
           });
 
-          const detailsList = await Promise.all(detailsPromises);
-          const nextDetailsMap: { [mmsi: string]: { name?: string; typeName?: string } } = {};
-          detailsList.forEach(({ mmsi, name, typeName }) => {
-            if (name || typeName) nextDetailsMap[mmsi] = { name, typeName };
-          });
-          setShipDetailsMap(nextDetailsMap);
+          if (detailsPromises.length > 0) {
+            const detailsList = await Promise.allSettled(detailsPromises);
+            if (resultsRequestIdRef.current !== requestId) return;
+            detailsList.forEach((result) => {
+              if (result.status !== "fulfilled") return;
+              const { mmsi, name, typeName } = result.value;
+              if (name || typeName) {
+                shipDetailsCacheRef.current[mmsi] = { name, typeName };
+              }
+            });
+          }
+          if (resultsRequestIdRef.current === requestId) {
+            setShipDetailsMap({ ...shipDetailsCacheRef.current });
+          }
         } else {
           setResults([]);
+          setIsLoading(false);
         }
       } catch (error) {
         console.error("Error fetching illegal transhipment results:", error);
         setError("Failed to load detection results");
         setResults([]);
       } finally {
-        setIsLoading(false);
+        if (resultsRequestIdRef.current === requestId) {
+          setIsLoading(false);
+        }
       }
     };
 
