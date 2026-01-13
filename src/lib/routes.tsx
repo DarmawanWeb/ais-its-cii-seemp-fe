@@ -10,9 +10,7 @@ const NotFoundPage = lazy(() => import("../pages/not-found-page"));
 const EWSPage = lazy(() => import("../pages/ews"));
 const AnomalyPage = lazy(() => import("../pages/anomaly"));
 const IllegalTranshipmentPage = lazy(() => import("../pages/illegal-transhipment"));
-const IllegalTranshipmentLogPage = lazy(
-  () => import("../pages/illegal-transhipment-log"),
-);
+
 const IllegalPage = lazy(() => import("../pages/ilegal"));
 
 const withAppWrappers = <
@@ -72,7 +70,7 @@ export const router = createBrowserRouter([
   {
     path: "/illegal",
     element: withAppWrappers(IllegalPage, DefaultLayout, {
-      pageTitle: "Illegal Fishing Detection",
+      pageTitle: "Illegal Fishing HeatMap",
       title: "Illegal Activity Page",
     } 
     ),
@@ -85,13 +83,7 @@ export const router = createBrowserRouter([
     } 
     ),
   },
-  {
-    path: "/illegal-transhipment-log",
-    element: withAppWrappers(IllegalTranshipmentLogPage, DefaultLayout, {
-      pageTitle: "Illegal Transhipment Log",
-      title: "Illegal Transhipment Log Page",
-    }),
-  },
+  
   {
     path: "*",
     element: (
